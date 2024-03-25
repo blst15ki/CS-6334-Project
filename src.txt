@@ -1,0 +1,5 @@
+1) Fences, Plant- https://assetstore.unity.com/packages/3d/props/exterior/free-stylized-garden-asset-145896
+2) Water Texture- https://assetstore.unity.com/packages/2d/textures-materials/water/stylize-water-texture-153577
+3) Door- https://assetstore.unity.com/packages/3d/props/interior/classic-interior-door-pack-1-118744
+4) Grass, Ground Texture- https://assetstore.unity.com/packages/2d/textures-materials/nature/handpainted-grass-ground-textures-187634
+5) Self- Plane for Ground, Garden, Pool, Walls
