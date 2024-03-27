@@ -33,7 +33,7 @@ public class SettingsMenu : MonoBehaviour
             image1.color = Color.white;
         }
 
-        if(gameObject.activeSelf) {
+        if(settingsMenuObj.activeSelf) {
             if(Input.GetButtonDown(XInput)) {
                 CycleButton();
             } else if(Input.GetButtonDown(AInput)) {
