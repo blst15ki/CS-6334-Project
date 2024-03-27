@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DoorMenu : MonoBehaviour
 {
     [SerializeField] GameObject doorMenuObj;
     [SerializeField] GameObject door;
-    [SerializeField] Camera mainCamera;
     bool pointer;
     string XInput;
 
@@ -22,10 +22,21 @@ public class DoorMenu : MonoBehaviour
     void Update()
     {
         if(pointer && Input.GetButtonDown(XInput)) {
-            Debug.Log("False");
+            doorMenuObj.SetActive(true);
         }
     }
 
     public void PointerOn() { pointer = true; }
     public void PointerOff() { pointer = false; }
+    
+    public void ButtonPressed(string button) {
+        if(button.Equals("InsideButton")) {
+            SceneManager.LoadScene("Inside");
+        } else if(button.Equals("OutsideButton")) {
+            SceneManager.LoadScene("Outdoor");
+        } else if(button.Equals("CloseButton")) {
+            doorMenuObj.SetActive(false);
+        }
+    }
+    
 }
