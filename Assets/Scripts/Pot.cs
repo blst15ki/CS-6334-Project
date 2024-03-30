@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sprinkler : MonoBehaviour
+public class Pot : MonoBehaviour
 {
     [SerializeField] Raycast raycast;
     Outline outline;
-    bool pointer, on;
-    string AInput, XInput;
+    bool pointer;
+    string AInput;
 
     // Start is called before the first frame update
     void Start()
@@ -16,9 +16,7 @@ public class Sprinkler : MonoBehaviour
         outline.enabled = false;
 
         pointer = false;
-        on = false;
         AInput = "js10";
-        XInput = "js2";
     }
 
     // Update is called once per frame
@@ -28,13 +26,7 @@ public class Sprinkler : MonoBehaviour
             if(Input.GetButtonDown(AInput)) {
                 if(raycast.SelectObject(gameObject)) {
                     pointer = false;
-                    TurnOff();
-                }
-            } else if(Input.GetButtonDown(XInput)) {
-                if(on) {
-                    TurnOff();
-                } else {
-                    TurnOn();
+                    outline.enabled = false;
                 }
             }
         }
@@ -42,7 +34,4 @@ public class Sprinkler : MonoBehaviour
 
     public void PointerOn() { pointer = true; }
     public void PointerOff() { pointer = false; }
-
-    void TurnOn() { outline.OutlineColor = Color.cyan; on = true; }
-    void TurnOff() { outline.OutlineColor = Color.white; on = false; }
 }

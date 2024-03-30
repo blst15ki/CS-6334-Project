@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SpatialTracking;
+using UnityEngine.EventSystems;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] Camera mainCamera;
     CharacterMovement charMove;
     TrackedPoseDriver tpd;
+    PhysicsRaycaster pRaycast;
     Image image0, image1;
     string XInput, AInput, OKInput;
     int button;
@@ -21,6 +23,7 @@ public class SettingsMenu : MonoBehaviour
     {
         charMove = player.GetComponent<CharacterMovement>();
         tpd = mainCamera.GetComponent<TrackedPoseDriver>();
+        pRaycast = mainCamera.GetComponent<PhysicsRaycaster>();
         image0 = button0.GetComponent<Image>();
         image1 = button1.GetComponent<Image>();
         XInput = "js2";
@@ -43,6 +46,7 @@ public class SettingsMenu : MonoBehaviour
             // disable character/camera movement
             charMove.enabled = false;
             tpd.trackingType = TrackedPoseDriver.TrackingType.PositionOnly;
+            pRaycast.enabled = false;
         }
 
         if(settingsMenuObj.activeSelf) {
@@ -72,6 +76,7 @@ public class SettingsMenu : MonoBehaviour
             settingsMenuObj.SetActive(false);
             charMove.enabled = true;
             tpd.trackingType = TrackedPoseDriver.TrackingType.RotationAndPosition;
+            pRaycast.enabled = true;
         } else if(button == 1) { // quit
             Application.Quit();
         }
