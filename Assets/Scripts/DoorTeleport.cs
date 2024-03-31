@@ -17,15 +17,14 @@ public class DoorTeleport : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if door collide with player, teleport inside
-        // SceneManager.LoadScene(scene);
+
     }
 
     public void PointerOn() { sign.SetActive(true); }
     public void PointerOff() { sign.SetActive(false); }
 
     void OnTriggerEnter(Collider collider) {
-        if(collider.gameObject.name == "Character") {
+        if(collider.gameObject.tag == "Player") {
             SceneManager.LoadScene(scene);
         }
     }
