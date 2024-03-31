@@ -5,4 +5,8 @@
 5) Self- Plane for Ground, Garden, Pool, Walls
 6) Pots -https://assetstore.unity.com/packages/3d/props/exterior/pbr-floweringpot-01-167368
 7) Furnitures - https://assetstore.unity.com/packages/3d/props/furniture/furniture-free-pack-192628
-8) Wood Floors - https://assetstore.unity.com/packages/2d/textures-materials/wood/yughues-free-wooden-floor-materials-13213
+8) Doors - https://assetstore.unity.com/packages/3d/props/interior/classic-interior-door-pack-1-118744
+9) Wood Floors - https://assetstore.unity.com/packages/2d/textures-materials/wood/yughues-free-wooden-floor-materials-13213
+10) Trees - https://assetstore.unity.com/packages/3d/vegetation/trees/realistic-tree-9-rainbow-tree-54622
+11) Wagons - https://assetstore.unity.com/packages/3d/environments/historic/medieval-barrows-and-wagons-33411
+12) Crates - https://assetstore.unity.com/packages/3d/props/exterior/crates-and-barrels-pack-volume-1-free-version-128829
