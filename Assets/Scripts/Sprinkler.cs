@@ -25,12 +25,12 @@ public class Sprinkler : MonoBehaviour
     void Update()
     {
         if(pointer) {
-            if(Input.GetButtonDown(AInput)) {
+            if(Input.GetButtonDown(AInput)) { // select object to place
                 if(raycast.SelectObject(gameObject)) {
                     pointer = false;
                     TurnOff();
                 }
-            } else if(Input.GetButtonDown(XInput)) {
+            } else if(Input.GetButtonDown(XInput)) { // toggle sprinkler
                 if(on) {
                     TurnOff();
                 } else {

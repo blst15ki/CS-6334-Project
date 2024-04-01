@@ -34,6 +34,7 @@ public class Raycast : MonoBehaviour
     public void PlaceObject() {
         RaycastHit hit;
         if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
+            // ensure raycast is hitting floor
             if(hit.collider.gameObject.layer == floorLayer) {
                 saveObj.transform.position = new Vector3(hit.point.x, saveObj.transform.position.y, hit.point.z);
                 saveObj.SetActive(true);

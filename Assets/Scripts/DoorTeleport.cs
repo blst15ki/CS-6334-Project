@@ -23,6 +23,7 @@ public class DoorTeleport : MonoBehaviour
     public void PointerOn() { sign.SetActive(true); }
     public void PointerOff() { sign.SetActive(false); }
 
+    // teleport player
     void OnTriggerEnter(Collider collider) {
         if(collider.gameObject.tag == "Player") {
             SceneManager.LoadScene(scene);

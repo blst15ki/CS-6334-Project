@@ -23,7 +23,7 @@ public class Pot : MonoBehaviour
     void Update()
     {
         if(pointer) {
-            if(Input.GetButtonDown(AInput)) {
+            if(Input.GetButtonDown(AInput)) { // select object to place
                 if(raycast.SelectObject(gameObject)) {
                     pointer = false;
                     outline.enabled = false;

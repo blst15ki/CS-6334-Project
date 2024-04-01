@@ -49,6 +49,7 @@ public class SettingsMenu : MonoBehaviour
             pRaycast.enabled = false;
         }
 
+        // settings menu is active
         if(settingsMenuObj.activeSelf) {
             if(Input.GetButtonDown(XInput)) {
                 CycleButton();
