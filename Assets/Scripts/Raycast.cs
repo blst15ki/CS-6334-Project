@@ -6,7 +6,7 @@ public class Raycast : MonoBehaviour
 {
     [SerializeField] Camera mainCamera;
     GameObject saveObj;
-    int floorLayerMask;
+    int floorLayer;
     string AInput;
     bool wait; // to prevent SelectObject and PlaceObject from being called in the same frame
 
@@ -14,7 +14,7 @@ public class Raycast : MonoBehaviour
     void Start()
     {
         saveObj = null;
-        floorLayerMask = 1 << 7;
+        floorLayer = 7;
         AInput = "js10";
         wait = false;
     }
@@ -33,16 +33,23 @@ public class Raycast : MonoBehaviour
 
     public void PlaceObject() {
         RaycastHit hit;
-        if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, Mathf.Infinity, floorLayerMask)) {
-            saveObj.transform.position = new Vector3(hit.point.x, saveObj.transform.position.y, hit.point.z);
-            saveObj.SetActive(true);
-            saveObj = null;
+        if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
+            // ensure raycast is hitting floor
+            if(hit.collider.gameObject.layer == floorLayer) {
+                saveObj.transform.position = new Vector3(hit.point.x, saveObj.transform.position.y, hit.point.z);
+                saveObj.SetActive(true);
+                saveObj = null;
+            }
         }
     }
 
-    public void SelectObject(GameObject obj) {
-        saveObj = obj;
-        obj.SetActive(false);
-        wait = true;
+    public bool SelectObject(GameObject obj) {
+        if(saveObj == null) {
+            saveObj = obj;
+            obj.SetActive(false);
+            wait = true;
+            return true;
+        }
+        return false;
     }
 }
