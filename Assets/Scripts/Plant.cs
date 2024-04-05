@@ -6,7 +6,8 @@ using System;
 public class Plant : MonoBehaviour
 {
     [SerializeField] GameObject plantInterface;
-    int water, deadWater;
+    int water, deadWater, maxWater;
+    string stage;
     DateTime cur, growHalf, growMature, death;
     bool pointer, isHalf, isMature, isDead;
     // death time not utilized, would depend on saving data implementation
@@ -16,9 +17,12 @@ public class Plant : MonoBehaviour
     {
         water = 0;
         deadWater = -20; // limit on how low water can reach before plant dies
+        maxWater = 100;
+        stage = "Seedling";
         cur = DateTime.Now;
         growHalf = cur.AddMinutes(1f);
         growMature = cur.AddMinutes(2f);
+        pointer = false; // for later use with interacting
         isHalf = false;
         isMature = false;
         isDead = false;
@@ -35,15 +39,18 @@ public class Plant : MonoBehaviour
         // check if dead (mature plants cannot die)
         if(!isMature && !isDead && water <= deadWater) {
             isDead = true;
+            stage = "Dead";
         } else {
             // reach half grown
             if(!isHalf && DateTime.Compare(cur, growHalf) >= 0) {
                 isHalf = true;
+                stage = "Adult";
             }
 
             // reach full grown
             if(!isMature && DateTime.Compare(cur, growMature) >= 0) {
                 isMature = true;
+                stage = "Mature";
             }
         }
     }
@@ -51,11 +58,10 @@ public class Plant : MonoBehaviour
     public void PointerOn() { pointer = true; }
     public void PointerOff() { pointer = false; }
 
-    public void GiveWater() { water++; }
-    public int GetWater() { return water; }
+    public void GiveWater() { if(water < maxWater) {water++;} }
     void LoseWater() { water--; }
 
-    // may have to change details of interface and have only one at the start that changes
-    public void EnableInterface() { plantInterface.SetActive(true); }
-    public void DisableInterface() { plantInterface.SetActive(false); }
+    public int GetWater() { return water; }
+    public int GetMaxWater() { return maxWater; }
+    public string GetStage() { return stage; }
 }
