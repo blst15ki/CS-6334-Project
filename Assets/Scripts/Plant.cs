@@ -8,7 +8,7 @@ public class Plant : MonoBehaviour
     [SerializeField] GameObject plantInterface;
     int water, deadWater;
     DateTime cur, growHalf, growMature, death;
-    bool isHalf, isMature, isDead;
+    bool pointer, isHalf, isMature, isDead;
     // death time not utilized, would depend on saving data implementation
 
     // Start is called before the first frame update
