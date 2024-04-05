@@ -33,10 +33,29 @@ public class Raycast : MonoBehaviour
 
     public void PlaceObject() {
         RaycastHit hit;
+<<<<<<< Updated upstream
         if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, Mathf.Infinity, floorLayerMask)) {
             saveObj.transform.position = new Vector3(hit.point.x, saveObj.transform.position.y, hit.point.z);
             saveObj.SetActive(true);
             saveObj = null;
+=======
+        if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
+            
+            // Done to place the fertilizer anywhere in the scene
+            if(saveObj.name != "Fertilizer Cube"){
+                // ensure raycast is hitting floor
+                if(hit.collider.gameObject.layer == floorLayer) {
+                saveObj.transform.position = new Vector3(hit.point.x, saveObj.transform.position.y, hit.point.z);
+                saveObj.SetActive(true);
+                saveObj = null;
+                }
+            }
+            else{
+                saveObj.transform.position = new Vector3(hit.point.x, saveObj.transform.position.y, hit.point.z);
+                saveObj.SetActive(true);
+                saveObj = null;
+            }
+>>>>>>> Stashed changes
         }
     }
 
@@ -45,4 +64,5 @@ public class Raycast : MonoBehaviour
         obj.SetActive(false);
         wait = true;
     }
+
 }
