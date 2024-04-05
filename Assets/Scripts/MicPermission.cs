@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-#if UNITY_ANDROID && !UNITY_EDITOR
 using UnityEngine.Android;
-#endif
-public class Permission : MonoBehaviour
+
+public class MicPermission : MonoBehaviour
 {
     void Start()
     {
