@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class DoorTeleport : MonoBehaviour
 {
@@ -11,7 +12,9 @@ public class DoorTeleport : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sign.SetActive(false);
+        if(sign != null) {
+            sign.SetActive(false); 
+        } 
     }
 
     // Update is called once per frame
@@ -20,13 +23,26 @@ public class DoorTeleport : MonoBehaviour
 
     }
 
-    public void PointerOn() { sign.SetActive(true); }
-    public void PointerOff() { sign.SetActive(false); }
+    public void PointerOn() { 
+        if(sign != null) {
+            sign.SetActive(true); 
+        }
+        
+    }
+    public void PointerOff() {
+        if(sign != null) {
+            sign.SetActive(false); 
+        } 
+    }
 
     // teleport player
     void OnTriggerEnter(Collider collider) {
         if(collider.gameObject.tag == "Player") {
             SceneManager.LoadScene(scene);
+
+            if (PhotonNetwork.IsConnected) {
+                PhotonNetwork.Disconnect();
+            }
         }
     }
 }
