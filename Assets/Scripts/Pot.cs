@@ -5,9 +5,10 @@ using UnityEngine;
 public class Pot : MonoBehaviour
 {
     [SerializeField] Raycast raycast;
+    [SerializeField] WateringCan wateringCan;
     Outline outline;
     bool pointer;
-    string AInput;
+    string AInput, XInput;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,7 @@ public class Pot : MonoBehaviour
 
         pointer = false;
         AInput = "js10";
+        XInput = "js2";
     }
 
     // Update is called once per frame
@@ -28,6 +30,15 @@ public class Pot : MonoBehaviour
                     pointer = false;
                     outline.enabled = false;
                 }
+            }
+
+            else if(Input.GetButtonDown(XInput)){
+                wateringCan.WaterOn(gameObject);
+                
+            }
+
+            else if(Input.GetButtonUp(XInput)){
+                wateringCan.WaterOff(gameObject);
             }
         }
     }
