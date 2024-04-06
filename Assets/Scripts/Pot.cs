@@ -34,4 +34,12 @@ public class Pot : MonoBehaviour
 
     public void PointerOn() { pointer = true; }
     public void PointerOff() { pointer = false; }
+
+    // detects fertilizer cube in the pot
+    void OnTriggerEnter(Collider collider) {
+        if(collider.gameObject.tag == "Fertilizer") {
+            Destroy(collider.gameObject);
+            gameObject.GetComponent<Outline>().OutlineColor = Color.green;
+        }
+    }
 }
