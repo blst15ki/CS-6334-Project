@@ -8,7 +8,7 @@ public class Fertilizer : MonoBehaviour
 
     Outline outline;
     bool pointer, on;
-    string AInput, XInput;
+    string AInput;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +18,6 @@ public class Fertilizer : MonoBehaviour
         pointer = false;
         on = false;
         AInput = "js10";
-        XInput = "js2";
     }
 
     // Update is called once per frame
@@ -31,13 +30,7 @@ public class Fertilizer : MonoBehaviour
                     pointer = false;
                     TurnOff();
                 }
-            } else if(Input.GetButtonDown(XInput)) { // toggle sprinkler
-                if(on) {
-                    TurnOff();
-                } else {
-                    TurnOn();
-                }
-            }
+            } 
         }   
     }
 

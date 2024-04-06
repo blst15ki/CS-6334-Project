@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class LightController : MonoBehaviour
 {
-    [SerializeField] Raycast raycast;
     Outline outline;
     bool pointer, on;
     string XInput;
+    GameObject directionalLight;
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +16,8 @@ public class LightController : MonoBehaviour
         outline.enabled = false;
 
         // controls the main light
-        GameObject.Find("Directional Light").GetComponent<Light>().enabled = false;
+        directionalLight = GameObject.Find("Directional Light");
+        directionalLight.GetComponent<Light>().enabled = false;
 
         pointer = false;
         on = false;
@@ -46,13 +47,13 @@ public class LightController : MonoBehaviour
         on = true; 
         GameObject light = gameObject;
         light.GetComponent<Renderer>().material.color = Color.yellow;
-        GameObject.Find("Directional Light").GetComponent<Light>().enabled = true;
+        directionalLight.GetComponent<Light>().enabled = true;
     }
     void TurnOff() { 
         outline.OutlineColor = Color.white; 
         on = false;
         GameObject light = gameObject;
-        GameObject.Find("Directional Light").GetComponent<Light>().enabled = false;
+        directionalLight.GetComponent<Light>().enabled = false;
         light.GetComponent<Renderer>().material.color = Color.white;
     }
 }
