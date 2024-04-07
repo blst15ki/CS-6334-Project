@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class WateringCan : MonoBehaviour
 {
-    [SerializeField] Raycast raycast;
+    [SerializeField] Hotbar hotbar;
     Outline outline;
     bool pointer;
     string AInput;
-    string XInput;
-    GameObject potObj; 
 
     // Start is called before the first frame update
     void Start()
@@ -19,8 +17,6 @@ public class WateringCan : MonoBehaviour
 
         pointer = false;
         AInput = "js10";
-        XInput = "js2";
-
     }
    
     // Update is called once per frame
@@ -28,7 +24,7 @@ public class WateringCan : MonoBehaviour
     {
         if(pointer) {
             if(Input.GetButtonDown(AInput)) { // select object to place
-                if(raycast.SelectObject(gameObject) == true) {
+                if(hotbar.SelectObject(gameObject) == true) {
                     pointer = false;
                     outline.enabled = false;
                 }
@@ -37,30 +33,24 @@ public class WateringCan : MonoBehaviour
     }
 
     public void WaterOn(GameObject pot){
-        GameObject waterCan = gameObject;
-        GameObject potObj = pot;
-        waterCan.GetComponent<AudioSource>().enabled = true;
-        waterCan.GetComponent<Outline>().enabled = true;
+        GetComponent<AudioSource>().enabled = true;
 
-        var canOutline = waterCan.GetComponent<Outline>();
+        var canOutline = GetComponent<Outline>();
+        canOutline.enabled = true;
         canOutline.OutlineColor = Color.yellow;
         canOutline.OutlineWidth = 5f;
-
-        potObj.GetComponent<Outline>().enabled = true;
                    
-        var potOutline = potObj.GetComponent<Outline>();
+        var potOutline = pot.GetComponent<Outline>();
+        potOutline.enabled = true;
         potOutline.OutlineColor = Color.blue;
         potOutline.OutlineWidth = 5f;
     }
     
 
     public void WaterOff(GameObject pot){
-        GameObject waterCan = gameObject;
-        GameObject potObj = pot;
-        waterCan.GetComponent<Outline>().enabled = false;
-
-        potObj.GetComponent<Outline>().enabled = false;
-        waterCan.GetComponent<AudioSource>().enabled = false;
+        GetComponent<Outline>().enabled = false;
+        pot.GetComponent<Outline>().enabled = false;
+        GetComponent<AudioSource>().enabled = false;
     }
 
     public void PointerOn() { pointer = true; }

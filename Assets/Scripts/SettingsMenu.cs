@@ -11,6 +11,7 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] GameObject button0, button1;
     [SerializeField] GameObject player;
     [SerializeField] Camera mainCamera;
+    [SerializeField] Hotbar hotbar;
     CharacterMovement charMove;
     TrackedPoseDriver tpd;
     PhysicsRaycaster pRaycast;
@@ -47,6 +48,9 @@ public class SettingsMenu : MonoBehaviour
             charMove.enabled = false;
             tpd.trackingType = TrackedPoseDriver.TrackingType.PositionOnly;
             pRaycast.enabled = false;
+
+            // disable hotbar
+            hotbar.DisableHotbar();
         }
 
         // settings menu is active
@@ -73,11 +77,16 @@ public class SettingsMenu : MonoBehaviour
     
     public void SelectButton() {
         if(button == 0) { // resume
-            // close settings menu and enable character/camera movement
+            // close settings menu
             settingsMenuObj.SetActive(false);
+
+            // enable character/camera movement
             charMove.enabled = true;
             tpd.trackingType = TrackedPoseDriver.TrackingType.RotationAndPosition;
             pRaycast.enabled = true;
+
+            // enable hotbar
+            hotbar.EnableHotbar();
         } else if(button == 1) { // quit
             Application.Quit();
         }

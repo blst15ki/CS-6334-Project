@@ -15,7 +15,7 @@ public class Plant : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        water = 0;
+        water = 60;
         deadWater = -20; // limit on how low water can reach before plant dies
         maxWater = 100;
         stage = "Seedling";
@@ -58,7 +58,9 @@ public class Plant : MonoBehaviour
     public void PointerOn() { pointer = true; }
     public void PointerOff() { pointer = false; }
 
-    public void GiveWater() { if(water < maxWater) {water++;} }
+    void AddWater() { if(water < maxWater) {water += 10;} }
+    public void GiveWater() { InvokeRepeating("AddWater", 0f, 1f); }
+    public void StopWater() { CancelInvoke("AddWater"); }
     void LoseWater() { water--; }
 
     public int GetWater() { return water; }

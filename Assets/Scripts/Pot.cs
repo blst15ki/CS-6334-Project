@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Pot : MonoBehaviour
 {
-    [SerializeField] Raycast raycast;
-    [SerializeField] WateringCan wateringCan;
+    [SerializeField] Hotbar hotbar;
     Outline outline;
     bool pointer;
     string AInput, XInput;
@@ -18,7 +17,6 @@ public class Pot : MonoBehaviour
 
         pointer = false;
         AInput = "js10";
-        XInput = "js2";
     }
 
     // Update is called once per frame
@@ -26,19 +24,10 @@ public class Pot : MonoBehaviour
     {
         if(pointer) {
             if(Input.GetButtonDown(AInput)) { // select object to place
-                if(raycast.SelectObject(gameObject)) {
+                if(hotbar.SelectObject(gameObject)) {
                     pointer = false;
                     outline.enabled = false;
                 }
-            }
-
-            else if(Input.GetButtonDown(XInput)){
-                wateringCan.WaterOn(gameObject);
-                
-            }
-
-            else if(Input.GetButtonUp(XInput)){
-                wateringCan.WaterOff(gameObject);
             }
         }
     }
@@ -47,10 +36,10 @@ public class Pot : MonoBehaviour
     public void PointerOff() { pointer = false; }
 
     // detects fertilizer cube in the pot
-    void OnTriggerEnter(Collider collider) {
-        if(collider.gameObject.tag == "Fertilizer") {
-            Destroy(collider.gameObject);
-            gameObject.GetComponent<Outline>().OutlineColor = Color.green;
-        }
-    }
+    // void OnTriggerEnter(Collider collider) {
+    //     if(collider.gameObject.tag == "Fertilizer") {
+    //         Destroy(collider.gameObject);
+    //         gameObject.GetComponent<Outline>().OutlineColor = Color.green;
+    //     }
+    // }
 }
