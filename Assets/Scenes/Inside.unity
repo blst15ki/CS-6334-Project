@@ -4171,9 +4171,9 @@ GameObject:
   - component: {fileID: 1566502239}
   - component: {fileID: 1566502238}
   - component: {fileID: 1566502237}
-  - component: {fileID: 1566502236}
   - component: {fileID: 1566502240}
   - component: {fileID: 1566502241}
+  - component: {fileID: 1566502236}
   m_Layer: 0
   m_Name: Plant
   m_TagString: Plant
@@ -4208,7 +4208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f70c42893c0f9490e8f1fe01ea6b97b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plantInterface: {fileID: 1028891121}
 --- !u!136 &1566502237
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7483,6 +7482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef15305b6316b4d7ea99f914097045eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  plantInterface: {fileID: 993118089}
   hotbar: {fileID: 1637266636}
 --- !u!114 &8808214652968552929
 MonoBehaviour:

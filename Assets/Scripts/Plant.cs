@@ -5,11 +5,10 @@ using System;
 
 public class Plant : MonoBehaviour
 {
-    [SerializeField] GameObject plantInterface;
     int water, deadWater, maxWater;
     string stage;
     DateTime cur, timeHalf, timeMature, death;
-    bool pointer, isHalf, isMature, isDead;
+    bool isHalf, isMature, isDead;
     // death time not utilized, would depend on saving data implementation
 
     // Start is called before the first frame update
@@ -22,7 +21,6 @@ public class Plant : MonoBehaviour
         cur = DateTime.Now;
         timeHalf = cur.AddMinutes(1f);
         timeMature = cur.AddMinutes(2f);
-        pointer = false; // for later use with interacting
         isHalf = false;
         isMature = false;
         isDead = false;
@@ -54,9 +52,6 @@ public class Plant : MonoBehaviour
             }
         }
     }
-
-    public void PointerOn() { pointer = true; }
-    public void PointerOff() { pointer = false; }
 
     void AddWater() {
         if(water < maxWater) {

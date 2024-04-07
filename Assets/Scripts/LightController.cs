@@ -16,6 +16,7 @@ public class LightController : MonoBehaviour
         outline = GetComponent<Outline>();
         outline.enabled = false;
         l = dirLight.GetComponent<Light>();
+        l.enabled = true;
         pointer = false;
         XInput = "js2";
     }

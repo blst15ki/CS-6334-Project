@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Pot : MonoBehaviour
 {
+    [SerializeField] PlantInterface plantInterface;
     [SerializeField] Hotbar hotbar;
     Outline outline;
     bool pointer;
@@ -27,6 +28,11 @@ public class Pot : MonoBehaviour
                 if(hotbar.SelectObject(gameObject)) {
                     pointer = false;
                     outline.enabled = false;
+
+                    // disable plant interface if open
+                    if(plantInterface.activeSelf) {
+                        plantInterface.DisableInterface();
+                    }
                 }
             }
         }
@@ -37,11 +43,9 @@ public class Pot : MonoBehaviour
 
     public bool AddFertilizer() {
         // check if plant exists
-        if(transform.childCount > 0) {
-            if(transform.GetChild(0).gameObject.tag == "Plant") {
-                transform.GetChild(0).gameObject.GetComponent<Plant>().Fertilize();
-                return true;
-            }
+        if(transform.childCount > 0 && transform.GetChild(0).gameObject.tag == "Plant") {
+            transform.GetChild(0).gameObject.GetComponent<Plant>().Fertilize();
+            return true;
         }
         return false;
     }
