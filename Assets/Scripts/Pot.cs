@@ -29,10 +29,8 @@ public class Pot : MonoBehaviour
                     pointer = false;
                     outline.enabled = false;
 
-                    // disable plant interface if open
-                    if(plantInterface.activeSelf) {
-                        plantInterface.DisableInterface();
-                    }
+                    // disable plant interface
+                    plantInterface.DisableInterface();
                 }
             }
         }
