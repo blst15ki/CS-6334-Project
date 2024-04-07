@@ -29,7 +29,7 @@ public class Hotbar : MonoBehaviour
         AInput = "js10";
         BInput = "js5";
         enable = true;
-        wait = false;
+        wait = false; // prevent selecting and placing an object in the same frame
         inUse = false;
     }
 
@@ -37,14 +37,17 @@ public class Hotbar : MonoBehaviour
     void Update()
     {
         if(enable) {
-            if(Input.GetButtonDown(XInput)) {
-                MoveSlot("left");
-            } else if(Input.GetButtonDown(YInput)) {
-                MoveSlot("right");
-            } else if(Input.GetButtonDown(AInput) && wait == false) {
-                PlaceObject();
-            } else if(Input.GetButtonDown(BInput)) {
-                UseItem();
+            // prevent using other buttons if item is being used
+            if(inUse == false) {
+                if(Input.GetButtonDown(XInput)) {
+                    MoveSlot("left");
+                } else if(Input.GetButtonDown(YInput)) {
+                    MoveSlot("right");
+                } else if(Input.GetButtonDown(AInput) && wait == false) {
+                    PlaceObject();
+                } else if(Input.GetButtonDown(BInput)) {
+                    UseItem();
+                }
             }
 
             if(wait) {
@@ -52,14 +55,18 @@ public class Hotbar : MonoBehaviour
             }
 
             if(Input.GetButtonUp(BInput) && inUse) {
-                // for plant only, need to specify action
-                items[slot].GetComponent<AudioSource>().Stop();
-                items[slot].GetComponentInChildren<Renderer>().enabled = true;
-                items[slot].GetComponentInChildren<Collider>().enabled = true;
-                items[slot].SetActive(false);
-                hit.collider.gameObject.GetComponent<Plant>().StopWater();
-                hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.white;
-                inUse = false;
+                if(items[slot].tag == "Watering Can") {
+                    // stop audio and disable watering can
+                    items[slot].GetComponent<AudioSource>().Stop();
+                    items[slot].GetComponentInChildren<Renderer>().enabled = true;
+                    items[slot].GetComponentInChildren<Collider>().enabled = true;
+                    items[slot].SetActive(false);
+
+                    // stop watering
+                    hit.collider.gameObject.GetComponent<Plant>().StopWater();
+                    hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.white;
+                    inUse = false;
+                }
             }
         }
     }
@@ -119,24 +126,31 @@ public class Hotbar : MonoBehaviour
         }
 
         if(items[slot].tag == "Watering Can") {
-            // check if raycasthit is plant
             if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
+                // check if raycasthit is plant
                 if(hit.collider.gameObject.tag == "Plant") {
-                    // enable object but hide mesh/collider
+                    // enable watering can but hide mesh/collider to play audio
                     items[slot].SetActive(true);
                     items[slot].GetComponentInChildren<Renderer>().enabled = false;
                     items[slot].GetComponentInChildren<Collider>().enabled = false;
                     items[slot].GetComponent<AudioSource>().Play();
+
+                    // water plant
                     hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.blue;
-                    inUse = true;
                     hit.collider.gameObject.GetComponent<Plant>().GiveWater();
+                    inUse = true;
                 }
             }
         } else if(items[slot].tag == "Fertilizer") {
-            // check if raycasthit is pot
             if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
+                // check if raycasthit is pot
                 if(hit.collider.gameObject.tag == "Pot") {
-                    // TODO: do fertilize
+                    // remove fertilizer from scene if successful
+                    if(hit.collider.gameObject.GetComponent<Pot>().AddFertilizer()) {
+                        Destroy(items[slot]);
+                        items[slot] = null;
+                        itemSlots[slot].GetComponent<Image>().color = Color.grey;
+                    }
                 }
             }
         }

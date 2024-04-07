@@ -8,7 +8,7 @@ public class Plant : MonoBehaviour
     [SerializeField] GameObject plantInterface;
     int water, deadWater, maxWater;
     string stage;
-    DateTime cur, growHalf, growMature, death;
+    DateTime cur, timeHalf, timeMature, death;
     bool pointer, isHalf, isMature, isDead;
     // death time not utilized, would depend on saving data implementation
 
@@ -20,8 +20,8 @@ public class Plant : MonoBehaviour
         maxWater = 100;
         stage = "Seedling";
         cur = DateTime.Now;
-        growHalf = cur.AddMinutes(1f);
-        growMature = cur.AddMinutes(2f);
+        timeHalf = cur.AddMinutes(1f);
+        timeMature = cur.AddMinutes(2f);
         pointer = false; // for later use with interacting
         isHalf = false;
         isMature = false;
@@ -42,13 +42,13 @@ public class Plant : MonoBehaviour
             stage = "Dead";
         } else {
             // reach half grown
-            if(!isHalf && DateTime.Compare(cur, growHalf) >= 0) {
+            if(!isHalf && DateTime.Compare(cur, timeHalf) >= 0) {
                 isHalf = true;
                 stage = "Adult";
             }
 
             // reach full grown
-            if(!isMature && DateTime.Compare(cur, growMature) >= 0) {
+            if(!isMature && DateTime.Compare(cur, timeMature) >= 0) {
                 isMature = true;
                 stage = "Mature";
             }
@@ -66,11 +66,21 @@ public class Plant : MonoBehaviour
             water = maxWater;
         }
     }
-    public void GiveWater() { InvokeRepeating("AddWater", 0f, 1f); }
+    public void GiveWater() { InvokeRepeating("AddWater", 1f, 1f); }
     public void StopWater() { CancelInvoke("AddWater"); }
     void LoseWater() { water--; }
 
     public int GetWater() { return water; }
     public int GetMaxWater() { return maxWater; }
     public string GetStage() { return stage; }
+
+    public void Fertilize() {
+        if(!isHalf) {
+            timeHalf = cur.AddMinutes((timeHalf - cur).TotalMinutes * 0.9);
+        }
+
+        if(!isMature) {
+            timeMature = cur.AddMinutes((timeMature - cur).TotalMinutes * 0.9);
+        }
+    }
 }

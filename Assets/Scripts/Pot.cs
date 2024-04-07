@@ -7,7 +7,7 @@ public class Pot : MonoBehaviour
     [SerializeField] Hotbar hotbar;
     Outline outline;
     bool pointer;
-    string AInput, XInput;
+    string AInput;
 
     // Start is called before the first frame update
     void Start()
@@ -35,11 +35,14 @@ public class Pot : MonoBehaviour
     public void PointerOn() { pointer = true; }
     public void PointerOff() { pointer = false; }
 
-    // detects fertilizer cube in the pot
-    // void OnTriggerEnter(Collider collider) {
-    //     if(collider.gameObject.tag == "Fertilizer") {
-    //         Destroy(collider.gameObject);
-    //         gameObject.GetComponent<Outline>().OutlineColor = Color.green;
-    //     }
-    // }
+    public bool AddFertilizer() {
+        // check if plant exists
+        if(transform.childCount > 0) {
+            if(transform.GetChild(0).gameObject.tag == "Plant") {
+                transform.GetChild(0).gameObject.GetComponent<Plant>().Fertilize();
+                return true;
+            }
+        }
+        return false;
+    }
 }

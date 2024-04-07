@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fertilizer : MonoBehaviour
+public class Interact : MonoBehaviour
 {
-    [SerializeField] Raycast raycast;
-
+    [SerializeField] Hotbar hotbar;
     Outline outline;
-    bool pointer, on;
+    bool pointer;
     string AInput;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +16,6 @@ public class Fertilizer : MonoBehaviour
         outline.enabled = false;
 
         pointer = false;
-        on = false;
         AInput = "js10";
     }
 
@@ -25,20 +24,14 @@ public class Fertilizer : MonoBehaviour
     {
         if(pointer) {
             if(Input.GetButtonDown(AInput)) { // select object to place
-                if(raycast.SelectObject(gameObject)) {
-                    Debug.Log(gameObject.name);
+                if(hotbar.SelectObject(gameObject) == true) {
                     pointer = false;
-                    TurnOff();
+                    outline.enabled = false;
                 }
-            } 
-        }   
+            }
+        }
     }
 
     public void PointerOn() { pointer = true; }
     public void PointerOff() { pointer = false; }
-
-    void TurnOn() { outline.OutlineColor = Color.cyan; on = true; }
-    void TurnOff() { outline.OutlineColor = Color.white; on = false; }
-    
 }
-
