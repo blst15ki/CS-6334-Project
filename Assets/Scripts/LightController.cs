@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LightController : MonoBehaviour
 {
+    [SerializeField] Hotbar hotbar;
     [SerializeField] GameObject dirLight;
     Outline outline;
     Light l;
@@ -31,7 +32,7 @@ public class LightController : MonoBehaviour
         }   
     }
 
-    public void PointerOn() { pointer = true; }
-    public void PointerOff() { pointer = false; }
+    public void PointerOn() { pointer = true; hotbar.DisableHotbar(); }
+    public void PointerOff() { pointer = false; hotbar.EnableHotbar(); }
 }
 

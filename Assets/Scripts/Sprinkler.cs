@@ -40,8 +40,8 @@ public class Sprinkler : MonoBehaviour
         }
     }
 
-    public void PointerOn() { pointer = true; }
-    public void PointerOff() { pointer = false; }
+    public void PointerOn() { pointer = true; hotbar.DisableHotbar(); }
+    public void PointerOff() { pointer = false; hotbar.EnableHotbar(); }
 
     void TurnOn() { outline.OutlineColor = Color.cyan; on = true; }
     void TurnOff() { outline.OutlineColor = Color.white; on = false; }

@@ -4158,6 +4158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 276489ad265fb4949abba639ed8c1f24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hotbar: {fileID: 1637266636}
   dirLight: {fileID: 1516983259}
 --- !u!1 &1566502234
 GameObject:
