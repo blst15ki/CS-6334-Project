@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pot : MonoBehaviour
+public class Interact : MonoBehaviour
 {
-    [SerializeField] PlantInterface plantInterface;
     [SerializeField] Hotbar hotbar;
     Outline outline;
     bool pointer;
@@ -25,12 +24,9 @@ public class Pot : MonoBehaviour
     {
         if(pointer) {
             if(Input.GetButtonDown(AInput)) { // select object to place
-                if(hotbar.SelectObject(gameObject)) {
+                if(hotbar.SelectObject(gameObject) == true) {
                     pointer = false;
                     outline.enabled = false;
-
-                    // disable plant interface
-                    plantInterface.DisableInterface();
                 }
             }
         }
@@ -38,13 +34,4 @@ public class Pot : MonoBehaviour
 
     public void PointerOn() { pointer = true; }
     public void PointerOff() { pointer = false; }
-
-    public bool AddFertilizer() {
-        // check if plant exists
-        if(transform.childCount > 0 && transform.GetChild(0).gameObject.tag == "Plant") {
-            transform.GetChild(0).gameObject.GetComponent<Plant>().Fertilize();
-            return true;
-        }
-        return false;
-    }
 }

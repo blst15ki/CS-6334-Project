@@ -47,7 +47,7 @@ public class PlantInterface : MonoBehaviour
     public void DisableInterface() { plantInterfaceObj.SetActive(false); }
     
     void UpdateInterface() {
-        WLrt.sizeDelta = new Vector2(plant.GetWater() / plant.GetMaxWater() * 120, 20);
+        WLrt.sizeDelta = new Vector2((float)plant.GetWater() / plant.GetMaxWater() * 120, 20);
         stageTMP.text = "Stage: " + plant.GetStage();
     }
 }

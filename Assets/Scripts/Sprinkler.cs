@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Sprinkler : MonoBehaviour
 {
-    [SerializeField] Raycast raycast;
+    [SerializeField] Hotbar hotbar;
     Outline outline;
     bool pointer, on;
     string AInput, XInput;
@@ -26,8 +26,8 @@ public class Sprinkler : MonoBehaviour
     {
         if(pointer) {
             if(Input.GetButtonDown(AInput)) { // select object to place
-                if(raycast.SelectObject(gameObject)) {
-                    pointer = false;
+                if(hotbar.SelectObject(gameObject)) {
+                    PointerOff();
                     TurnOff();
                 }
             } else if(Input.GetButtonDown(XInput)) { // toggle sprinkler
@@ -40,8 +40,8 @@ public class Sprinkler : MonoBehaviour
         }
     }
 
-    public void PointerOn() { pointer = true; }
-    public void PointerOff() { pointer = false; }
+    public void PointerOn() { pointer = true; hotbar.DisableHotbar(); }
+    public void PointerOff() { pointer = false; hotbar.EnableHotbar(); }
 
     void TurnOn() { outline.OutlineColor = Color.cyan; on = true; }
     void TurnOff() { outline.OutlineColor = Color.white; on = false; }

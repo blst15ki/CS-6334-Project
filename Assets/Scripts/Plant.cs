@@ -5,24 +5,22 @@ using System;
 
 public class Plant : MonoBehaviour
 {
-    [SerializeField] GameObject plantInterface;
     int water, deadWater, maxWater;
     string stage;
-    DateTime cur, growHalf, growMature, death;
-    bool pointer, isHalf, isMature, isDead;
+    DateTime cur, timeHalf, timeMature, death;
+    bool isHalf, isMature, isDead;
     // death time not utilized, would depend on saving data implementation
 
     // Start is called before the first frame update
     void Start()
     {
         water = 0;
-        deadWater = -20; // limit on how low water can reach before plant dies
+        deadWater = -10; // limit on how low water can reach before plant dies
         maxWater = 100;
         stage = "Seedling";
         cur = DateTime.Now;
-        growHalf = cur.AddMinutes(1f);
-        growMature = cur.AddMinutes(2f);
-        pointer = false; // for later use with interacting
+        timeHalf = cur.AddMinutes(1f);
+        timeMature = cur.AddMinutes(2f);
         isHalf = false;
         isMature = false;
         isDead = false;
@@ -40,28 +38,55 @@ public class Plant : MonoBehaviour
         if(!isMature && !isDead && water <= deadWater) {
             isDead = true;
             stage = "Dead";
-        } else {
+            GetComponent<Renderer>().material.color = new Color(95f / 255, 25f / 255, 28f / 255);
+            transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            transform.localPosition = new Vector3(0f, 0.5f, -0.1f);
+        } else if(!isDead) { // (dead plants cannot grow)
             // reach half grown
-            if(!isHalf && DateTime.Compare(cur, growHalf) >= 0) {
+            if(!isHalf && DateTime.Compare(cur, timeHalf) >= 0) {
                 isHalf = true;
                 stage = "Adult";
+                transform.localScale = new Vector3(0.1f, 0.2f, 0.1f);
+                transform.localPosition = new Vector3(0f, 0.6f, -0.1f);
             }
-
             // reach full grown
-            if(!isMature && DateTime.Compare(cur, growMature) >= 0) {
+            if(!isMature && DateTime.Compare(cur, timeMature) >= 0) {
                 isMature = true;
                 stage = "Mature";
+                transform.localScale = new Vector3(0.1f, 0.3f, 0.1f);
+                transform.localPosition = new Vector3(0f, 0.7f, -0.1f);
             }
         }
     }
 
-    public void PointerOn() { pointer = true; }
-    public void PointerOff() { pointer = false; }
+    void AddWater() {
+        if(water < maxWater) {
+            water += 10;
+        }
+        if(water > maxWater) {
+            water = maxWater;
+        }
+    }
+    void LoseWater() {
+        if(water > deadWater) {
+            water--;
+        }
+    }
 
-    public void GiveWater() { if(water < maxWater) {water++;} }
-    void LoseWater() { water--; }
+    public void GiveWater() { InvokeRepeating("AddWater", 1f, 1f); }
+    public void StopWater() { CancelInvoke("AddWater"); }
 
     public int GetWater() { return water; }
     public int GetMaxWater() { return maxWater; }
     public string GetStage() { return stage; }
+
+    public void Fertilize() {
+        if(!isHalf) {
+            timeHalf = cur.AddMinutes((timeHalf - cur).TotalMinutes * 0.9);
+        }
+
+        if(!isMature) {
+            timeMature = cur.AddMinutes((timeMature - cur).TotalMinutes * 0.9);
+        }
+    }
 }
