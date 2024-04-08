@@ -18,6 +18,7 @@ public class SettingsMenu : MonoBehaviour
     Image image0, image1;
     string XInput, AInput, OKInput;
     int button;
+    bool enable;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,7 @@ public class SettingsMenu : MonoBehaviour
         AInput = "js10";
         OKInput = "js0";
         button = 0;
+        enable = true;
 
         settingsMenuObj.SetActive(false);
     }
@@ -38,27 +40,29 @@ public class SettingsMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown(OKInput) && settingsMenuObj.activeSelf == false) {
-            // initialize settings menu
-            settingsMenuObj.SetActive(true);
-            image0.color = Color.yellow;
-            image1.color = Color.white;
+        if(enable) {
+            if(Input.GetButtonDown(OKInput) && settingsMenuObj.activeSelf == false) {
+                // initialize settings menu
+                settingsMenuObj.SetActive(true);
+                image0.color = Color.yellow;
+                image1.color = Color.white;
 
-            // disable character/camera movement
-            charMove.enabled = false;
-            tpd.trackingType = TrackedPoseDriver.TrackingType.PositionOnly;
-            pRaycast.enabled = false;
+                // disable character/camera movement
+                charMove.enabled = false;
+                tpd.trackingType = TrackedPoseDriver.TrackingType.PositionOnly;
+                pRaycast.enabled = false;
 
-            // disable hotbar
-            hotbar.DisableHotbar();
-        }
+                // disable hotbar
+                hotbar.DisableHotbar();
+            }
 
-        // settings menu is active
-        if(settingsMenuObj.activeSelf) {
-            if(Input.GetButtonDown(XInput)) {
-                CycleButton();
-            } else if(Input.GetButtonDown(AInput)) {
-                SelectButton();
+            // settings menu is active
+            if(settingsMenuObj.activeSelf) {
+                if(Input.GetButtonDown(XInput)) {
+                    CycleButton();
+                } else if(Input.GetButtonDown(AInput)) {
+                    SelectButton();
+                }
             }
         }
     }
@@ -91,4 +95,7 @@ public class SettingsMenu : MonoBehaviour
             Application.Quit();
         }
     }
+
+    public void EnableSettings() { enable = true; }
+    public void DisableSettings() { enable = false; }
 }

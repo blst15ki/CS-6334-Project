@@ -17,7 +17,8 @@ public class Hotbar : MonoBehaviour
     Image[] images = new Image[9];
     int slot, floorLayer;
     string XInput, YInput, AInput, BInput;
-    bool enable, wait, inUse;
+    bool enable = true;
+    bool wait, inUse;
     RaycastHit hit;
 
     // Start is called before the first frame update
@@ -34,7 +35,6 @@ public class Hotbar : MonoBehaviour
         YInput = "js3";
         AInput = "js10";
         BInput = "js5";
-        enable = true;
         wait = false; // prevent selecting and placing an object in the same frame
         inUse = false;
     }
