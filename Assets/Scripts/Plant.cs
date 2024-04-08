@@ -15,7 +15,7 @@ public class Plant : MonoBehaviour
     void Start()
     {
         water = 0;
-        deadWater = -20; // limit on how low water can reach before plant dies
+        deadWater = -10; // limit on how low water can reach before plant dies
         maxWater = 100;
         stage = "Seedling";
         cur = DateTime.Now;
@@ -38,17 +38,23 @@ public class Plant : MonoBehaviour
         if(!isMature && !isDead && water <= deadWater) {
             isDead = true;
             stage = "Dead";
-        } else {
+            GetComponent<Renderer>().material.color = new Color(95f / 255, 25f / 255, 28f / 255);
+            transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            transform.localPosition = new Vector3(0f, 0.5f, -0.1f);
+        } else if(!isDead) { // (dead plants cannot grow)
             // reach half grown
             if(!isHalf && DateTime.Compare(cur, timeHalf) >= 0) {
                 isHalf = true;
                 stage = "Adult";
+                transform.localScale = new Vector3(0.1f, 0.2f, 0.1f);
+                transform.localPosition = new Vector3(0f, 0.6f, -0.1f);
             }
-
             // reach full grown
             if(!isMature && DateTime.Compare(cur, timeMature) >= 0) {
                 isMature = true;
                 stage = "Mature";
+                transform.localScale = new Vector3(0.1f, 0.3f, 0.1f);
+                transform.localPosition = new Vector3(0f, 0.7f, -0.1f);
             }
         }
     }
@@ -61,9 +67,14 @@ public class Plant : MonoBehaviour
             water = maxWater;
         }
     }
+    void LoseWater() {
+        if(water > deadWater) {
+            water--;
+        }
+    }
+
     public void GiveWater() { InvokeRepeating("AddWater", 1f, 1f); }
     public void StopWater() { CancelInvoke("AddWater"); }
-    void LoseWater() { water--; }
 
     public int GetWater() { return water; }
     public int GetMaxWater() { return maxWater; }

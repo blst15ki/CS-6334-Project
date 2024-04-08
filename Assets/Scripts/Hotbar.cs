@@ -8,8 +8,13 @@ public class Hotbar : MonoBehaviour
     [SerializeField] GameObject[] slots = new GameObject[9];
     [SerializeField] GameObject[] itemSlots = new GameObject[9];
     [SerializeField] Camera mainCamera;
+    [SerializeField] Sprite wateringCan;
+    [SerializeField] Sprite pot;
+    [SerializeField] Sprite fertilizer;
+    [SerializeField] Sprite sprinkler;
     GameObject[] items = new GameObject[9];
     UnityEngine.UI.Outline[] slotOutlines = new UnityEngine.UI.Outline[9];
+    Image[] images = new Image[9];
     int slot, floorLayer;
     string XInput, YInput, AInput, BInput;
     bool enable, wait, inUse;
@@ -20,6 +25,7 @@ public class Hotbar : MonoBehaviour
     {
         for(int i = 0; i < 9; i++) {
             slotOutlines[i] = slots[i].GetComponent<UnityEngine.UI.Outline>();
+            images[i] = itemSlots[i].GetComponent<Image>();
         }
 
         slot = 0;
@@ -101,7 +107,8 @@ public class Hotbar : MonoBehaviour
         if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
             // ensure raycast is hitting floor
             if(hit.collider.gameObject.layer == floorLayer) {
-                itemSlots[slot].GetComponent<Image>().color = Color.grey;
+                images[slot].sprite = null;
+                images[slot].color = Color.grey;
                 items[slot].transform.position = new Vector3(hit.point.x, items[slot].transform.position.y, hit.point.z);
                 items[slot].SetActive(true);
                 items[slot] = null;
@@ -111,7 +118,7 @@ public class Hotbar : MonoBehaviour
 
     public bool SelectObject(GameObject obj) {
         if(items[slot] == null) {
-            itemSlots[slot].GetComponent<Image>().color = Color.white;
+            SetIcon(obj.tag);
             items[slot] = obj;
             obj.SetActive(false);
             wait = true;
@@ -149,10 +156,24 @@ public class Hotbar : MonoBehaviour
                     if(hit.collider.gameObject.GetComponent<Pot>().AddFertilizer()) {
                         Destroy(items[slot]);
                         items[slot] = null;
-                        itemSlots[slot].GetComponent<Image>().color = Color.grey;
+                        images[slot].sprite = null;
+                        images[slot].color = Color.grey;
                     }
                 }
             }
         }
+    }
+
+    void SetIcon(string tag) {
+        if(tag == "Watering Can") {
+            images[slot].sprite = wateringCan;
+        } else if(tag == "Pot") {
+            images[slot].sprite = pot;
+        } else if(tag == "Fertilizer") {
+            images[slot].sprite = fertilizer;
+        } else if(tag == "Sprinkler") {
+            images[slot].sprite = sprinkler;
+        }
+        images[slot].color = Color.white;
     }
 }

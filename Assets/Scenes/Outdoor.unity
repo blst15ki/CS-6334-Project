@@ -369,7 +369,8 @@ PrefabInstance:
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5499732, guid: 220c818457a8d2441bf84edb4edee095, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 220c818457a8d2441bf84edb4edee095, type: 3}
 --- !u!1 &18649746 stripped
 GameObject:
@@ -1718,7 +1719,7 @@ GameObject:
   - component: {fileID: 292737569}
   m_Layer: 0
   m_Name: Sprinkler
-  m_TagString: Untagged
+  m_TagString: Sprinkler
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2626,7 +2627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5, g: 0.4740566, b: 0.4740566, a: 1}
+  m_Color: {r: 0.5019608, g: 0.4745098, b: 0.4745098, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6450,7 +6451,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: dbd8714bc7bc547daa28e68bb39fff9d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8305,6 +8306,10 @@ MonoBehaviour:
   - {fileID: 1303402909}
   - {fileID: 1833396318}
   mainCamera: {fileID: 1061579007}
+  wateringCan: {fileID: 21300000, guid: 839a0c0b9ebcd4b9685596a388fcdd02, type: 3}
+  pot: {fileID: 21300000, guid: 68a9800d415f54ac1a397334402e57e7, type: 3}
+  fertilizer: {fileID: 21300000, guid: bff84b115c07b4f84b88d901ee40cd79, type: 3}
+  sprinkler: {fileID: 21300000, guid: 7e518ae4914064486948e2b52b0633fe, type: 3}
 --- !u!114 &2134047317
 MonoBehaviour:
   m_ObjectHideFlags: 0

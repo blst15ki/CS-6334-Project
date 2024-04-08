@@ -973,7 +973,7 @@ GameObject:
   - component: {fileID: 290433276}
   - component: {fileID: 290433275}
   - component: {fileID: 290433274}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slot9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1065,7 +1065,7 @@ GameObject:
   - component: {fileID: 318042558}
   - component: {fileID: 318042561}
   - component: {fileID: 318042560}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Item4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1254,7 +1254,7 @@ GameObject:
   - component: {fileID: 348534060}
   - component: {fileID: 348534059}
   - component: {fileID: 348534058}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1346,7 +1346,7 @@ GameObject:
   - component: {fileID: 362850353}
   - component: {fileID: 362850355}
   - component: {fileID: 362850354}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1495,6 +1495,11 @@ Transform:
 Camera:
   m_CorrespondingSourceObject: {fileID: 7287137020755404943, guid: 186741bf17cbb0e4fa3ef06daa1f190f, type: 3}
   m_PrefabInstance: {fileID: 451881655}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &494821833 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8808214653859070342, guid: da915fba24b5e3446ba5c23ae9243acc, type: 3}
+  m_PrefabInstance: {fileID: 2002506832}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &572368242
 GameObject:
@@ -1836,6 +1841,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 757446733}
   m_CullTransparentMesh: 1
+--- !u!1 &858608053 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8808214653859070342, guid: da915fba24b5e3446ba5c23ae9243acc, type: 3}
+  m_PrefabInstance: {fileID: 1439288254}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &926902281
 GameObject:
   m_ObjectHideFlags: 0
@@ -1925,7 +1935,7 @@ GameObject:
   - component: {fileID: 946948417}
   - component: {fileID: 946948416}
   - component: {fileID: 946948415}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slot8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2017,7 +2027,7 @@ GameObject:
   - component: {fileID: 965152346}
   - component: {fileID: 965152349}
   - component: {fileID: 965152348}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Item5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2094,7 +2104,7 @@ GameObject:
   - component: {fileID: 973713036}
   - component: {fileID: 973713035}
   - component: {fileID: 973713034}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slot6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2315,6 +2325,206 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.1745796, y: 1.2959852, z: 1.6689062}
   m_Center: {x: 0, y: 0.6337929, z: 0}
+--- !u!1 &1020487708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1020487709}
+  - component: {fileID: 1020487715}
+  - component: {fileID: 1020487714}
+  - component: {fileID: 1020487713}
+  - component: {fileID: 1020487712}
+  - component: {fileID: 1020487711}
+  - component: {fileID: 1020487710}
+  m_Layer: 0
+  m_Name: Plant
+  m_TagString: Plant
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1020487709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020487708}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: -0.1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1439288255}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1020487710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020487708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f70c42893c0f9490e8f1fe01ea6b97b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1020487711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020487708}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &1020487712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020487708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1230795496}
+          m_TargetAssemblyTypeName: EnableDisable, Assembly-CSharp
+          m_MethodName: OnPointerEnter
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1020487708}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 993118089}
+          m_TargetAssemblyTypeName: PlantInterface, Assembly-CSharp
+          m_MethodName: EnableInterface
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1020487708}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1230795496}
+          m_TargetAssemblyTypeName: EnableDisable, Assembly-CSharp
+          m_MethodName: OnPointerExit
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1020487708}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 993118089}
+          m_TargetAssemblyTypeName: PlantInterface, Assembly-CSharp
+          m_MethodName: DisableInterface
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!136 &1020487713
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020487708}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!23 &1020487714
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020487708}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: dbd8714bc7bc547daa28e68bb39fff9d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1020487715
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020487708}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1028891121
 GameObject:
   m_ObjectHideFlags: 0
@@ -2763,7 +2973,7 @@ GameObject:
   - component: {fileID: 1288319859}
   - component: {fileID: 1288319862}
   - component: {fileID: 1288319861}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Item6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2974,7 +3184,7 @@ GameObject:
   - component: {fileID: 1321387732}
   - component: {fileID: 1321387735}
   - component: {fileID: 1321387734}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Item3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3218,6 +3428,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pot2
       objectReference: {fileID: 0}
+    - target: {fileID: 8808214653859070342, guid: da915fba24b5e3446ba5c23ae9243acc, type: 3}
+      propertyPath: m_TagString
+      value: Pot
+      objectReference: {fileID: 0}
     - target: {fileID: 8808214653859437990, guid: da915fba24b5e3446ba5c23ae9243acc, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -3281,6 +3495,107 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8808214653859437990, guid: da915fba24b5e3446ba5c23ae9243acc, type: 3}
   m_PrefabInstance: {fileID: 1439288254}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1439288259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858608053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef15305b6316b4d7ea99f914097045eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plantInterface: {fileID: 993118089}
+  hotbar: {fileID: 1637266636}
+--- !u!114 &1439288260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858608053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1230795496}
+          m_TargetAssemblyTypeName: EnableDisable, Assembly-CSharp
+          m_MethodName: OnPointerEnter
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 858608053}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1439288259}
+          m_TargetAssemblyTypeName: Pot, Assembly-CSharp
+          m_MethodName: PointerOn
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1230795496}
+          m_TargetAssemblyTypeName: EnableDisable, Assembly-CSharp
+          m_MethodName: OnPointerExit
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 858608053}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1439288259}
+          m_TargetAssemblyTypeName: Pot, Assembly-CSharp
+          m_MethodName: PointerOff
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1439288261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858608053}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &1448400207
 GameObject:
   m_ObjectHideFlags: 0
@@ -3557,7 +3872,7 @@ GameObject:
   - component: {fileID: 1458428253}
   - component: {fileID: 1458428252}
   - component: {fileID: 1458428251}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slot5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4243,7 +4558,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: dbd8714bc7bc547daa28e68bb39fff9d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4501,7 +4816,7 @@ GameObject:
   - component: {fileID: 1575700711}
   - component: {fileID: 1575700710}
   - component: {fileID: 1575700709}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slot7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4908,7 +5223,7 @@ GameObject:
   - component: {fileID: 1635200901}
   - component: {fileID: 1635200904}
   - component: {fileID: 1635200903}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Item2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4986,7 +5301,7 @@ GameObject:
   - component: {fileID: 1637266634}
   - component: {fileID: 1637266633}
   - component: {fileID: 1637266636}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Hotbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5108,6 +5423,10 @@ MonoBehaviour:
   - {fileID: 1739371166}
   - {fileID: 1702263097}
   mainCamera: {fileID: 451881658}
+  wateringCan: {fileID: 21300000, guid: 839a0c0b9ebcd4b9685596a388fcdd02, type: 3}
+  pot: {fileID: 21300000, guid: 68a9800d415f54ac1a397334402e57e7, type: 3}
+  fertilizer: {fileID: 21300000, guid: bff84b115c07b4f84b88d901ee40cd79, type: 3}
+  sprinkler: {fileID: 21300000, guid: 7e518ae4914064486948e2b52b0633fe, type: 3}
 --- !u!1 &1644855603
 GameObject:
   m_ObjectHideFlags: 0
@@ -5635,7 +5954,7 @@ GameObject:
   - component: {fileID: 1658662917}
   - component: {fileID: 1658662920}
   - component: {fileID: 1658662919}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Item7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5712,7 +6031,7 @@ GameObject:
   - component: {fileID: 1665968683}
   - component: {fileID: 1665968682}
   - component: {fileID: 1665968681}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slot3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5805,7 +6124,7 @@ GameObject:
   - component: {fileID: 1684490780}
   - component: {fileID: 1684490779}
   - component: {fileID: 1684490778}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slot4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5998,7 +6317,7 @@ GameObject:
   - component: {fileID: 1702263098}
   - component: {fileID: 1702263101}
   - component: {fileID: 1702263100}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Item9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6074,7 +6393,7 @@ GameObject:
   - component: {fileID: 1739371167}
   - component: {fileID: 1739371170}
   - component: {fileID: 1739371169}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Item8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6550,6 +6869,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pot3
       objectReference: {fileID: 0}
+    - target: {fileID: 8808214653859070342, guid: da915fba24b5e3446ba5c23ae9243acc, type: 3}
+      propertyPath: m_TagString
+      value: Pot
+      objectReference: {fileID: 0}
     - target: {fileID: 8808214653859437990, guid: da915fba24b5e3446ba5c23ae9243acc, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -6613,6 +6936,107 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8808214653859437990, guid: da915fba24b5e3446ba5c23ae9243acc, type: 3}
   m_PrefabInstance: {fileID: 2002506832}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2002506837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494821833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1230795496}
+          m_TargetAssemblyTypeName: EnableDisable, Assembly-CSharp
+          m_MethodName: OnPointerEnter
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 494821833}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 2002506839}
+          m_TargetAssemblyTypeName: Pot, Assembly-CSharp
+          m_MethodName: PointerOn
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1230795496}
+          m_TargetAssemblyTypeName: EnableDisable, Assembly-CSharp
+          m_MethodName: OnPointerExit
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 494821833}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 2002506839}
+          m_TargetAssemblyTypeName: Pot, Assembly-CSharp
+          m_MethodName: PointerOff
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &2002506838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494821833}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &2002506839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494821833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef15305b6316b4d7ea99f914097045eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plantInterface: {fileID: 993118089}
+  hotbar: {fileID: 1637266636}
 --- !u!1 &2023130004
 GameObject:
   m_ObjectHideFlags: 0
@@ -7227,7 +7651,7 @@ GameObject:
   - component: {fileID: 2106314043}
   - component: {fileID: 2106314045}
   - component: {fileID: 2106314044}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Item1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7304,7 +7728,7 @@ GameObject:
   - component: {fileID: 2120602767}
   - component: {fileID: 2120602766}
   - component: {fileID: 2120602768}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
