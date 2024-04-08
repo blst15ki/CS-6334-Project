@@ -27,7 +27,7 @@ public class Sprinkler : MonoBehaviour
         if(pointer) {
             if(Input.GetButtonDown(AInput)) { // select object to place
                 if(hotbar.SelectObject(gameObject)) {
-                    pointer = false;
+                    PointerOff();
                     TurnOff();
                 }
             } else if(Input.GetButtonDown(XInput)) { // toggle sprinkler

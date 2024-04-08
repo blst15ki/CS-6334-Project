@@ -5041,7 +5041,7 @@ MonoBehaviour:
   button1: {fileID: 1120104591}
   player: {fileID: 206300527}
   mainCamera: {fileID: 1061579007}
-  hotbar: {fileID: 0}
+  hotbar: {fileID: 2134047316}
 --- !u!1 &1383938143
 GameObject:
   m_ObjectHideFlags: 0
