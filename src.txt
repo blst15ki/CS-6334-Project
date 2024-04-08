@@ -2,7 +2,10 @@
 2) Water Texture - https://assetstore.unity.com/packages/2d/textures-materials/water/stylize-water-texture-153577
 3) Door - https://assetstore.unity.com/packages/3d/props/interior/classic-interior-door-pack-1-118744
 4) Grass, Ground Texture - https://assetstore.unity.com/packages/2d/textures-materials/nature/handpainted-grass-ground-textures-187634
-5) Self - Plane for Ground, Garden, Pool, Walls
+5) Self - Plane for Ground, Garden, Pool, Walls, 
+	- Cube for switches
+	- Placeholder Cube for fertilizer
+	- Cylinder for sprinkler
 6) Pots - https://assetstore.unity.com/packages/3d/props/exterior/pbr-floweringpot-01-167368
 7) Furnitures - https://assetstore.unity.com/packages/3d/props/furniture/furniture-free-pack-192628
 8) Doors - https://assetstore.unity.com/packages/3d/props/interior/classic-interior-door-pack-1-118744
