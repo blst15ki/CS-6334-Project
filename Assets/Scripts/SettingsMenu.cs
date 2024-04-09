@@ -18,7 +18,7 @@ public class SettingsMenu : MonoBehaviour
     Image image0, image1;
     string XInput, AInput, OKInput;
     int button;
-    bool enable;
+    bool enable = true;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +32,6 @@ public class SettingsMenu : MonoBehaviour
         AInput = "js10";
         OKInput = "js0";
         button = 0;
-        enable = true;
 
         settingsMenuObj.SetActive(false);
     }
