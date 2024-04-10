@@ -543,6 +543,7 @@ MonoBehaviour:
   player: {fileID: 5718905241200134567}
   mainCamera: {fileID: 3061531332423279660}
   hotbar: {fileID: 0}
+  pot: {fileID: 0}
 --- !u!1 &5447061135785346428
 GameObject:
   m_ObjectHideFlags: 0

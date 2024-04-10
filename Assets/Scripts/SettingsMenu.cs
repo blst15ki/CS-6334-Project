@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SpatialTracking;
 using UnityEngine.EventSystems;
-
+using System.Linq;
 public class SettingsMenu : MonoBehaviour
 {
     [SerializeField] GameObject settingsMenuObj;
@@ -19,7 +19,7 @@ public class SettingsMenu : MonoBehaviour
     string XInput, AInput, OKInput;
     int button;
     bool enable = true;
-
+    [SerializeField] GameObject pot;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +34,14 @@ public class SettingsMenu : MonoBehaviour
         button = 0;
 
         settingsMenuObj.SetActive(false);
+       
+        PotData data = Save.LoadPot();
+        var posPot = pot.transform.position;
+        // Vector3 posPot;
+        posPot.x = data.position[0];
+        posPot.y = data.position[1];
+        posPot.z = data.position[2];
+        pot.transform.position = posPot;
     }
 
     // Update is called once per frame
@@ -91,6 +99,7 @@ public class SettingsMenu : MonoBehaviour
             // enable hotbar
             hotbar.EnableHotbar();
         } else if(button == 1) { // quit
+            Save.SavePot(pot);
             Application.Quit();
         }
     }
