@@ -99,7 +99,7 @@ public class SettingsMenu : MonoBehaviour
             // enable hotbar
             hotbar.EnableHotbar();
         } else if(button == 1) { // quit
-            Save.SavePot(pot);
+            // Save.SavePot(pot);
             Application.Quit();
         }
     }
