@@ -1,24 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 public class SaveAndLoad : MonoBehaviour
 {
-    public static void SaveGame(){
+    public void SaveGame(){
         BinaryFormatter bf = new BinaryFormatter();
         string path = Application.persistentDataPath + "/gameData.dat";
         FileStream fileStream = new FileStream(path, FileMode.Create);
         
         GameData gameData = new GameData {
             inventory = SaveInventory(),
-            potsAndPlants = SavePotsAndPlants();
+            potsAndPlants = SavePotsAndPlants()
         };
 
         bf.Serialize(fileStream,gameData);
         fileStream.Close();
     }
 
-    public static void LoadGame(){
+    public void LoadGame(){
         Debug.Log("Loading Saved Data");
         Debug.Log(Application.persistentDataPath);
         string path = Application.persistentDataPath + "/gameData.dat";
@@ -28,14 +30,14 @@ public class SaveAndLoad : MonoBehaviour
             FileStream fileStream = new FileStream(path, FileMode.Open);
             GameData gameData = bf.Deserialize(fileStream) as GameData;
             LoadInventory(gameData.inventory);
-            LoadPotsAndPlants(gameData.PotsAndPlants);
+            LoadPotsAndPlants(gameData.potsAndPlants);
 
             fileStream.Close();
-            return data;
+            // return gameData;
         }
         else{
             Debug.LogError("No saved data found");
-            return null;
+            // return null;
         }
     }
 
@@ -44,40 +46,52 @@ public class SaveAndLoad : MonoBehaviour
 
         return new HotbarData {
             //TODO: getItemTags need to be implemented
-            itemTags = hotbar.getItemTags();
-        }
+            itemTags = hotbar.getItemTags()
+        };
 
     }
 
     private PotsAndPlants SavePotsAndPlants() {
-        Pot pot = FindObjectOfType<Pot>();
-
         List<PotData> listOfPots = new List<PotData>();
         List<PlantData> listOfPlants = new List<PlantData>();
-
-        foreach (Pot pot in FindObjectOfType<Pot>()) {
+        foreach (Pot pot in FindObjectsOfType<Pot>()) {
             listOfPots.Add(new PotData{
-                Vector3 position = pot.transform.position;
-                Quaternion rotation = pot.transform.rotation;
-
+                // position = new float[3],
+                // rotation = new float[3],
+                position[0]=pot.transform.position.x,
+                position[1]=pot.transform.position.y,
+                position[2]=pot.transform.position.z,
+                // position = pot.transform.position,
+                rotation[0]=pot.transform.rotation.x,
+                rotation[1]=pot.transform.rotation.y,
+                rotation[2]=pot.transform.rotation.z,
+                // rotation = pot.transform.rotation,
                 //TODO: plantID need to be set in the pot
-                string plantID = pot.plantID
-            })
+                plantID = pot.plantID
+            });
 
             //if pot has a plant id set, add to list of plants
-            if(pot.plantID != ""){
+            if(pot.plantID != ""){   
                 listOfPlants.Add(new PlantData{
-                Vector3 position = pot.transform.position;
-                Quaternion rotation = pot.transform.rotation;
+                position = new float[3],
+                rotation = new float[3],    
+                position[0]=positionPot[0],
+                position[1]=positionPot[1],
+                position[2]=positionPot[2],
+                // position = pot.transform.position,
+                rotation[0]=rotationPot[0],
+                rotation[1]=rotationPot[1],
+                rotation[2]=rotationPot[2]
+                // rotation = pot.transform.rotation,
                 //TODO: save all the other attribute
-            })
+            });
             }
         }
 
-        return {
+        return new PotsAndPlants (
             listOfPots,
             listOfPlants
-        }
+        );
         
     }
 
@@ -86,10 +100,10 @@ public class SaveAndLoad : MonoBehaviour
 
         if (character != null) {
             Hotbar hotbar = character.GetComponentInChildren<Hotbar>();
-        
+
         //TODO: Implement this setInventory function
         if (hotbar != null) {
-            hotbar.SetInventory(inventory.itemTags);
+            hotbar.setInventory(inventory.itemTags);
         } else {
             Debug.LogError("Fail to load inventory");
         }

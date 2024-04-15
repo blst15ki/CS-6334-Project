@@ -9,6 +9,8 @@ public class Pot : MonoBehaviour
     Outline outline;
     bool pointer;
     string AInput;
+    public string plantID; // have a setter and getter
+    // TODO: assign uuid to plant and link to pot
 
     // Start is called before the first frame update
     void Start()
