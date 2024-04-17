@@ -37,12 +37,22 @@ public class DoorTeleport : MonoBehaviour
 
     // teleport player
     void OnTriggerEnter(Collider collider) {
+
         if(collider.gameObject.tag == "Player") {
-            SceneManager.LoadScene(scene);
+            Debug.Log("Function Trigger");
+
+            Hotbar hotbar = collider.gameObject.GetComponentInChildren<Hotbar>();
+
+            if (hotbar != null) {
+                List<GameObject> items = hotbar.GetItems();
+                GameManager.Instance.SaveItems(items);
+            }
 
             if (PhotonNetwork.IsConnected) {
                 PhotonNetwork.Disconnect();
             }
+
+            SceneManager.LoadScene(scene);
         }
     }
 }

@@ -7,12 +7,8 @@ public class Hotbar : MonoBehaviour
 {
     [SerializeField] GameObject[] slots = new GameObject[9];
     [SerializeField] GameObject[] itemSlots = new GameObject[9];
-    [SerializeField] Camera mainCamera;
-    [SerializeField] Sprite wateringCan;
-    [SerializeField] Sprite pot;
-    [SerializeField] Sprite fertilizer;
-    [SerializeField] Sprite sprinkler;
     GameObject[] items = new GameObject[9];
+    [SerializeField] Camera mainCamera;
     UnityEngine.UI.Outline[] slotOutlines = new UnityEngine.UI.Outline[9];
     Image[] images = new Image[9];
     int slot, floorLayer;
@@ -107,6 +103,13 @@ public class Hotbar : MonoBehaviour
         if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
             // ensure raycast is hitting floor
             if(hit.collider.gameObject.layer == floorLayer) {
+                if (items[slot].GetComponent<DontDestroy>() != null) {
+                    DontDestroy dontDestroyComponent = items[slot].GetComponent<DontDestroy>();
+                    Destroy(dontDestroyComponent);
+                    GameObject duplicateObject = Instantiate(items[slot]);
+                    Destroy(items[slot]);
+                    items[slot] = duplicateObject;
+                }
                 images[slot].sprite = null;
                 images[slot].color = Color.grey;
                 items[slot].transform.position = new Vector3(hit.point.x, items[slot].transform.position.y, hit.point.z);
@@ -117,9 +120,18 @@ public class Hotbar : MonoBehaviour
     }
 
     public bool SelectObject(GameObject obj) {
-        if(items[slot] == null) {
-            SetIcon(obj.tag);
-            items[slot] = obj;
+        return SelectObject(obj, slot);
+    }
+
+    public bool SelectObject(GameObject obj, int i) {
+        if (items[i] == null) {
+
+            if (obj.GetComponent<DontDestroy>() == null) {
+                obj.AddComponent<DontDestroy>();
+            }
+            
+            SetIcon(obj.tag, i);
+            items[i] = obj;
             obj.SetActive(false);
             wait = true;
             return true;
@@ -164,16 +176,36 @@ public class Hotbar : MonoBehaviour
         }
     }
 
-    void SetIcon(string tag) {
-        if(tag == "Watering Can") {
-            images[slot].sprite = wateringCan;
-        } else if(tag == "Pot") {
-            images[slot].sprite = pot;
-        } else if(tag == "Fertilizer") {
-            images[slot].sprite = fertilizer;
-        } else if(tag == "Sprinkler") {
-            images[slot].sprite = sprinkler;
+    public void SetIcon(string tag, int i) {
+        Debug.Log(tag);
+        images[i].sprite = GameManager.Instance.GetSprite(tag);
+        images[i].color = Color.white;
+    }
+
+    public List<GameObject> GetItems()
+    {
+        List<GameObject> objectList = new List<GameObject>();
+
+        foreach (GameObject item in items)
+        {
+            if (item != null) {
+                objectList.Add(item);
+            }
+            else {
+                objectList.Add(null);
+            }
         }
-        images[slot].color = Color.white;
+        return objectList;
+    }
+
+    public void LoadItems(List<GameObject> listOfItems)
+    {
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (listOfItems[i] != null)
+            {
+                SelectObject(listOfItems[i], i);
+            }
+        }
     }
 }

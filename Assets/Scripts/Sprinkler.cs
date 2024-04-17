@@ -24,6 +24,10 @@ public class Sprinkler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (hotbar == null) {
+            hotbar = FindObjectOfType<Hotbar>();
+        }
+        
         if(pointer) {
             if(Input.GetButtonDown(AInput)) { // select object to place
                 if(hotbar.SelectObject(gameObject)) {
