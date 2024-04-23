@@ -11,10 +11,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject mainMenuObj;
     [SerializeField] GameObject customizeMenuObj;
     private Image image0, image1;
-    public bool main;
-    public CustomizeMenu customizeMenuScript;
-    private float timer;
-    private float waitTime = 0.2f;
+    [SerializeField] GameObject customizeMenu;
+    [SerializeField] GameObject mainMenu;
     void Start()
     {
         image0 = button0.GetComponent<Image>();
@@ -22,50 +20,31 @@ public class MainMenu : MonoBehaviour
         XInput = "js2";
         AInput = "js10";
         button = 0;
-        // image0.color = Color.yellow;
-        main = true;
+        image0.color = Color.yellow;
+        // on start dthe customize menu should be disabled
+        customizeMenu.GetComponent<CustomizeMenu>().enabled=false;
     }
     void Update()
     {
-        if (customizeMenuScript.wait)
+        if (Input.GetButtonDown(XInput))
         {
-            //wait
-            timer += Time.deltaTime;
-            if (timer > waitTime)
-            {
-                if (Input.GetButtonDown(XInput))
-                {
-                    CycleButton();
-                }
-                else if (Input.GetButtonDown(AInput))
-                {
-                    SelectButton();
-                }
-            }
+            CycleButton();
         }
-        else
+        else if (Input.GetButtonDown(AInput))
         {
-            if (Input.GetButtonDown(XInput))
-            {
-                CycleButton();
-            }
-            else if (Input.GetButtonDown(AInput))
-            {
-                SelectButton();
-            }
+            SelectButton();
         }
-
     }
     public void CycleButton()
     {
         button = (button + 1) % 2;
 
-        if (button == 0 && main)
+        if (button == 0)
         { // start
             image0.color = Color.yellow;
             image1.color = Color.white;
         }
-        else if (button == 1 && main)
+        else if (button == 1)
         { // quit
             image0.color = Color.white;
             image1.color = Color.yellow;
@@ -73,14 +52,15 @@ public class MainMenu : MonoBehaviour
     }
     public void SelectButton()
     {
-        if (button == 0 && main)
+        if (button == 0)
         { // start
             mainMenuObj.SetActive(false);
+            mainMenu.GetComponent<MainMenu>().enabled=false;
             customizeMenuObj.SetActive(true);
-            main = false;
+            customizeMenu.GetComponent<CustomizeMenu>().enabled=true;
         }
         // TODO add logic so that going back from customize menu doesnt trigger this
-        else if (button == 1 && main)
+        else if (button == 1)
         { // quit
             Debug.Log("Quit");
             Application.Quit();
