@@ -13,7 +13,7 @@ public class Detector : MonoBehaviour
 	private LightController lastLightController = null;
 	private Pot lastPot = null;
 	private Sprinkler lastSprinkler = null;
-
+	private PlantInterface lastPlantInterface = null;
 
     void Update()
     {
@@ -46,6 +46,11 @@ public class Detector : MonoBehaviour
 		if (lastSprinkler != null) {
 			lastSprinkler.PointerOff();
 			lastSprinkler = null;
+		}
+
+		if (lastPlantInterface != null) {
+			lastPlantInterface.DisableInterface();
+			lastPlantInterface = null;
 		}
 
         RaycastHit hit;
@@ -89,6 +94,15 @@ public class Detector : MonoBehaviour
 				if (sprinkler != null) {
 					sprinkler.PointerOn();
 					lastSprinkler = sprinkler;
+				}
+				
+				PlantInterface plantInterface = FindObjectOfType<PlantInterface>();
+				BasicPlant basicPlant = hitObject.GetComponent<BasicPlant>();
+
+				if (basicPlant != null) {
+					Debug.Log("Detector: " + basicPlant.id);
+					plantInterface.EnableInterface(hitObject);
+					lastPlantInterface = plantInterface;
 				}
 
             }

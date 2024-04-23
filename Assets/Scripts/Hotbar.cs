@@ -177,13 +177,12 @@ public class Hotbar : MonoBehaviour
     }
 
     public void SetIcon(string tag, int i) {
-        Debug.Log(tag);
+
         images[i].sprite = GameManager.Instance.GetSprite(tag);
         images[i].color = Color.white;
     }
 
-    public List<GameObject> GetItems()
-    {
+    public List<GameObject> GetItems() {
         List<GameObject> objectList = new List<GameObject>();
 
         foreach (GameObject item in items)
@@ -198,12 +197,13 @@ public class Hotbar : MonoBehaviour
         return objectList;
     }
 
-    public void LoadItems(List<GameObject> listOfItems)
-    {
-        for (int i = 0; i < items.Length; i++)
-        {
-            if (listOfItems[i] != null)
-            {
+    public void LoadItems(List<GameObject> listOfItems) {
+        if (listOfItems == null) { 
+            return; 
+        };
+
+        for (int i = 0; i < items.Length; i++) {
+            if (listOfItems[i] != null) {
                 SelectObject(listOfItems[i], i);
             }
         }
