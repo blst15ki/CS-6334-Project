@@ -5,16 +5,17 @@ using UnityEngine.UI;
 
 public class Hotbar : MonoBehaviour
 {
-    [SerializeField] GameObject[] slots = new GameObject[9];
-    [SerializeField] GameObject[] itemSlots = new GameObject[9];
+    [SerializeField] GameObject[] slots = new GameObject[9]; // references outer image of slots (for slot outlines)
+    [SerializeField] GameObject[] itemSlots = new GameObject[9]; // references inner image of slots
     [SerializeField] Camera mainCamera;
-    [SerializeField] Sprite wateringCan;
-    [SerializeField] Sprite pot;
-    [SerializeField] Sprite fertilizer;
-    [SerializeField] Sprite sprinkler;
-    GameObject[] items = new GameObject[9];
-    UnityEngine.UI.Outline[] slotOutlines = new UnityEngine.UI.Outline[9];
-    Image[] images = new Image[9];
+    [SerializeField] Sprite wateringCanIcon;
+    [SerializeField] Sprite potIcon;
+    [SerializeField] Sprite fertilizerIcon;
+    [SerializeField] Sprite sprinklerIcon;
+    [SerializeField] GameObject plantPrefab;
+    GameObject[] items = new GameObject[9]; // contains item references per slot
+    UnityEngine.UI.Outline[] slotOutlines = new UnityEngine.UI.Outline[9]; // handles outer slot outline
+    Image[] images = new Image[9]; // contains sprites for slots
     int slot, floorLayer;
     string XInput, YInput, AInput, BInput;
     bool enable = true;
@@ -69,7 +70,12 @@ public class Hotbar : MonoBehaviour
                     items[slot].SetActive(false);
 
                     // stop watering
-                    hit.collider.gameObject.GetComponent<Plant>().StopWater();
+                    if(hit.collider.gameObject.tag == "Pot") {
+                        hit.collider.gameObject.GetComponent<Pot>().StopWaterPlant();
+                    } else if(hit.collider.gameObject.tag == "Plant") {
+                        hit.collider.gameObject.GetComponent<Plant>().StopWater();
+                    }
+
                     hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.white;
                     inUse = false;
                 }
@@ -98,7 +104,6 @@ public class Hotbar : MonoBehaviour
         slotOutlines[slot].enabled = true;
     }
 
-    // TODO: change to use image icon instead of white/grey for select/place
     public void PlaceObject() {
         if(items[slot] == null) {
             return;
@@ -111,6 +116,15 @@ public class Hotbar : MonoBehaviour
                 images[slot].color = Color.grey;
                 items[slot].transform.position = new Vector3(hit.point.x, items[slot].transform.position.y, hit.point.z);
                 items[slot].SetActive(true);
+
+                // if placing pot and pot has plant, move plant
+                if(items[slot].tag == "Pot" && items[slot].GetComponent<Pot>().HasPlant()) {
+                    GameObject plantObj = items[slot].GetComponent<Pot>().GetPlant();
+                    Vector3 potPos = items[slot].transform.position;
+                    plantObj.transform.position = new Vector3(potPos.x, plantObj.transform.position.y, potPos.z - 0.15f);
+                    plantObj.SetActive(true);
+                }
+
                 items[slot] = null;
             }
         }
@@ -122,6 +136,12 @@ public class Hotbar : MonoBehaviour
             items[slot] = obj;
             obj.SetActive(false);
             wait = true;
+
+            // if pot with plant, disable plant too
+            if(obj.tag == "Pot" && obj.GetComponent<Pot>().HasPlant()) {
+                obj.GetComponent<Pot>().GetPlant().SetActive(false);
+            }
+
             return true;
         }
         return false;
@@ -134,8 +154,21 @@ public class Hotbar : MonoBehaviour
 
         if(items[slot].tag == "Watering Can") {
             if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
-                // check if raycasthit is plant
-                if(hit.collider.gameObject.tag == "Plant") {
+                if(hit.collider.gameObject.tag == "Pot") { // check if raycasthit is pot
+                    // check if pot contains plant
+                    if(hit.collider.gameObject.GetComponent<Pot>().GetPlant() != null) {
+                        // enable watering can but hide mesh/collider to play audio
+                        items[slot].SetActive(true);
+                        items[slot].GetComponentInChildren<Renderer>().enabled = false;
+                        items[slot].GetComponentInChildren<Collider>().enabled = false;
+                        items[slot].GetComponent<AudioSource>().Play();
+
+                        // water plant
+                        hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.blue;
+                        hit.collider.gameObject.GetComponent<Pot>().WaterPlant();
+                        inUse = true;
+                    }
+                } else if(hit.collider.gameObject.tag == "Plant") { // check if raycasthit is plant
                     // enable watering can but hide mesh/collider to play audio
                     items[slot].SetActive(true);
                     items[slot].GetComponentInChildren<Renderer>().enabled = false;
@@ -154,11 +187,24 @@ public class Hotbar : MonoBehaviour
                 if(hit.collider.gameObject.tag == "Pot") {
                     // remove fertilizer from scene if successful
                     if(hit.collider.gameObject.GetComponent<Pot>().AddFertilizer()) {
-                        Destroy(items[slot]);
-                        items[slot] = null;
-                        images[slot].sprite = null;
-                        images[slot].color = Color.grey;
+                        ClearSlot();
                     }
+                }
+            }
+        } else if(items[slot].tag == "Seed") {
+            if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
+                // check if raycasthit is pot (plant seed in pot)
+                GameObject obj = hit.collider.gameObject;
+                if(obj.tag == "Pot" && !obj.GetComponent<Pot>().HasPlant()) {
+                    // instantiate plant prefab on top of pot +(0, 0.75, -0.15)
+                    GameObject plant = Instantiate(plantPrefab, obj.transform.position + new Vector3(0f, 0.75f, -0.15f), Quaternion.identity);
+                    
+                    // link pot and plant
+                    obj.GetComponent<Pot>().SetPlant(plant);
+                    plant.GetComponent<Plant>().SetPot(obj);
+
+                    // delete seed from hotbar
+                    ClearSlot();
                 }
             }
         }
@@ -166,14 +212,21 @@ public class Hotbar : MonoBehaviour
 
     void SetIcon(string tag) {
         if(tag == "Watering Can") {
-            images[slot].sprite = wateringCan;
+            images[slot].sprite = wateringCanIcon;
         } else if(tag == "Pot") {
-            images[slot].sprite = pot;
+            images[slot].sprite = potIcon;
         } else if(tag == "Fertilizer") {
-            images[slot].sprite = fertilizer;
+            images[slot].sprite = fertilizerIcon;
         } else if(tag == "Sprinkler") {
-            images[slot].sprite = sprinkler;
+            images[slot].sprite = sprinklerIcon;
         }
         images[slot].color = Color.white;
+    }
+
+    void ClearSlot() {
+        Destroy(items[slot]);
+        items[slot] = null;
+        images[slot].sprite = null;
+        images[slot].color = Color.grey;
     }
 }

@@ -9,6 +9,8 @@ TagManager:
   - Watering Can
   - Plant
   - Sprinkler
+  - Seed
+  - Plant Interface
   layers:
   - Default
   - TransparentFX

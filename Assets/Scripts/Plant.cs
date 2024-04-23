@@ -5,11 +5,12 @@ using System;
 
 public class Plant : MonoBehaviour
 {
+    [SerializeField] GameObject potObj;
     int water, deadWater, maxWater;
     string stage;
-    DateTime cur, timeHalf, timeMature, death;
+    DateTime cur, timeHalf, timeMature;
     bool isHalf, isMature, isDead;
-    // death time not utilized, would depend on saving data implementation
+    Vector3 pos; // original position
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class Plant : MonoBehaviour
         isHalf = false;
         isMature = false;
         isDead = false;
+        pos = transform.position;
 
         // trigger lose water every 5 seconds
         InvokeRepeating("LoseWater", 0f, 5f);
@@ -34,27 +36,28 @@ public class Plant : MonoBehaviour
     {
         cur = DateTime.Now;
         
+        // obj.transform.position + new Vector3(0f, 0.75f, -0.15f)
         // check if dead (mature plants cannot die)
         if(!isMature && !isDead && water <= deadWater) {
             isDead = true;
             stage = "Dead";
             GetComponent<Renderer>().material.color = new Color(95f / 255, 25f / 255, 28f / 255);
-            transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-            transform.localPosition = new Vector3(0f, 0.5f, -0.1f);
+            transform.localScale = new Vector3(0.15f, 0.1f, 0.15f);
+            transform.position = potObj.transform.position + new Vector3(0f, 0.75f, -0.15f);
         } else if(!isDead) { // (dead plants cannot grow)
             // reach half grown
             if(!isHalf && DateTime.Compare(cur, timeHalf) >= 0) {
                 isHalf = true;
                 stage = "Adult";
-                transform.localScale = new Vector3(0.1f, 0.2f, 0.1f);
-                transform.localPosition = new Vector3(0f, 0.6f, -0.1f);
+                transform.localScale = new Vector3(0.15f, 0.2f, 0.15f);
+                transform.position = potObj.transform.position + new Vector3(0f, 0.85f, -0.15f);
             }
             // reach full grown
             if(!isMature && DateTime.Compare(cur, timeMature) >= 0) {
                 isMature = true;
                 stage = "Mature";
-                transform.localScale = new Vector3(0.1f, 0.3f, 0.1f);
-                transform.localPosition = new Vector3(0f, 0.7f, -0.1f);
+                transform.localScale = new Vector3(0.15f, 0.3f, 0.15f);
+                transform.position = potObj.transform.position + new Vector3(0f, 0.95f, -0.15f);
             }
         }
     }
@@ -89,4 +92,7 @@ public class Plant : MonoBehaviour
             timeMature = cur.AddMinutes((timeMature - cur).TotalMinutes * 0.9);
         }
     }
+
+    public GameObject GetPot() { return potObj; }
+    public void SetPot(GameObject obj) { potObj = obj; }
 }
