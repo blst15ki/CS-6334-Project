@@ -8545,6 +8545,10 @@ PrefabInstance:
       propertyPath: pot
       value: 
       objectReference: {fileID: 8808214652968457724}
+    - target: {fileID: 9024772199388983728, guid: 2ee099d8adbca4677aa35eb9cc121046, type: 3}
+      propertyPath: potObj
+      value: 
+      objectReference: {fileID: 8808214652968457724}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ee099d8adbca4677aa35eb9cc121046, type: 3}
 --- !u!1 &9024772200912674029 stripped
