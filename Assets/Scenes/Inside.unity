@@ -1381,6 +1381,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.6
       objectReference: {fileID: 0}
+    - target: {fileID: 7287137019966064016, guid: 186741bf17cbb0e4fa3ef06daa1f190f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7287137019966064017, guid: 186741bf17cbb0e4fa3ef06daa1f190f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1429,6 +1433,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: XRCardboardRig
       objectReference: {fileID: 0}
+    - target: {fileID: 7287137019966064018, guid: 186741bf17cbb0e4fa3ef06daa1f190f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 186741bf17cbb0e4fa3ef06daa1f190f, type: 3}
 --- !u!1 &451881656 stripped
@@ -1460,6 +1468,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reticle: {fileID: 984319634}
   maxDistance: 20
+--- !u!1 &547397030 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7287137019966064018, guid: 186741bf17cbb0e4fa3ef06daa1f190f, type: 3}
+  m_PrefabInstance: {fileID: 451881655}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &572368242
 GameObject:
   m_ObjectHideFlags: 0
@@ -1911,6 +1924,9 @@ MonoBehaviour:
   hotbar: {fileID: 1637266636}
   tutorial: {fileID: 274532106}
   tutorialObj: {fileID: 219605460}
+  character: {fileID: 1644855603}
+  camera: {fileID: 451881656}
+  cardboard: {fileID: 547397030}
 --- !u!1 &926902281
 GameObject:
   m_ObjectHideFlags: 0
@@ -3490,6 +3506,7 @@ MonoBehaviour:
   basicPlantPrefab: {fileID: 8551574924407693232, guid: 05dad238fba5e494bb3e2d9e537f027f, type: 3}
   savedHotBarItems: []
   enableTutorial: 1
+  indoorSpawnPoint: end
 --- !u!1 &1452901727
 GameObject:
   m_ObjectHideFlags: 0
@@ -4658,6 +4675,7 @@ MonoBehaviour:
   - {fileID: 1739371166}
   - {fileID: 1702263097}
   mainCamera: {fileID: 451881658}
+  enable: 1
 --- !u!1 &1644855603
 GameObject:
   m_ObjectHideFlags: 0

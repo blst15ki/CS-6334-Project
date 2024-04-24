@@ -9,12 +9,42 @@ public class IndoorGameManager : MonoBehaviour
     [SerializeField] GameObject tutorial;
     [SerializeField] GameObject tutorialObj;
     [SerializeField] GameObject character;
-
+    [SerializeField] GameObject camera;
+    [SerializeField] GameObject cardboard;
+    
     void Start()
     {
+        
+
         if (GameManager.Instance == null) {
             return;
         }
+
+        Debug.Log("Before Teleport");
+        Debug.Log(GameManager.Instance.indoorSpawnPoint);
+        cardboard.GetComponent<XRCardboardController>().enabled = false;
+        character.GetComponent<CharacterMovement>().enabled = false;
+
+        if (GameManager.Instance.indoorSpawnPoint == "middle") {
+            
+            character.transform.position = new Vector3(3.31f, 1.11f, 0f);
+            character.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+            cardboard.GetComponent<XRCardboardController>().initialRotation = Quaternion.Euler(0f, -90f, 0f);
+            // camera.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        } else if (GameManager.Instance.indoorSpawnPoint == "front") {
+            character.transform.position = new Vector3(9.26f, 1.11f, 0f);
+            character.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+            cardboard.GetComponent<XRCardboardController>().initialRotation = Quaternion.Euler(0f, -90f, 0f);
+            // camera.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        } else if (GameManager.Instance.indoorSpawnPoint == "end") {
+            character.transform.position = new Vector3(-9.26f, 1.11f, 0f);
+            character.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+            cardboard.GetComponent<XRCardboardController>().initialRotation = Quaternion.Euler(0f, 90f, 0f);
+            // camera.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+        }
+
+        cardboard.GetComponent<XRCardboardController>().enabled = true;
+        character.GetComponent<CharacterMovement>().enabled = true;
 
         LoadItemsIntoHotbar();
 
@@ -27,6 +57,7 @@ public class IndoorGameManager : MonoBehaviour
             tutorial.SetActive(false);
             tutorialObj.SetActive(false);
             character.GetComponent<CharacterMovement>().enabled = true;
+            hotbar.GetComponent<Hotbar>().enable = true;
         }
     }
 

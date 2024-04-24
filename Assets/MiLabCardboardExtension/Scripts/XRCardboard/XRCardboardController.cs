@@ -24,7 +24,7 @@ public class XRCardboardController : MonoBehaviour
 
     TrackedPoseDriver poseDriver;
     Camera cam;
-    Quaternion initialRotation;
+    public Quaternion initialRotation;
     Quaternion attitude;
     Vector2 dragDegrees;
     float defaultFov;
@@ -72,6 +72,7 @@ public class XRCardboardController : MonoBehaviour
         CheckDrag();
 #endif
 
+        
         attitude = initialRotation * Quaternion.Euler(dragDegrees.x, 0, 0);
         cameraTransform.rotation = Quaternion.Euler(0, -dragDegrees.y, 0) * attitude;
     }

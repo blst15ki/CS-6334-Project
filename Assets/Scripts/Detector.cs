@@ -100,7 +100,6 @@ public class Detector : MonoBehaviour
 				BasicPlant basicPlant = hitObject.GetComponent<BasicPlant>();
 
 				if (basicPlant != null) {
-					Debug.Log("Detector: " + basicPlant.id);
 					plantInterface.EnableInterface(hitObject);
 					lastPlantInterface = plantInterface;
 				}

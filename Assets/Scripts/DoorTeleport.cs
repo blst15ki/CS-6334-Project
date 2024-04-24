@@ -58,8 +58,9 @@ public class DoorTeleport : MonoBehaviour
             } else if (currentScene == "Outdoor") {
                 OutsideGameManager outsideGameManager = FindObjectOfType<OutsideGameManager>();
                 GameManager.Instance.SaveOutsideGameData(outsideGameManager.retrieveObjects());
+                GameManager.Instance.indoorSpawnPoint = "end";
             } else if (currentScene == "Lobby") {
-
+                GameManager.Instance.indoorSpawnPoint = "front";
             }
 
             SceneManager.LoadScene(scene);

@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public GameData outsideGameData = null;
     public GameData indoorGameData = null;
     public bool enableTutorial = true;
+    public string indoorSpawnPoint = "end";
     
     
     void Awake() {
@@ -59,7 +60,7 @@ public class GameManager : MonoBehaviour
                 rotation = Quaternion.identity,
                 plantID = "93ab33b5-05dc-4559-952a-401ff7553ef6",
                 type = "Basic Plant",
-                water = 20,
+                water = 0,
                 stage = "Seedling",
                 timeHalf = DateTime.Now.AddMinutes(1),
                 timeMature = DateTime.Now.AddMinutes(2),
@@ -72,7 +73,7 @@ public class GameManager : MonoBehaviour
                 rotation = Quaternion.identity,
                 plantID = "6209b900-e00c-4cdb-abee-77e43203fb7d",
                 type = "Basic Plant",
-                water = 20,
+                water = 0,
                 stage = "Seedling",
                 timeHalf = DateTime.Now.AddMinutes(1),
                 timeMature = DateTime.Now.AddMinutes(2),
@@ -119,7 +120,7 @@ public class GameManager : MonoBehaviour
                 rotation = Quaternion.identity,
                 plantID = "ca5c832e-e979-49d4-b333-59528e746ccb",
                 type = "Basic Plant",
-                water = 20,
+                water = 0,
                 stage = "Seedling",
                 timeHalf = DateTime.Now.AddMinutes(1),
                 timeMature = DateTime.Now.AddMinutes(2),

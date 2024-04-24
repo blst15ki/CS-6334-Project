@@ -13,7 +13,7 @@ public class Hotbar : MonoBehaviour
     Image[] images = new Image[9];
     int slot, floorLayer;
     string XInput, YInput, AInput, BInput;
-    bool enable = true;
+    public bool enable = true;
     bool wait, inUse;
     RaycastHit hit;
 
@@ -40,6 +40,7 @@ public class Hotbar : MonoBehaviour
     {
         if(enable) {
             // prevent using other buttons if item is being used
+            
             if(inUse == false) {
                 if(Input.GetButtonDown(XInput)) {
                     MoveSlot("left");
