@@ -161,6 +161,8 @@ public class IndoorGameManager : MonoBehaviour
         foreach (PlantData plantData in gameData.potsAndPlants.listOfPlants) {
             GameObject plantPrefab = GameManager.Instance.GetPrefab(plantData.type);
             GameObject plant = Instantiate(plantPrefab, plantData.position, plantData.rotation, potsMap[plantData.plantID].transform);
+            plant.transform.localScale = plantData.scale;
+            plant.GetComponent<Renderer>().material.color = plantData.color;
 
             Plant plantScript = null;
             if (plantData.type == "Basic Plant") {

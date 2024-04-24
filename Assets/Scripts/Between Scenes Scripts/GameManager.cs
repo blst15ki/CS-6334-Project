@@ -66,7 +66,9 @@ public class GameManager : MonoBehaviour
                 timeMature = DateTime.Now.AddMinutes(2),
                 isHalf = false,
                 isMature = false,
-                isDead = false
+                isDead = false,
+                scale = new Vector3(0.10f, 0.10f, 0.10f),
+                color = new Color(0.170f, 0.736f, 0.189f)
             },
             new PlantData {
                 position = new Vector3(0.00f, 0.75f, -4.36f),
@@ -79,7 +81,9 @@ public class GameManager : MonoBehaviour
                 timeMature = DateTime.Now.AddMinutes(2),
                 isHalf = false,
                 isMature = false,
-                isDead = false
+                isDead = false,
+                scale = new Vector3(0.10f, 0.10f, 0.10f),
+                color = new Color(0.170f, 0.736f, 0.189f)
             }
         };
 
@@ -126,7 +130,9 @@ public class GameManager : MonoBehaviour
                 timeMature = DateTime.Now.AddMinutes(2),
                 isHalf = false,
                 isMature = false,
-                isDead = false
+                isDead = false,
+                scale = new Vector3(0.10f, 0.10f, 0.10f),
+                color = new Color(0.170f, 0.736f, 0.189f)
             }
         };
 
