@@ -104,13 +104,6 @@ public class Hotbar : MonoBehaviour
         if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
             // ensure raycast is hitting floor
             if(hit.collider.gameObject.layer == floorLayer) {
-                if (items[slot].GetComponent<DontDestroy>() != null) {
-                    DontDestroy dontDestroyComponent = items[slot].GetComponent<DontDestroy>();
-                    Destroy(dontDestroyComponent);
-                    GameObject duplicateObject = Instantiate(items[slot]);
-                    Destroy(items[slot]);
-                    items[slot] = duplicateObject;
-                }
                 images[slot].sprite = null;
                 images[slot].color = Color.grey;
                 items[slot].transform.position = new Vector3(hit.point.x, items[slot].transform.position.y, hit.point.z);

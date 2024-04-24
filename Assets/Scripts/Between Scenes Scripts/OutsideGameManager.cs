@@ -45,6 +45,7 @@ public class OutsideGameManager : MonoBehaviour
                     PlantData plantData = new PlantData(plant);
                     plantList.Add(plantData);
                 }
+                GameObject.Destroy(pot);
             }
         }
 
@@ -56,6 +57,7 @@ public class OutsideGameManager : MonoBehaviour
             if (sprinkler.activeInHierarchy) {
                 SprinklerData sprinklerData = new SprinklerData(sprinkler);
                 sprinklerList.Add(sprinklerData);
+                GameObject.Destroy(sprinkler);
             }
         }
 
@@ -65,6 +67,7 @@ public class OutsideGameManager : MonoBehaviour
             if (fertilizer.activeInHierarchy) {
                 FertilizerData fertilizerData = new FertilizerData(fertilizer);
                 fertilizerList.Add(fertilizerData);
+                GameObject.Destroy(fertilizer);
             }
         }
 
@@ -74,6 +77,7 @@ public class OutsideGameManager : MonoBehaviour
             if (wateringCan.activeInHierarchy) {
                 WateringCanData wateringCanData = new WateringCanData(wateringCan);
                 wateringCanList.Add(wateringCanData);
+                GameObject.Destroy(wateringCan);
             }
         }
 

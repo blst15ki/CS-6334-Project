@@ -89,6 +89,7 @@ public class IndoorGameManager : MonoBehaviour
                     PlantData plantData = new PlantData(plant);
                     plantList.Add(plantData);
                 }
+                GameObject.Destroy(pot);
             }
         }
 
@@ -100,6 +101,7 @@ public class IndoorGameManager : MonoBehaviour
             if (sprinkler.activeInHierarchy) {
                 SprinklerData sprinklerData = new SprinklerData(sprinkler);
                 sprinklerList.Add(sprinklerData);
+                GameObject.Destroy(sprinkler);
             }
         }
 
@@ -109,6 +111,7 @@ public class IndoorGameManager : MonoBehaviour
             if (fertilizer.activeInHierarchy) {
                 FertilizerData fertilizerData = new FertilizerData(fertilizer);
                 fertilizerList.Add(fertilizerData);
+                GameObject.Destroy(fertilizer);
             }
         }
 
@@ -118,6 +121,7 @@ public class IndoorGameManager : MonoBehaviour
             if (wateringCan.activeInHierarchy) {
                 WateringCanData wateringCanData = new WateringCanData(wateringCan);
                 wateringCanList.Add(wateringCanData);
+                GameObject.Destroy(wateringCan);
             }
         }
 
