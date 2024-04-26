@@ -3,28 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Plant : MonoBehaviour
+public abstract class Plant : MonoBehaviour
 {
-    int water, deadWater, maxWater;
-    string stage;
-    DateTime cur, timeHalf, timeMature, death;
-    bool isHalf, isMature, isDead;
+    public int water, deadWater, maxWater;
+    public string type;
+    public string id;
+    public string stage;
+    public DateTime cur, timeHalf, timeMature, timeDeath;
+    public bool isHalf, isMature, isDead;
     // death time not utilized, would depend on saving data implementation
+    public Guid uuid = Guid.NewGuid();
+    public bool isDataLoaded = false;
 
     // Start is called before the first frame update
+
+    void Awake()
+    {
+        if (!isDataLoaded) {
+            water = 0;
+            deadWater = -10; // limit on how low water can reach before plant dies
+            maxWater = 100;
+            type = "";
+            id = uuid.ToString();
+            stage = "Seedling";
+            cur = DateTime.Now;
+            timeHalf = cur.AddMinutes(1f);
+            timeMature = cur.AddMinutes(2f);
+            timeDeath = cur.AddMinutes(5f);
+            isHalf = false;
+            isMature = false;
+            isDead = false;
+            InitializePlant();
+        }
+    }
+
+    public abstract void InitializePlant();
+
     void Start()
     {
-        water = 0;
-        deadWater = -10; // limit on how low water can reach before plant dies
-        maxWater = 100;
-        stage = "Seedling";
-        cur = DateTime.Now;
-        timeHalf = cur.AddMinutes(1f);
-        timeMature = cur.AddMinutes(2f);
-        isHalf = false;
-        isMature = false;
-        isDead = false;
-
         // trigger lose water every 5 seconds
         InvokeRepeating("LoseWater", 0f, 5f);
     }

@@ -7,17 +7,13 @@ public class Hotbar : MonoBehaviour
 {
     [SerializeField] GameObject[] slots = new GameObject[9];
     [SerializeField] GameObject[] itemSlots = new GameObject[9];
-    [SerializeField] Camera mainCamera;
-    [SerializeField] Sprite wateringCan;
-    [SerializeField] Sprite pot;
-    [SerializeField] Sprite fertilizer;
-    [SerializeField] Sprite sprinkler;
     GameObject[] items = new GameObject[9];
+    [SerializeField] Camera mainCamera;
     UnityEngine.UI.Outline[] slotOutlines = new UnityEngine.UI.Outline[9];
     Image[] images = new Image[9];
     int slot, floorLayer;
     string XInput, YInput, AInput, BInput;
-    bool enable = true;
+    public bool enable = true;
     bool wait, inUse;
     RaycastHit hit;
 
@@ -44,6 +40,7 @@ public class Hotbar : MonoBehaviour
     {
         if(enable) {
             // prevent using other buttons if item is being used
+            
             if(inUse == false) {
                 if(Input.GetButtonDown(XInput)) {
                     MoveSlot("left");
@@ -117,9 +114,18 @@ public class Hotbar : MonoBehaviour
     }
 
     public bool SelectObject(GameObject obj) {
-        if(items[slot] == null) {
-            SetIcon(obj.tag);
-            items[slot] = obj;
+        return SelectObject(obj, slot);
+    }
+
+    public bool SelectObject(GameObject obj, int i) {
+        if (items[i] == null) {
+
+            if (obj.GetComponent<DontDestroy>() == null) {
+                obj.AddComponent<DontDestroy>();
+            }
+            
+            SetIcon(obj.tag, i);
+            items[i] = obj;
             obj.SetActive(false);
             wait = true;
             return true;
@@ -164,16 +170,36 @@ public class Hotbar : MonoBehaviour
         }
     }
 
-    void SetIcon(string tag) {
-        if(tag == "Watering Can") {
-            images[slot].sprite = wateringCan;
-        } else if(tag == "Pot") {
-            images[slot].sprite = pot;
-        } else if(tag == "Fertilizer") {
-            images[slot].sprite = fertilizer;
-        } else if(tag == "Sprinkler") {
-            images[slot].sprite = sprinkler;
+    public void SetIcon(string tag, int i) {
+
+        images[i].sprite = GameManager.Instance.GetSprite(tag);
+        images[i].color = Color.white;
+    }
+
+    public List<GameObject> GetItems() {
+        List<GameObject> objectList = new List<GameObject>();
+
+        foreach (GameObject item in items)
+        {
+            if (item != null) {
+                objectList.Add(item);
+            }
+            else {
+                objectList.Add(null);
+            }
         }
-        images[slot].color = Color.white;
+        return objectList;
+    }
+
+    public void LoadItems(List<GameObject> listOfItems) {
+        if (listOfItems == null) { 
+            return; 
+        };
+
+        for (int i = 0; i < items.Length; i++) {
+            if (listOfItems[i] != null) {
+                SelectObject(listOfItems[i], i);
+            }
+        }
     }
 }

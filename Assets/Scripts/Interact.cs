@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Interact : MonoBehaviour
 {
-    [SerializeField] Hotbar hotbar;
+    public Hotbar hotbar;
     Outline outline;
     bool pointer;
     string AInput;
@@ -22,9 +22,13 @@ public class Interact : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(pointer) {
-            if(Input.GetButtonDown(AInput)) { // select object to place
-                if(hotbar.SelectObject(gameObject) == true) {
+        if (hotbar == null) {
+            hotbar = FindObjectOfType<Hotbar>();
+        }
+        
+        if (pointer) {
+            if (Input.GetButtonDown(AInput)) { // select object to place
+                if (hotbar.SelectObject(gameObject) == true) {
                     pointer = false;
                     outline.enabled = false;
                 }

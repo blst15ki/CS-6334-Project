@@ -6,6 +6,7 @@ using Photon.Pun;
 
 public class DoorTeleport : MonoBehaviour
 {
+    [SerializeField] string currentScene;
     [SerializeField] string scene;
     [SerializeField] GameObject sign;
 
@@ -37,12 +38,32 @@ public class DoorTeleport : MonoBehaviour
 
     // teleport player
     void OnTriggerEnter(Collider collider) {
+
         if(collider.gameObject.tag == "Player") {
-            SceneManager.LoadScene(scene);
+
+            Hotbar hotbar = collider.gameObject.GetComponentInChildren<Hotbar>();
+
+            if (hotbar != null) {
+                List<GameObject> items = hotbar.GetItems();
+                GameManager.Instance.SaveItems(items);
+            }
 
             if (PhotonNetwork.IsConnected) {
                 PhotonNetwork.Disconnect();
             }
+
+            if(currentScene == "Inside"){
+                IndoorGameManager indoorGameManager = FindObjectOfType<IndoorGameManager>();
+                GameManager.Instance.SaveIndoorGameData(indoorGameManager.retrieveObjects());
+            } else if (currentScene == "Outdoor") {
+                OutsideGameManager outsideGameManager = FindObjectOfType<OutsideGameManager>();
+                GameManager.Instance.SaveOutsideGameData(outsideGameManager.retrieveObjects());
+                GameManager.Instance.indoorSpawnPoint = "end";
+            } else if (currentScene == "Lobby") {
+                GameManager.Instance.indoorSpawnPoint = "front";
+            }
+
+            SceneManager.LoadScene(scene);
         }
     }
 }
