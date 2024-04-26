@@ -14,8 +14,6 @@ public class IndoorGameManager : MonoBehaviour
     
     void Start()
     {
-        
-
         if (GameManager.Instance == null) {
             return;
         }
@@ -24,9 +22,9 @@ public class IndoorGameManager : MonoBehaviour
         Debug.Log(GameManager.Instance.indoorSpawnPoint);
         cardboard.GetComponent<XRCardboardController>().enabled = false;
         character.GetComponent<CharacterMovement>().enabled = false;
+        character.GetComponent<CharacterController>().enabled = false;
 
         if (GameManager.Instance.indoorSpawnPoint == "middle") {
-            
             character.transform.position = new Vector3(3.31f, 1.11f, 0f);
             character.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
             cardboard.GetComponent<XRCardboardController>().initialRotation = Quaternion.Euler(0f, -90f, 0f);
@@ -45,9 +43,9 @@ public class IndoorGameManager : MonoBehaviour
 
         cardboard.GetComponent<XRCardboardController>().enabled = true;
         character.GetComponent<CharacterMovement>().enabled = true;
+        character.GetComponent<CharacterController>().enabled = true;
 
         LoadItemsIntoHotbar();
-
         LoadGameData();
 
         if (GameManager.Instance.enableTutorial) {
@@ -66,12 +64,11 @@ public class IndoorGameManager : MonoBehaviour
         if (hotbar == null) {
             hotbar = FindObjectOfType<Hotbar>();
         }
+        
         List<GameObject> savedItems = GameManager.Instance.GetItems();
-
         if (savedItems.Count != 0) {
             hotbar.LoadItems(savedItems);
         }
-        
     }
 
     public GameData retrieveObjects(){
@@ -184,7 +181,6 @@ public class IndoorGameManager : MonoBehaviour
                 plantScript.isMature = plantData.isMature;
                 plantScript.isDead = plantData.isDead;
             }
-            
         }
 
         foreach (SprinklerData sprinklerData in gameData.listOfSprinkler) {
