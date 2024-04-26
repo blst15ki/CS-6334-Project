@@ -3,30 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Plant : MonoBehaviour
+public abstract class Plant : MonoBehaviour
 {
-    [SerializeField] GameObject potObj;
-    int water, deadWater, maxWater;
-    string stage;
-    DateTime cur, timeHalf, timeMature;
-    bool isHalf, isMature, isDead;
-    Vector3 pos; // original position
+    public int water, deadWater, maxWater;
+    public string type;
+    public string id;
+    public string stage;
+    public DateTime cur, timeHalf, timeMature, timeDeath;
+    public bool isHalf, isMature, isDead;
+    // death time not utilized, would depend on saving data implementation
+    public Guid uuid = Guid.NewGuid();
+    public bool isDataLoaded = false;
 
     // Start is called before the first frame update
+
+    void Awake()
+    {
+        if (!isDataLoaded) {
+            water = 0;
+            deadWater = -10; // limit on how low water can reach before plant dies
+            maxWater = 100;
+            type = "";
+            id = uuid.ToString();
+            stage = "Seedling";
+            cur = DateTime.Now;
+            timeHalf = cur.AddMinutes(1f);
+            timeMature = cur.AddMinutes(2f);
+            timeDeath = cur.AddMinutes(5f);
+            isHalf = false;
+            isMature = false;
+            isDead = false;
+            InitializePlant();
+        }
+    }
+
+    public abstract void InitializePlant();
+
     void Start()
     {
-        water = 0;
-        deadWater = -10; // limit on how low water can reach before plant dies
-        maxWater = 100;
-        stage = "Seedling";
-        cur = DateTime.Now;
-        timeHalf = cur.AddMinutes(1f);
-        timeMature = cur.AddMinutes(2f);
-        isHalf = false;
-        isMature = false;
-        isDead = false;
-        pos = transform.position;
-
         // trigger lose water every 5 seconds
         InvokeRepeating("LoseWater", 0f, 5f);
     }
@@ -36,28 +50,27 @@ public class Plant : MonoBehaviour
     {
         cur = DateTime.Now;
         
-        // obj.transform.position + new Vector3(0f, 0.75f, -0.15f)
         // check if dead (mature plants cannot die)
         if(!isMature && !isDead && water <= deadWater) {
             isDead = true;
             stage = "Dead";
             GetComponent<Renderer>().material.color = new Color(95f / 255, 25f / 255, 28f / 255);
-            transform.localScale = new Vector3(0.15f, 0.1f, 0.15f);
-            transform.position = potObj.transform.position + new Vector3(0f, 0.75f, -0.15f);
+            transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            transform.localPosition = new Vector3(0f, 0.5f, -0.1f);
         } else if(!isDead) { // (dead plants cannot grow)
             // reach half grown
             if(!isHalf && DateTime.Compare(cur, timeHalf) >= 0) {
                 isHalf = true;
                 stage = "Adult";
-                transform.localScale = new Vector3(0.15f, 0.2f, 0.15f);
-                transform.position = potObj.transform.position + new Vector3(0f, 0.85f, -0.15f);
+                transform.localScale = new Vector3(0.1f, 0.2f, 0.1f);
+                transform.localPosition = new Vector3(0f, 0.6f, -0.1f);
             }
             // reach full grown
             if(!isMature && DateTime.Compare(cur, timeMature) >= 0) {
                 isMature = true;
                 stage = "Mature";
-                transform.localScale = new Vector3(0.15f, 0.3f, 0.15f);
-                transform.position = potObj.transform.position + new Vector3(0f, 0.95f, -0.15f);
+                transform.localScale = new Vector3(0.1f, 0.3f, 0.1f);
+                transform.localPosition = new Vector3(0f, 0.7f, -0.1f);
             }
         }
     }
@@ -92,7 +105,5 @@ public class Plant : MonoBehaviour
             timeMature = cur.AddMinutes((timeMature - cur).TotalMinutes * 0.9);
         }
     }
-
-    public GameObject GetPot() { return potObj; }
-    public void SetPot(GameObject obj) { potObj = obj; }
 }
+

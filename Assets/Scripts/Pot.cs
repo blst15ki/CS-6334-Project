@@ -13,6 +13,8 @@ public class Pot : MonoBehaviour
     bool pointer;
     string AInput;
 
+    public string PlantID = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,11 +23,28 @@ public class Pot : MonoBehaviour
 
         pointer = false;
         AInput = "js10";
+
+        //checking for child and getting the plant id
+        // if (transform.childCount > 0) {
+        //     var plant = transform.GetChild(0).GetComponent<Plant>();
+        //     if (plant != null && plant.gameObject.tag == "Plant") {
+        //         PlantID = plant.id;
+        //     }
+        // }
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (hotbar == null) {
+            hotbar = FindObjectOfType<Hotbar>();
+        }
+
+        if (plantInterface == null) {
+            plantInterface = FindObjectOfType<PlantInterface>();
+        }
+        
         if(pointer) {
             if(Input.GetButtonDown(AInput)) { // select object to place
                 if(hotbar.SelectObject(gameObject)) {
@@ -81,5 +100,9 @@ public class Pot : MonoBehaviour
     }
     public void OnPointerExitDelegate(PointerEventData data) {
         plantInterface.DisableInterface();
+    }
+
+    public void setPlantID(string id){
+        PlantID = id;
     }
 }
