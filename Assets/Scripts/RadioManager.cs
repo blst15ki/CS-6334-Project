@@ -28,6 +28,7 @@ public class RadioManager : MonoBehaviour
                 if(Input.GetButtonDown(BInput)) {
                     audioSource.clip = clips[songNum%3];
                     audioSource.Play();
+                    mainCamera.transform.Find("MusicParticleSystem").GetComponent<ParticleSystem>().Play();
                 }
                 else if (Input.GetButtonDown(YInput)){
                     audioSource.Stop();
@@ -39,6 +40,7 @@ public class RadioManager : MonoBehaviour
             else{
                 hotbar.EnableHotbar();
                 audioSource.Stop();
+                mainCamera.transform.Find("MusicParticleSystem").GetComponent<ParticleSystem>().Stop();
             }
         }
     }
