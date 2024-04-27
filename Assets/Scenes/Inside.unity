@@ -3703,7 +3703,7 @@ MonoBehaviour:
   potPrefab: {fileID: 8808214653859070342, guid: da915fba24b5e3446ba5c23ae9243acc, type: 3}
   fertilizerPrefab: {fileID: 9070345395880169474, guid: a294e12a9d420cd4c86339a4c0eb651a, type: 3}
   sprinklerPrefab: {fileID: 6710239645296517835, guid: 58e2026cd7b45224ebbd3315107901f0, type: 3}
-  basicPlantPrefab: {fileID: 8551574924407693232, guid: 05dad238fba5e494bb3e2d9e537f027f, type: 3}
+  basicPlantPrefab: {fileID: 5050005892461381086, guid: 2ee099d8adbca4677aa35eb9cc121046, type: 3}
   savedHotBarItems: []
   enableTutorial: 1
   indoorSpawnPoint: middle

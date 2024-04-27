@@ -8,9 +8,9 @@ public class BasicPlant : Plant
     public override void InitializePlant() {
         type = "Basic Plant";
         stage = "Seedling";
-        timeHalf = DateTime.Now.AddMinutes(1f);
-        timeMature = DateTime.Now.AddMinutes(2f);
-        deadWater = -10;
+        timeHalf = DateTime.Now.AddMinutes(2f);
+        timeMature = DateTime.Now.AddMinutes(4f);
+        deadWater = -20;
         maxWater = 100;
     }
 }

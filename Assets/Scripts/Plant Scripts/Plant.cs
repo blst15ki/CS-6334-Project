@@ -27,8 +27,8 @@ public abstract class Plant : MonoBehaviour
             id = uuid.ToString();
             stage = "Seedling";
             cur = DateTime.Now;
-            timeHalf = cur.AddMinutes(1f);
-            timeMature = cur.AddMinutes(2f);
+            timeHalf = cur.AddMinutes(2f);
+            timeMature = cur.AddMinutes(4f);
             isHalf = false;
             isMature = false;
             isDead = false;
@@ -97,11 +97,11 @@ public abstract class Plant : MonoBehaviour
 
     public void Fertilize() {
         if(!isHalf) {
-            timeHalf = cur.AddMinutes((timeHalf - cur).TotalMinutes * 0.9);
+            timeHalf = cur.AddMinutes((timeHalf - cur).TotalMinutes * 0.8);
         }
 
         if(!isMature) {
-            timeMature = cur.AddMinutes((timeMature - cur).TotalMinutes * 0.9);
+            timeMature = cur.AddMinutes((timeMature - cur).TotalMinutes * 0.8);
         }
     }
 
