@@ -1407,6 +1407,7 @@ MonoBehaviour:
   - {fileID: 2167830542699479833}
   mainCamera: {fileID: 3061531332423279660}
   enable: 1
+  character: {fileID: 0}
 --- !u!1 &4559219605274075604
 GameObject:
   m_ObjectHideFlags: 0
