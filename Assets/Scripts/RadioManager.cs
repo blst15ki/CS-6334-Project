@@ -12,6 +12,7 @@ public class RadioManager : MonoBehaviour
     private int songNum;
     [SerializeField] GameObject radio;
     [SerializeField] Hotbar hotbar;
+    private bool musicEnable;
     void Start()
     {
         audioSource = radio.GetComponent<AudioSource>();
@@ -19,34 +20,38 @@ public class RadioManager : MonoBehaviour
         YInput = "js3"; //cycle through radio
         AInput = "js10"; // stop the song
         songNum=0;
+        musicEnable =false;
     }
 
     void Update()
     {
         if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
             if(hit.collider.gameObject.tag == "Radio"){
-                hotbar.DisableHotbar();
                 if(Input.GetButtonDown(BInput)) {
-                    audioSource.clip = clips[songNum%3];
-                    audioSource.Play();
-                    mainCamera.transform.Find("MusicParticleSystem").GetComponent<ParticleSystem>().Play();
+                    musicEnable=true;
+                    playMusic();
                 }
-                else if (Input.GetButtonDown(YInput)){
+                else if (Input.GetButtonDown(YInput) && musicEnable){
+                    hotbar.DisableHotbar();
                     audioSource.Stop();
                     songNum++;
                     audioSource.clip = clips[songNum%3];
                     audioSource.Play();
+                    hotbar.EnableHotbar();
                 }
-                else if (Input.GetButtonDown(AInput)){
+                else if (Input.GetButtonDown(AInput) && musicEnable){
+                    musicEnable = false;
                     audioSource.Stop();
-                    mainCamera.transform.Find("MusicParticleSystem").GetComponent<ParticleSystem>().Stop();
+                    radio.transform.Find("MusicParticleSystem").GetComponent<ParticleSystem>().Stop();
                 }
             }
-            else{
-                hotbar.EnableHotbar();
-                audioSource.Stop();
-                mainCamera.transform.Find("MusicParticleSystem").GetComponent<ParticleSystem>().Stop();
-            }
+        }
+    }
+    void playMusic(){
+        if(musicEnable){
+            audioSource.clip = clips[songNum%3];
+            audioSource.Play();
+            radio.transform.Find("MusicParticleSystem").GetComponent<ParticleSystem>().Play();
         }
     }
 }
