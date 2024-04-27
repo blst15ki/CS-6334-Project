@@ -24,7 +24,17 @@ public class Tutorial : MonoBehaviour
         tpd = mainCamera.GetComponent<TrackedPoseDriver>();
         pRaycast = mainCamera.GetComponent<PhysicsRaycaster>();
         AInput = "js10";
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
+        if(gameObject.activeSelf && Input.GetButtonDown(AInput)) {
+            DisableTutorial();
+        }
+    }
+
+    public void EnableTutorial() {
         // disable character/camera movement
         charMove.enabled = false;
         tpd.trackingType = TrackedPoseDriver.TrackingType.PositionOnly;
@@ -37,20 +47,16 @@ public class Tutorial : MonoBehaviour
         TutorialObj.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(gameObject.activeSelf && Input.GetButtonDown(AInput)) {
-            // enable character/camera movement
-            charMove.enabled = true;
-            tpd.trackingType = TrackedPoseDriver.TrackingType.RotationAndPosition;
-            pRaycast.enabled = true;
+    public void DisableTutorial() {
+        // enable character/camera movement
+        charMove.enabled = true;
+        tpd.trackingType = TrackedPoseDriver.TrackingType.RotationAndPosition;
+        pRaycast.enabled = true;
 
-            // enable hotbar and settings
-            hotbar.EnableHotbar();
-            settingsMenu.EnableSettings();
+        // enable hotbar and settings
+        hotbar.EnableHotbar();
+        settingsMenu.EnableSettings();
 
-            TutorialObj.SetActive(false);
-        }
+        TutorialObj.SetActive(false);
     }
 }

@@ -49,13 +49,8 @@ public class IndoorGameManager : MonoBehaviour
         LoadGameData();
 
         if (GameManager.Instance.enableTutorial) {
-            tutorial.SetActive(true);
-            GameManager.Instance.enableTutorial = false; // TODO: change to get tutorial to work first time
-        } else {
-            tutorial.SetActive(false);
-            tutorialObj.SetActive(false);
-            character.GetComponent<CharacterMovement>().enabled = true;
-            hotbar.GetComponent<Hotbar>().enable = true;
+            tutorial.GetComponent<Tutorial>().EnableTutorial();
+            GameManager.Instance.enableTutorial = false;
         }
     }
 
