@@ -8,7 +8,7 @@ public class RadioManager : MonoBehaviour
     private AudioSource audioSource;
     private RaycastHit hit;
     [SerializeField] Camera mainCamera;
-    private string YInput, BInput;
+    private string YInput, BInput, AInput;
     private int songNum;
     [SerializeField] GameObject radio;
     [SerializeField] Hotbar hotbar;
@@ -17,6 +17,7 @@ public class RadioManager : MonoBehaviour
         audioSource = radio.GetComponent<AudioSource>();
         BInput = "js5"; //select
         YInput = "js3"; //cycle through radio
+        AInput = "js10"; // stop the song
         songNum=0;
     }
 
@@ -35,6 +36,10 @@ public class RadioManager : MonoBehaviour
                     songNum++;
                     audioSource.clip = clips[songNum%3];
                     audioSource.Play();
+                }
+                else if (Input.GetButtonDown(AInput)){
+                    audioSource.Stop();
+                    mainCamera.transform.Find("MusicParticleSystem").GetComponent<ParticleSystem>().Stop();
                 }
             }
             else{
