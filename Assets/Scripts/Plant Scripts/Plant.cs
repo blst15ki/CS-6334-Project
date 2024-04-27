@@ -52,11 +52,12 @@ public abstract class Plant : MonoBehaviour
         
         // check if dead (mature plants cannot die)
         if(!isMature && !isDead && water <= deadWater) {
-            isDead = true;
-            stage = "Dead";
-            GetComponent<Renderer>().material.color = new Color(95f / 255, 25f / 255, 28f / 255);
-            transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-            transform.localPosition = new Vector3(0f, 0.5f, -0.1f);
+            // isDead = true;
+            // stage = "Dead";
+            // GetComponent<Renderer>().material.color = new Color(95f / 255, 25f / 255, 28f / 255);
+            // transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            // transform.localPosition = new Vector3(0f, 0.5f, -0.1f);
+            Destroy(gameObject);
         } else if(!isDead) { // (dead plants cannot grow)
             // reach half grown
             if(!isHalf && DateTime.Compare(cur, timeHalf) >= 0) {
