@@ -63,6 +63,7 @@ public class Detector : MonoBehaviour
             if (outline != null) {
                 outline.enabled = true;
                 lastOutline = outline;
+				PlantInterface plantInterface = FindObjectOfType<PlantInterface>();
 
                 reticle.OnStartHover(1f);
 
@@ -88,6 +89,11 @@ public class Detector : MonoBehaviour
 				if (pot != null) {
 					pot.PointerOn();
 					lastPot = pot;
+
+					if(pot.HasPlant()) {
+						plantInterface.EnableInterface(pot.GetPlant());
+						lastPlantInterface = plantInterface;
+					}
 				}
 
 				Sprinkler sprinkler = hitObject.GetComponent<Sprinkler>();
@@ -96,7 +102,6 @@ public class Detector : MonoBehaviour
 					lastSprinkler = sprinkler;
 				}
 				
-				PlantInterface plantInterface = FindObjectOfType<PlantInterface>();
 				BasicPlant basicPlant = hitObject.GetComponent<BasicPlant>();
 
 				if (basicPlant != null) {

@@ -10,7 +10,6 @@ public class BasicPlant : Plant
         stage = "Seedling";
         timeHalf = DateTime.Now.AddMinutes(1f);
         timeMature = DateTime.Now.AddMinutes(2f);
-        timeDeath = DateTime.Now.AddMinutes(5f);
         deadWater = -10;
         maxWater = 100;
     }

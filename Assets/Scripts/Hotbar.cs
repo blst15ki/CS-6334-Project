@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Hotbar : MonoBehaviour
 {
     [SerializeField] GameObject[] slots = new GameObject[9]; // references outer image of slots (for slot outlines)
     [SerializeField] GameObject[] itemSlots = new GameObject[9]; // references inner image of slots
     [SerializeField] Camera mainCamera;
-    [SerializeField] GameObject plantPrefab;
+    [SerializeField] GameObject basicPlantPrefab;
     GameObject[] items = new GameObject[9]; // contains item references per slot
     UnityEngine.UI.Outline[] slotOutlines = new UnityEngine.UI.Outline[9]; // handles outer slot outline
     Image[] images = new Image[9]; // contains sprites for slots
@@ -145,7 +146,11 @@ public class Hotbar : MonoBehaviour
 
             // if pot with plant, disable plant too
             if(obj.tag == "Pot" && obj.GetComponent<Pot>().HasPlant()) {
-                obj.GetComponent<Pot>().GetPlant().SetActive(false);
+                GameObject plantObj = obj.GetComponent<Pot>().GetPlant();
+                if(plantObj.GetComponent<DontDestroy>() == null) {
+                    plantObj.AddComponent<DontDestroy>();
+                }
+                plantObj.SetActive(false);
             }
 
             return true;
@@ -203,11 +208,15 @@ public class Hotbar : MonoBehaviour
                 GameObject obj = hit.collider.gameObject;
                 if(obj.tag == "Pot" && !obj.GetComponent<Pot>().HasPlant()) {
                     // instantiate plant prefab on top of pot +(0, 0.75, -0.15)
-                    GameObject plant = Instantiate(plantPrefab, obj.transform.position + new Vector3(0f, 0.75f, -0.15f), Quaternion.identity);
+                    GameObject plant = Instantiate(basicPlantPrefab, obj.transform.position + new Vector3(0f, 0.75f, -0.15f), Quaternion.identity);
                     
                     // link pot and plant
-                    obj.GetComponent<Pot>().SetPlant(plant);
-                    plant.GetComponent<Plant>().SetPot(obj);
+                    Pot potScript = obj.GetComponent<Pot>();
+                    Plant plantScript = plant.GetComponent<Plant>();
+                    potScript.SetPlant(plant);
+                    potScript.SetPlantID(plantScript.id);
+                    plantScript.SetPot(obj);
+                    plantScript.SetPotID(potScript.id);
 
                     // delete seed from hotbar
                     ClearSlot();

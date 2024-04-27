@@ -6,6 +6,7 @@ public class PlantData {
     public Vector3 position;
     public Quaternion rotation;
     public string plantID;
+    public string potID;
     public string type;
     public int water;
     public string stage;
@@ -17,18 +18,20 @@ public class PlantData {
     public Vector3 scale;
     public Color color;
 
-    public PlantData(Plant plant) {
+    public PlantData(GameObject plant) {
+        Plant plantScript = plant.GetComponent<Plant>();
         position = plant.transform.position;
         rotation = plant.transform.rotation;
-        plantID = plant.id;
-        type = plant.type;
-        water = plant.GetWater();
-        stage = plant.GetStage();
-        timeHalf = plant.timeHalf;
-        timeMature = plant.timeMature;
-        isHalf = plant.isHalf;
-        isMature = plant.isMature;
-        isDead = plant.isDead;
+        plantID = plantScript.id;
+        potID = plantScript.GetPotID();
+        type = plantScript.type;
+        water = plantScript.GetWater();
+        stage = plantScript.GetStage();
+        timeHalf = plantScript.timeHalf;
+        timeMature = plantScript.timeMature;
+        isHalf = plantScript.isHalf;
+        isMature = plantScript.isMature;
+        isDead = plantScript.isDead;
         scale = plant.transform.localScale;
         color = plant.GetComponent<Renderer>().material.color;
     }
@@ -36,7 +39,7 @@ public class PlantData {
     public PlantData() {}
 
     public override string ToString() {
-        return $"PlantData: ID={plantID}, Type={type}, Position={position}, Rotation={rotation.eulerAngles}, Water={water}, Stage={stage}, TimeHalf={timeHalf}, TimeMature={timeMature}, IsHalf={isHalf}, IsMature={isMature}, IsDead={isDead}, Scale={scale}, Color={color}";
+        return $"PlantData: ID={plantID}, PotID={potID}, Type={type}, Position={position}, Rotation={rotation.eulerAngles}, Water={water}, Stage={stage}, TimeHalf={timeHalf}, TimeMature={timeMature}, IsHalf={isHalf}, IsMature={isMature}, IsDead={isDead}, Scale={scale}, Color={color}";
     }
 }
 
@@ -44,17 +47,20 @@ public class PotData {
     public Vector3 position;
     public Quaternion rotation;
     public string plantID;
+    public string potID;
 
     public PotData(GameObject pot) {
+        Pot potScript = pot.GetComponent<Pot>();
         position = pot.transform.position;
         rotation = pot.transform.rotation;
-        plantID = pot.GetComponent<Pot>().PlantID;
+        plantID = potScript.GetPlantID();
+        potID = potScript.id;
     }
 
     public PotData() {}
 
     public override string ToString() {
-        return $"PotData: PlantID={plantID}, Position={position}, Rotation={rotation.eulerAngles}";
+        return $"PotData: PlantID={plantID}, PotID={potID}, Position={position}, Rotation={rotation.eulerAngles}";
     }
 }
 
@@ -95,12 +101,10 @@ public class FertilizerData {
 
     public FertilizerData() {}
 
-
     public override string ToString() {
         return $"FertilizerData: Position={position}, Rotation={rotation.eulerAngles}";
     }
 }
-
 
 public class WateringCanData {
     public Vector3 position;
@@ -122,7 +126,6 @@ public class GameData {
     public PotsAndPlants potsAndPlants;
     public List<SprinklerData> listOfSprinkler;
     public List<FertilizerData> listOfFertilizer;
-
     public List<WateringCanData> listOfWateringCan;
 
     public GameData(PotsAndPlants pandp, List<SprinklerData> sprinklers, List<FertilizerData> fertilizers, List<WateringCanData> wateringcans) {

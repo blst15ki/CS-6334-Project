@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6431,6 +6431,8 @@ MonoBehaviour:
   - {fileID: 1303402909}
   - {fileID: 1833396318}
   mainCamera: {fileID: 1061579007}
+  basicPlantPrefab: {fileID: 5050005892461381086, guid: 2ee099d8adbca4677aa35eb9cc121046, type: 3}
+  enable: 1
 --- !u!114 &2134047317
 MonoBehaviour:
   m_ObjectHideFlags: 0

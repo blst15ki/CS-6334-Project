@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System;
 
 public class Pot : MonoBehaviour
 {
@@ -12,31 +13,29 @@ public class Pot : MonoBehaviour
     Outline outline;
     bool pointer;
     string AInput;
-
-    public string PlantID = null;
+    public Guid uuid = Guid.NewGuid();
+    public string id;
+    public string plantID = null;
+    public bool isDataLoaded = false;
 
     // Start is called before the first frame update
     void Start()
     {
         outline = GetComponent<Outline>();
         outline.enabled = false;
-
         pointer = false;
         AInput = "js10";
+    }
 
-        //checking for child and getting the plant id
-        // if (transform.childCount > 0) {
-        //     var plant = transform.GetChild(0).GetComponent<Plant>();
-        //     if (plant != null && plant.gameObject.tag == "Plant") {
-        //         PlantID = plant.id;
-        //     }
-        // }
+    void Awake() {
+        if(!isDataLoaded) {
+            id = uuid.ToString();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (hotbar == null) {
             hotbar = FindObjectOfType<Hotbar>();
         }
@@ -63,8 +62,8 @@ public class Pot : MonoBehaviour
 
     public bool AddFertilizer() {
         // check if plant exists
-        if(transform.childCount > 0 && transform.GetChild(0).gameObject.tag == "Plant") {
-            transform.GetChild(0).gameObject.GetComponent<Plant>().Fertilize();
+        if(HasPlant()) {
+            plant.Fertilize();
             return true;
         }
         return false;
@@ -76,33 +75,9 @@ public class Pot : MonoBehaviour
         // link plant to pot
         plantObj = obj;
         plant = obj.GetComponent<Plant>();
-
-        // set plantinterface link
-        EventTrigger eventT = gameObject.AddComponent<EventTrigger>();
-
-        // add OnPointerEnter
-        EventTrigger.Entry entry = new EventTrigger.Entry();
-        entry.eventID = EventTriggerType.PointerEnter;
-        entry.callback.AddListener((data) => { OnPointerEnterDelegate((PointerEventData)data); });
-        eventT.triggers.Add(entry);
-
-        // add OnPointerExit
-        entry = new EventTrigger.Entry();
-        entry.eventID = EventTriggerType.PointerExit;
-        entry.callback.AddListener((data) => { OnPointerExitDelegate((PointerEventData)data); });
-        eventT.triggers.Add(entry);
     }
     public void WaterPlant() { plant.GiveWater(); }
     public void StopWaterPlant() { plant.StopWater(); }
-
-    public void OnPointerEnterDelegate(PointerEventData data) {
-        plantInterface.EnableInterface(plantObj);
-    }
-    public void OnPointerExitDelegate(PointerEventData data) {
-        plantInterface.DisableInterface();
-    }
-
-    public void setPlantID(string id){
-        PlantID = id;
-    }
+    public string GetPlantID() { return plantID; }
+    public void SetPlantID(string id){ plantID = id; }
 }
