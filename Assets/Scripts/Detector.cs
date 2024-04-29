@@ -6,7 +6,7 @@ public class Detector : MonoBehaviour
 {
     public XRCardboardReticle reticle;
     public float maxDistance = 20f;
-    private GameObject currentGameObject = null;
+    [SerializeField] PlantInterface plantInterface;
     private Outline lastOutline = null;
 	private DoorTeleport lastDoorTeleport = null;
 	private Interact lastInteract = null;
@@ -68,7 +68,6 @@ public class Detector : MonoBehaviour
             if (outline != null) {
                 outline.enabled = true;
                 lastOutline = outline;
-				PlantInterface plantInterface = FindObjectOfType<PlantInterface>();
 
                 reticle.OnStartHover(1f);
 
@@ -118,7 +117,6 @@ public class Detector : MonoBehaviour
 					radioManager.PointerOn();
 					lastRadioManager = radioManager;
 				}
-
             }
             else {
                 reticle.OnEndHover();
