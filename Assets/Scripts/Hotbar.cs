@@ -18,7 +18,7 @@ public class Hotbar : MonoBehaviour
     public bool enable = true;
     bool wait, inUse;
     RaycastHit hit;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -66,7 +66,7 @@ public class Hotbar : MonoBehaviour
                     items[slot].GetComponentInChildren<Renderer>().enabled = true;
                     items[slot].GetComponentInChildren<Collider>().enabled = true;
                     items[slot].SetActive(false);
-
+                    mainCamera.GetComponent<ParticleSystem>().Stop();
                     // stop watering
                     if(hit.collider.gameObject.tag == "Pot") {
                         hit.collider.gameObject.GetComponent<Pot>().StopWaterPlant();
@@ -185,7 +185,7 @@ public class Hotbar : MonoBehaviour
                     items[slot].GetComponentInChildren<Renderer>().enabled = false;
                     items[slot].GetComponentInChildren<Collider>().enabled = false;
                     items[slot].GetComponent<AudioSource>().Play();
-
+                    mainCamera.GetComponent<ParticleSystem>().Play();
                     // water plant
                     hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.blue;
                     hit.collider.gameObject.GetComponent<Plant>().GiveWater();

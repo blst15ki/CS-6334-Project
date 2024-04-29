@@ -1322,7 +1322,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 3061531332423279660}
   m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1408,6 +1408,7 @@ MonoBehaviour:
   mainCamera: {fileID: 3061531332423279660}
   basicPlantPrefab: {fileID: 0}
   enable: 1
+  character: {fileID: 0}
 --- !u!1 &4559219605274075604
 GameObject:
   m_ObjectHideFlags: 0
