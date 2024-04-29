@@ -14,10 +14,10 @@ public class Detector : MonoBehaviour
 	private Pot lastPot = null;
 	private Sprinkler lastSprinkler = null;
 	private PlantInterface lastPlantInterface = null;
+	private RadioManager lastRadioManager = null;
 
     void Update()
     {
-
         if (lastOutline != null) {
             lastOutline.enabled = false;
             lastOutline = null;
@@ -51,6 +51,11 @@ public class Detector : MonoBehaviour
 		if (lastPlantInterface != null) {
 			lastPlantInterface.DisableInterface();
 			lastPlantInterface = null;
+		}
+
+		if (lastRadioManager != null) {
+			lastRadioManager.PointerOff();
+			lastRadioManager = null;
 		}
 
         RaycastHit hit;
@@ -98,10 +103,15 @@ public class Detector : MonoBehaviour
 				
 				PlantInterface plantInterface = FindObjectOfType<PlantInterface>();
 				BasicPlant basicPlant = hitObject.GetComponent<BasicPlant>();
-
 				if (basicPlant != null) {
 					plantInterface.EnableInterface(hitObject);
 					lastPlantInterface = plantInterface;
+				}
+
+				RadioManager radioManager = hitObject.GetComponent<RadioManager>();
+				if(radioManager != null) {
+					radioManager.PointerOn();
+					lastRadioManager = radioManager;
 				}
 
             }
