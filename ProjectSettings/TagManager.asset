@@ -9,6 +9,7 @@ TagManager:
   - Watering Can
   - Plant
   - Sprinkler
+  - Radio
   layers:
   - Default
   - TransparentFX
