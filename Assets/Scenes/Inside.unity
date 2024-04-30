@@ -855,6 +855,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Seed Chest
       objectReference: {fileID: 0}
+    - target: {fileID: 6604398403984369772, guid: 07f9fbf665ac5474dbc0ac26d35d7c8c, type: 3}
+      propertyPath: m_TagString
+      value: Chest
+      objectReference: {fileID: 0}
     - target: {fileID: 8634100672382765388, guid: 07f9fbf665ac5474dbc0ac26d35d7c8c, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -7198,6 +7202,8 @@ MonoBehaviour:
   character: {fileID: 1644855603}
   camera: {fileID: 451881656}
   cardboard: {fileID: 547397030}
+  seedChest: {fileID: 1208457227}
+  itemChest: {fileID: 575302671}
 --- !u!1 &926902281
 GameObject:
   m_ObjectHideFlags: 0
@@ -16865,6 +16871,10 @@ PrefabInstance:
     - target: {fileID: 6604398403984369772, guid: 07f9fbf665ac5474dbc0ac26d35d7c8c, type: 3}
       propertyPath: m_Name
       value: Item Chest
+      objectReference: {fileID: 0}
+    - target: {fileID: 6604398403984369772, guid: 07f9fbf665ac5474dbc0ac26d35d7c8c, type: 3}
+      propertyPath: m_TagString
+      value: Chest
       objectReference: {fileID: 0}
     - target: {fileID: 8634100672382765388, guid: 07f9fbf665ac5474dbc0ac26d35d7c8c, type: 3}
       propertyPath: m_Enabled

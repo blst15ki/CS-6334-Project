@@ -89,7 +89,18 @@ public class GameManager : MonoBehaviour
             }
         };
 
-        indoorGameData = new GameData(indoorPotsAndPlants, new List<SprinklerData>(), indoorFertilizerList, indoorWateringCanList);
+        List<ChestData> chestList = new List<ChestData>() {
+            new ChestData{
+                chestName = "Seed Chest",
+                unlockTime = DateTime.Now
+            },
+            new ChestData{
+                chestName = "Item Chest",
+                unlockTime = DateTime.Now
+            }
+        };
+
+        indoorGameData = new GameData(indoorPotsAndPlants, new List<SprinklerData>(), indoorFertilizerList, indoorWateringCanList, chestList);
 
         List<PotData> outsidePotList = new List<PotData>() {
             new PotData { 
@@ -132,7 +143,7 @@ public class GameManager : MonoBehaviour
             }
         };
 
-        outsideGameData = new GameData(outsidePotsAndPlants, outsideSprinklerList,  new List<FertilizerData>(), new List<WateringCanData>());
+        outsideGameData = new GameData(outsidePotsAndPlants, outsideSprinklerList,  new List<FertilizerData>(), new List<WateringCanData>(), new List<ChestData>());
     }
 
     public Sprite GetSprite(string tag) {

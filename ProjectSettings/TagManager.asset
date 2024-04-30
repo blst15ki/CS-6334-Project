@@ -12,6 +12,7 @@ TagManager:
   - Seed
   - Plant Interface
   - Radio
+  - Chest
   layers:
   - Default
   - TransparentFX

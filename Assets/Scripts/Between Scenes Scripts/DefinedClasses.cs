@@ -119,16 +119,34 @@ public class WateringCanData {
     }
 }
 
+public class ChestData {
+    public string chestName;
+    public DateTime unlockTime;
+
+    public ChestData(GameObject chest) {
+        chestName = chest.name;
+        unlockTime = chest.GetComponent<Chest>().GetUnlockTime();
+    }
+
+    public ChestData() {}
+
+    public override string ToString() {
+        return $"ChestData: ChestName={chestName}, UnlockTime={unlockTime}";
+    }
+}
+
 public class GameData {
     public PotsAndPlants potsAndPlants;
     public List<SprinklerData> listOfSprinkler;
     public List<FertilizerData> listOfFertilizer;
     public List<WateringCanData> listOfWateringCan;
+    public List<ChestData> listOfChestData;
 
-    public GameData(PotsAndPlants pandp, List<SprinklerData> sprinklers, List<FertilizerData> fertilizers, List<WateringCanData> wateringcans) {
+    public GameData(PotsAndPlants pandp, List<SprinklerData> sprinklers, List<FertilizerData> fertilizers, List<WateringCanData> wateringcans, List<ChestData> chests) {
         potsAndPlants = pandp;
         listOfSprinkler = sprinklers;
         listOfFertilizer = fertilizers;
         listOfWateringCan = wateringcans;
+        listOfChestData = chests;
     }
 }

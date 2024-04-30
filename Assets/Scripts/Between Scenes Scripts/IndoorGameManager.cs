@@ -9,6 +9,7 @@ public class IndoorGameManager : MonoBehaviour
     [SerializeField] GameObject character;
     [SerializeField] GameObject camera;
     [SerializeField] GameObject cardboard;
+    [SerializeField] GameObject seedChest, itemChest;
     
     void Start()
     {
@@ -106,13 +107,20 @@ public class IndoorGameManager : MonoBehaviour
             }
         }
 
+        List<ChestData> chestList = new List<ChestData>();
+        GameObject[] chests = GameObject.FindGameObjectsWithTag("Chest");
+        foreach(GameObject chest in chests) {
+            ChestData chestData = new ChestData(chest);
+            chestList.Add(chestData);
+        }
+
         // LogGameData("Pots", potList);
         // LogGameData("Plants", plantList);
         // LogGameData("Sprinklers", sprinklerList);
         // LogGameData("Fertilizers", fertilizerList);
         // LogGameData("Water Cans", wateringCanList);
 
-        return new GameData(potsAndPlants, sprinklerList, fertilizerList, wateringCanList);
+        return new GameData(potsAndPlants, sprinklerList, fertilizerList, wateringCanList, chestList);
     }
 
     public void LogGameData<T>(string label, List<T> items) {
@@ -170,11 +178,6 @@ public class IndoorGameManager : MonoBehaviour
             }
         }
 
-        foreach (SprinklerData sprinklerData in gameData.listOfSprinkler) {
-            GameObject sprinklerPrefab = GameManager.Instance.GetPrefab("Sprinkler");
-            GameObject sprinkler = Instantiate(sprinklerPrefab, sprinklerData.position, sprinklerData.rotation);
-        }
-
         foreach (FertilizerData fertilizerData in gameData.listOfFertilizer) {
             GameObject fertilizerPrefab = GameManager.Instance.GetPrefab("Fertilizer");
             GameObject fertilizer = Instantiate(fertilizerPrefab, fertilizerData.position, fertilizerData.rotation);
@@ -183,6 +186,18 @@ public class IndoorGameManager : MonoBehaviour
         foreach (WateringCanData wateringCanData in gameData.listOfWateringCan) {
             GameObject wateringCanPrefab = GameManager.Instance.GetPrefab("Watering Can");
             GameObject wateringcan = Instantiate(wateringCanPrefab, wateringCanData.position, wateringCanData.rotation);
+        }
+
+        foreach(ChestData chestData in gameData.listOfChestData) {
+            Chest chestScript = null;
+            if(chestData.chestName == "Seed Chest") {
+                chestScript = seedChest.GetComponent<Chest>();
+            } else if(chestData.chestName == "Item Chest") {
+                chestScript = itemChest.GetComponent<Chest>();
+            }
+
+            TimeSpan diff = chestData.unlockTime - DateTime.Now;
+            chestScript.SetTime((int)(diff.TotalSeconds));
         }
     }
 }

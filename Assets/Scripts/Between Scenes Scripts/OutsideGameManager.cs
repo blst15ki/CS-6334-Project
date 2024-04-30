@@ -90,7 +90,7 @@ public class OutsideGameManager : MonoBehaviour
         // LogGameData("Fertilizers", fertilizerList);
         // LogGameData("Water Cans", wateringCanList);
 
-        return new GameData(potsAndPlants, sprinklerList, fertilizerList, wateringCanList);
+        return new GameData(potsAndPlants, sprinklerList, fertilizerList, wateringCanList, new List<ChestData>());
     }
 
     public void LogGameData<T>(string label, List<T> items) {
