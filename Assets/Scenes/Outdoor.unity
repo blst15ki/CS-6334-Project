@@ -1501,6 +1501,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 206300530}
     m_Modifications:
+    - target: {fileID: 1174244759403279808, guid: 1700d3d4b0af82f49b1c7555a3973b23, type: 3}
+      propertyPath: m_Name
+      value: PlantType
+      objectReference: {fileID: 0}
     - target: {fileID: 8311387110454339581, guid: 1700d3d4b0af82f49b1c7555a3973b23, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -1657,6 +1661,11 @@ GameObject:
 --- !u!224 &673619705 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8311387112096442121, guid: 1700d3d4b0af82f49b1c7555a3973b23, type: 3}
+  m_PrefabInstance: {fileID: 673619701}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &673619706 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1174244759403279808, guid: 1700d3d4b0af82f49b1c7555a3973b23, type: 3}
   m_PrefabInstance: {fileID: 673619701}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &684931322
@@ -2646,7 +2655,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -2699,7 +2708,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -3131,7 +3140,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1500
+    maxNumParticles: 5
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 1
     rotation3D: 0
@@ -3191,14 +3200,14 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 18
-    angle: 25
+    type: 4
+    angle: 0
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 15, y: 0, z: 0}
+    m_Rotation: {x: 10, y: 0, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
@@ -3278,7 +3287,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 0.5
       mode: 0
       spread: 0
       speed:
@@ -3335,7 +3344,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
     arc:
-      value: 360
+      value: 0
       mode: 0
       spread: 0
       speed:
@@ -3894,7 +3903,7 @@ ParticleSystem:
   UVModule:
     serializedVersion: 2
     enabled: 0
-    mode: 0
+    mode: 1
     timeMode: 0
     fps: 30
     frameOverTime:
@@ -4012,7 +4021,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 0}
+    - sprite: {fileID: 21300000, guid: 332881be169abbd418485f04ded866c2, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -9319,6 +9328,7 @@ MonoBehaviour:
   mainCamera: {fileID: 1061579007}
   waterLevel: {fileID: 673619704}
   stageText: {fileID: 673619703}
+  plantType: {fileID: 673619706}
 --- !u!1 &1679495973
 GameObject:
   m_ObjectHideFlags: 0

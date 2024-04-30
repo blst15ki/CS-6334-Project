@@ -395,6 +395,7 @@ MonoBehaviour:
   mainCamera: {fileID: 3061531332423279660}
   waterLevel: {fileID: 4596429670192047680}
   stageText: {fileID: 4596429670999627229}
+  plantType: {fileID: 6689524982239128881}
 --- !u!1 &1468343235194923342
 GameObject:
   m_ObjectHideFlags: 0
@@ -2898,6 +2899,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5718905241200134584}
     m_Modifications:
+    - target: {fileID: 1174244759403279808, guid: 1700d3d4b0af82f49b1c7555a3973b23, type: 3}
+      propertyPath: m_Name
+      value: PlantType
+      objectReference: {fileID: 0}
     - target: {fileID: 8311387110454339581, guid: 1700d3d4b0af82f49b1c7555a3973b23, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -3058,6 +3063,11 @@ GameObject:
 --- !u!1 &4596429670999627229 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8311387111019367724, guid: 1700d3d4b0af82f49b1c7555a3973b23, type: 3}
+  m_PrefabInstance: {fileID: 5520910548128913649}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6689524982239128881 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1174244759403279808, guid: 1700d3d4b0af82f49b1c7555a3973b23, type: 3}
   m_PrefabInstance: {fileID: 5520910548128913649}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5718905241477844131

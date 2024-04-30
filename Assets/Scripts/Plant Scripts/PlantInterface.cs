@@ -9,7 +9,8 @@ public class PlantInterface : MonoBehaviour
     [SerializeField] Camera mainCamera;
     [SerializeField] GameObject waterLevel;
     [SerializeField] GameObject stageText;
-    TextMeshProUGUI stageTMP;
+    [SerializeField] GameObject plantType;
+    TextMeshProUGUI stageTMP, plantTypeTMP;
     Transform PIOtransform;
     RectTransform WLrt;
     Plant plant;
@@ -17,6 +18,7 @@ public class PlantInterface : MonoBehaviour
     void Start()
     {
         stageTMP = stageText.GetComponent<TextMeshProUGUI>();
+        plantTypeTMP = plantType.GetComponent<TextMeshProUGUI>();
         PIOtransform = plantInterfaceObj.transform;
         WLrt = waterLevel.GetComponent<RectTransform>();
 
@@ -49,5 +51,6 @@ public class PlantInterface : MonoBehaviour
     void UpdateInterface() {
         WLrt.sizeDelta = new Vector2((float)plant.GetWater() / plant.GetMaxWater() * 120, 20);
         stageTMP.text = "Stage: " + plant.GetStage();
+        plantTypeTMP.text = plant.GetPlantType();
     }
 }

@@ -106,8 +106,8 @@ public class Detector : MonoBehaviour
 					lastSprinkler = sprinkler;
 				}
 				
-				BasicPlant basicPlant = hitObject.GetComponent<BasicPlant>();
-				if (basicPlant != null) {
+				Plant plant = hitObject.GetComponent<Plant>();
+				if (plant != null) {
 					plantInterface.EnableInterface(hitObject);
 					lastPlantInterface = plantInterface;
 				}

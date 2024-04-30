@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject fertilizerPrefab;
     [SerializeField] GameObject sprinklerPrefab;
     [SerializeField] GameObject basicPlantPrefab;
+    [SerializeField] GameObject fernPrefab;
     public List<GameObject> savedHotBarItems = new List<GameObject>();
     public GameData outsideGameData = null;
     public GameData indoorGameData = null;
@@ -63,31 +64,27 @@ public class GameManager : MonoBehaviour
                 plantID = "93ab33b5-05dc-4559-952a-401ff7553ef6",
                 potID = "981603f4-2d5a-47ca-af5b-d7fe8d7e1c2d",
                 type = "Basic Plant",
-                water = 10,
+                water = -5,
                 stage = "Seedling",
-                timeHalf = DateTime.Now.AddMinutes(1),
-                timeMature = DateTime.Now.AddMinutes(2),
+                timeHalf = DateTime.Now.AddMinutes(2f),
+                timeMature = DateTime.Now.AddMinutes(4f),
                 isHalf = false,
                 isMature = false,
-                isDead = false,
                 scale = new Vector3(0.15f, 0.15f, 0.15f),
-                color = new Color(0.170f, 0.736f, 0.189f)
             },
             new PlantData {
-                position = new Vector3(0.00f, 0.75f, -4.36f),
+                position = new Vector3(0.00f, 0.6f, -4.36f),
                 rotation = Quaternion.identity,
                 plantID = "6209b900-e00c-4cdb-abee-77e43203fb7d",
                 potID = "9d9bb88b-23bc-441c-a253-931a9fd01469",
-                type = "Basic Plant",
-                water = 10,
+                type = "Fern",
+                water = -5,
                 stage = "Seedling",
-                timeHalf = DateTime.Now.AddMinutes(1),
-                timeMature = DateTime.Now.AddMinutes(2),
+                timeHalf = DateTime.Now.AddMinutes(1.5f),
+                timeMature = DateTime.Now.AddMinutes(3f),
                 isHalf = false,
                 isMature = false,
-                isDead = false,
-                scale = new Vector3(0.15f, 0.15f, 0.15f),
-                color = new Color(0.170f, 0.736f, 0.189f)
+                scale = new Vector3(100f, 100f, 100f)
             }
         };
 
@@ -137,9 +134,7 @@ public class GameManager : MonoBehaviour
                 timeMature = DateTime.Now.AddMinutes(2),
                 isHalf = false,
                 isMature = false,
-                isDead = false,
                 scale = new Vector3(0.15f, 0.15f, 0.15f),
-                color = new Color(0.170f, 0.736f, 0.189f)
             }
         };
 
@@ -181,6 +176,8 @@ public class GameManager : MonoBehaviour
                 return sprinklerPrefab;
             case "Basic Plant":
                 return basicPlantPrefab;
+            case "Fern":
+                return fernPrefab;
             default:
                 return null;
         }

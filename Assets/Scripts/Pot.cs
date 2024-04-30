@@ -80,4 +80,9 @@ public class Pot : MonoBehaviour
     public void StopWaterPlant() { plant.StopWater(); }
     public string GetPlantID() { return plantID; }
     public void SetPlantID(string id){ plantID = id; }
+    public void ClearPlant() {
+        plantObj = null;
+        plant = null;
+        plantID = null;
+    }
 }

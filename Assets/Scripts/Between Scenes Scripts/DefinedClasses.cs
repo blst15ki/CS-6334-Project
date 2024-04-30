@@ -14,7 +14,6 @@ public class PlantData {
     public DateTime timeMature;
     public bool isHalf;
     public bool isMature;
-    public bool isDead;
     public Vector3 scale;
     public Color color;
 
@@ -31,15 +30,13 @@ public class PlantData {
         timeMature = plantScript.timeMature;
         isHalf = plantScript.isHalf;
         isMature = plantScript.isMature;
-        isDead = plantScript.isDead;
         scale = plant.transform.localScale;
-        color = plant.GetComponent<Renderer>().material.color;
     }
 
     public PlantData() {}
 
     public override string ToString() {
-        return $"PlantData: ID={plantID}, PotID={potID}, Type={type}, Position={position}, Rotation={rotation.eulerAngles}, Water={water}, Stage={stage}, TimeHalf={timeHalf}, TimeMature={timeMature}, IsHalf={isHalf}, IsMature={isMature}, IsDead={isDead}, Scale={scale}, Color={color}";
+        return $"PlantData: ID={plantID}, PotID={potID}, Type={type}, Position={position}, Rotation={rotation.eulerAngles}, Water={water}, Stage={stage}, TimeHalf={timeHalf}, TimeMature={timeMature}, IsHalf={isHalf}, IsMature={isMature}, Scale={scale}";
     }
 }
 

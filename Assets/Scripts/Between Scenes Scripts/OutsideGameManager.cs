@@ -121,11 +121,10 @@ public class OutsideGameManager : MonoBehaviour
             GameObject plantPrefab = GameManager.Instance.GetPrefab(plantData.type);
             GameObject plant = Instantiate(plantPrefab, plantData.position, plantData.rotation);
             plant.transform.localScale = plantData.scale;
-            plant.GetComponent<Renderer>().material.color = plantData.color;
 
             Plant plantScript = null;
-            if (plantData.type == "Basic Plant") {
-                plantScript = plant.GetComponent<BasicPlant>();
+            if (plantData.type == "Basic Plant" || plantData.type == "Fern") {
+                plantScript = plant.GetComponent<Plant>();
             } else {
                 Debug.Log("Error no script found for plant type");
             }
@@ -142,7 +141,6 @@ public class OutsideGameManager : MonoBehaviour
                 plantScript.timeMature = plantData.timeMature;
                 plantScript.isHalf = plantData.isHalf;
                 plantScript.isMature = plantData.isMature;
-                plantScript.isDead = plantData.isDead;
                 
                 // link plant and pot objects
                 plantScript.SetPot(potsMap[plantData.potID]);

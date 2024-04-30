@@ -5,14 +5,14 @@ using System;
 
 public abstract class Plant : MonoBehaviour
 {
-    [SerializeField] GameObject potObj;
+    [SerializeField] protected GameObject potObj;
     public int water, deadWater, maxWater;
     public string type;
     public string id;
     public string potID = null;
     public string stage;
     public DateTime cur, timeHalf, timeMature;
-    public bool isHalf, isMature, isDead;
+    public bool isHalf, isMature;
     public Guid uuid = Guid.NewGuid();
     public bool isDataLoaded = false;
 
@@ -31,7 +31,6 @@ public abstract class Plant : MonoBehaviour
             timeMature = cur.AddMinutes(4f);
             isHalf = false;
             isMature = false;
-            isDead = false;
             InitializePlant();
         }
     }
@@ -47,33 +46,10 @@ public abstract class Plant : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cur = DateTime.Now;
-        
-        // check if dead (mature plants cannot die)
-        if(!isMature && !isDead && water <= deadWater) {
-            // isDead = true;
-            // stage = "Dead";
-            // GetComponent<Renderer>().material.color = new Color(95f / 255, 25f / 255, 28f / 255);
-            // transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-            // transform.localPosition = new Vector3(0f, 0.5f, -0.1f);
-            Destroy(gameObject);
-        } else if(!isDead) { // (dead plants cannot grow)
-            // reach half grown
-            if(!isHalf && DateTime.Compare(cur, timeHalf) >= 0) {
-                isHalf = true;
-                stage = "Adult";
-                transform.localScale = new Vector3(0.1f, 0.2f, 0.1f);
-                transform.localPosition = potObj.transform.position + new Vector3(0f, 0.85f, -0.15f);
-            }
-            // reach full grown
-            if(!isMature && DateTime.Compare(cur, timeMature) >= 0) {
-                isMature = true;
-                stage = "Mature";
-                transform.localScale = new Vector3(0.1f, 0.3f, 0.1f);
-                transform.localPosition = potObj.transform.position + new Vector3(0f, 0.95f, -0.15f);
-            }
-        }
+        CheckPlantGrowth();
     }
+
+    protected abstract void CheckPlantGrowth();
 
     void AddWater() {
         if(water < maxWater) {
@@ -89,7 +65,7 @@ public abstract class Plant : MonoBehaviour
         }
     }
 
-    public void GiveWater() { InvokeRepeating("AddWater", 1f, 1f); }
+    public void GiveWater() { InvokeRepeating("AddWater", 0f, 1f); }
     public void StopWater() { CancelInvoke("AddWater"); }
 
     public int GetWater() { return water; }
@@ -110,5 +86,6 @@ public abstract class Plant : MonoBehaviour
     public void SetPot(GameObject obj) { potObj = obj; }
     public string GetPotID() { return potID; }
     public void SetPotID(string id) { potID = id; }
+    public string GetPlantType() { return type; }
 }
 
