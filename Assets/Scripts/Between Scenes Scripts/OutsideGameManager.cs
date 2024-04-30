@@ -59,6 +59,7 @@ public class OutsideGameManager : MonoBehaviour
             if (sprinkler.activeInHierarchy) {
                 SprinklerData sprinklerData = new SprinklerData(sprinkler);
                 sprinklerList.Add(sprinklerData);
+                GameObject.Destroy(sprinkler.GetComponent<Sprinkler>().GetSprinklerParticleSystem()); // destroy particle system first
                 GameObject.Destroy(sprinkler);
             }
         }

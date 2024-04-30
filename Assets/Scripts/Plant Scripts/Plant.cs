@@ -6,6 +6,7 @@ using System;
 public abstract class Plant : MonoBehaviour
 {
     [SerializeField] protected GameObject potObj;
+    Outline outline;
     public int water, deadWater, maxWater;
     public string type;
     public string id;
@@ -33,6 +34,7 @@ public abstract class Plant : MonoBehaviour
             isMature = false;
             InitializePlant();
         }
+        outline = GetComponent<Outline>();
     }
 
     public abstract void InitializePlant();
@@ -65,8 +67,17 @@ public abstract class Plant : MonoBehaviour
         }
     }
 
-    public void GiveWater() { InvokeRepeating("AddWater", 0f, 0.5f); }
-    public void StopWater() { CancelInvoke("AddWater"); }
+    public void GiveWater() {
+        InvokeRepeating("AddWater", 0f, 0.5f);
+        outline.OutlineColor = Color.cyan;
+        outline.enabled = true;
+    }
+    public void StopWater() {
+        CancelInvoke("AddWater");
+        outline.OutlineColor = Color.white;
+        outline.enabled = false;
+    }
+    public void StopWaterTimed(float time) { Invoke("StopWater", time); } // stop watering after time seconds
 
     public int GetWater() { return water; }
     public int GetMaxWater() { return maxWater; }

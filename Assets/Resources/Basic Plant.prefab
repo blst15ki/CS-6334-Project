@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9024772199388983729}
   - component: {fileID: 9024772199388983693}
   - component: {fileID: 9024772199388983728}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Basic Plant
   m_TagString: Plant
   m_Icon: {fileID: 0}
@@ -140,5 +140,4 @@ MonoBehaviour:
   stage: 
   isHalf: 0
   isMature: 0
-  isDead: 0
   isDataLoaded: 0

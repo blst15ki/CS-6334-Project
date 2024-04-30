@@ -90,15 +90,8 @@ public class IndoorGameManager : MonoBehaviour
 
         PotsAndPlants potsAndPlants = new PotsAndPlants(potList, plantList);
 
+        // empty list since sprinklers cannot be placed in inside scene
         List<SprinklerData> sprinklerList = new List<SprinklerData>();
-        GameObject[] sprinklers = GameObject.FindGameObjectsWithTag("Sprinkler");
-        foreach (GameObject sprinkler in sprinklers) {
-            if (sprinkler.activeInHierarchy) {
-                SprinklerData sprinklerData = new SprinklerData(sprinkler);
-                sprinklerList.Add(sprinklerData);
-                GameObject.Destroy(sprinkler);
-            }
-        }
 
         List<FertilizerData> fertilizerList = new List<FertilizerData>();
         GameObject[] fertilizers = GameObject.FindGameObjectsWithTag("Fertilizer");

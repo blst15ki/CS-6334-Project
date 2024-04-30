@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2292750316901578023}
   - component: {fileID: 3358063482867620179}
   - component: {fileID: 7067610582864471671}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fern
   m_TagString: Plant
   m_Icon: {fileID: 0}

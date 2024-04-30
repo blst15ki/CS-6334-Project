@@ -110,20 +110,30 @@ public class Hotbar : MonoBehaviour
         if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
             // ensure raycast is hitting floor
             if(hit.collider.gameObject.layer == floorLayer) {
-                images[slot].sprite = null;
-                images[slot].color = Color.grey;
-                items[slot].transform.position = new Vector3(hit.point.x, items[slot].transform.position.y, hit.point.z);
-                items[slot].SetActive(true);
+                // don't allow sprinkler to be placed in inside scene
+                if(items[slot].tag != "Sprinkler" || SceneManager.GetActiveScene().name != "Inside") {
+                    images[slot].sprite = null;
+                    images[slot].color = Color.grey;
+                    items[slot].transform.position = new Vector3(hit.point.x, items[slot].transform.position.y, hit.point.z);
+                    items[slot].SetActive(true);
 
-                // if placing pot and pot has plant, move plant
-                if(items[slot].tag == "Pot" && items[slot].GetComponent<Pot>().HasPlant()) {
-                    GameObject plantObj = items[slot].GetComponent<Pot>().GetPlant();
-                    Vector3 potPos = items[slot].transform.position;
-                    plantObj.transform.position = new Vector3(potPos.x, plantObj.transform.position.y, potPos.z - 0.15f);
-                    plantObj.SetActive(true);
+                    // if placing pot and pot has plant, move plant
+                    if(items[slot].tag == "Pot" && items[slot].GetComponent<Pot>().HasPlant()) {
+                        GameObject plantObj = items[slot].GetComponent<Pot>().GetPlant();
+                        Vector3 potPos = items[slot].transform.position;
+                        plantObj.transform.position = new Vector3(potPos.x, plantObj.transform.position.y, potPos.z - 0.15f);
+                        plantObj.SetActive(true);
+                    }
+                    
+                    // if sprinkler, move sprinkler particle system with sprinkler
+                    if(items[slot].tag == "Sprinkler") {
+                        GameObject spsObj = items[slot].GetComponent<Sprinkler>().GetSprinklerParticleSystem();
+                        spsObj.transform.position = items[slot].transform.position + new Vector3(0f, 0.5f, 0f);
+                        spsObj.SetActive(true);
+                    }
+
+                    items[slot] = null;
                 }
-
-                items[slot] = null;
             }
         }
     }
@@ -151,6 +161,15 @@ public class Hotbar : MonoBehaviour
                     plantObj.AddComponent<DontDestroy>();
                 }
                 plantObj.SetActive(false);
+            }
+
+            // if sprinkler, disable sprinkler particle system too
+            if(obj.tag == "Sprinkler") {
+                GameObject spsObj = obj.GetComponent<Sprinkler>().GetSprinklerParticleSystem();
+                if(spsObj.GetComponent<DontDestroy>() == null) {
+                    spsObj.AddComponent<DontDestroy>();
+                }
+                spsObj.SetActive(false);
             }
 
             return true;
@@ -187,6 +206,7 @@ public class Hotbar : MonoBehaviour
                     items[slot].GetComponentInChildren<Collider>().enabled = false;
                     items[slot].GetComponent<AudioSource>().Play();
                     mainCamera.GetComponent<ParticleSystem>().Play();
+
                     // water plant
                     hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.cyan;
                     hit.collider.gameObject.GetComponent<Plant>().GiveWater();

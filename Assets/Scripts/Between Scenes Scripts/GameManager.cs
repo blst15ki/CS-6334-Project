@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
                 plantID = "93ab33b5-05dc-4559-952a-401ff7553ef6",
                 potID = "981603f4-2d5a-47ca-af5b-d7fe8d7e1c2d",
                 type = "Basic Plant",
-                water = -5,
+                water = 10,
                 stage = "Seedling",
                 timeHalf = DateTime.Now.AddMinutes(2f),
                 timeMature = DateTime.Now.AddMinutes(4f),
@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
                 plantID = "6209b900-e00c-4cdb-abee-77e43203fb7d",
                 potID = "9d9bb88b-23bc-441c-a253-931a9fd01469",
                 type = "Fern",
-                water = -5,
+                water = 10,
                 stage = "Seedling",
                 timeHalf = DateTime.Now.AddMinutes(1.5f),
                 timeMature = DateTime.Now.AddMinutes(3f),
@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
 
         List<WateringCanData> indoorWateringCanList = new List<WateringCanData>() {
             new WateringCanData {
-                position = new Vector3(0.0f, 0.50f, 0.0f),
+                position = new Vector3(0.0f, 0.33f, 0.0f),
                 rotation = Quaternion.identity
             }
         };
@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
 
         List<SprinklerData> outsideSprinklerList = new List<SprinklerData>() {
             new SprinklerData {
-                position = new Vector3(4.70f, 0.08f, -5.30f),
+                position = new Vector3(11f, 0.1f, -6.5f),
                 rotation = Quaternion.identity,
             }
         };
