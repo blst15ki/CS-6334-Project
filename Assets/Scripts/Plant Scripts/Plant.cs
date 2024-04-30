@@ -53,7 +53,7 @@ public abstract class Plant : MonoBehaviour
 
     void AddWater() {
         if(water < maxWater) {
-            water += 10;
+            water += 5;
         }
         if(water > maxWater) {
             water = maxWater;
@@ -65,7 +65,7 @@ public abstract class Plant : MonoBehaviour
         }
     }
 
-    public void GiveWater() { InvokeRepeating("AddWater", 0f, 1f); }
+    public void GiveWater() { InvokeRepeating("AddWater", 0f, 0.5f); }
     public void StopWater() { CancelInvoke("AddWater"); }
 
     public int GetWater() { return water; }

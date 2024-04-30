@@ -15,54 +15,21 @@ public class Detector : MonoBehaviour
 	private Sprinkler lastSprinkler = null;
 	private PlantInterface lastPlantInterface = null;
 	private RadioManager lastRadioManager = null;
+	private GameObject lastHitObject = null;
 
     void Update()
     {
-        if (lastOutline != null) {
-            lastOutline.enabled = false;
-            lastOutline = null;
-        }
-
-		if (lastDoorTeleport != null) {
-			lastDoorTeleport.PointerOff();
-			lastDoorTeleport = null;
-		}
-
-		if (lastInteract != null) {
-			lastInteract.PointerOff();
-			lastInteract = null;
-		}
-
-		if (lastLightController != null) {
-			lastLightController.PointerOff();
-			lastLightController = null;
-		}
-
-		if (lastPot != null) {
-			lastPot.PointerOff();
-			lastPot = null;
-		}
-
-		if (lastSprinkler != null) {
-			lastSprinkler.PointerOff();
-			lastSprinkler = null;
-		}
-
-		if (lastPlantInterface != null) {
-			lastPlantInterface.DisableInterface();
-			lastPlantInterface = null;
-		}
-
-		if (lastRadioManager != null) {
-			lastRadioManager.PointerOff();
-			lastRadioManager = null;
-		}
-
         RaycastHit hit;
         Ray ray = new Ray(transform.position, transform.forward);
 
         if (Physics.Raycast(ray, out hit, maxDistance)) {
             GameObject hitObject = hit.collider.gameObject;
+
+			if(lastHitObject != hitObject) {
+				DisableLast();
+			}
+
+			lastHitObject = hitObject;
 
             Outline outline = hitObject.GetComponent<Outline>();
             if (outline != null) {
@@ -126,4 +93,46 @@ public class Detector : MonoBehaviour
             reticle.OnEndHover();
         }
     }
+	
+	void DisableLast() {
+		if (lastOutline != null) {
+            lastOutline.enabled = false;
+            lastOutline = null;
+        }
+
+		if (lastDoorTeleport != null) {
+			lastDoorTeleport.PointerOff();
+			lastDoorTeleport = null;
+		}
+
+		if (lastInteract != null) {
+			lastInteract.PointerOff();
+			lastInteract = null;
+		}
+
+		if (lastLightController != null) {
+			lastLightController.PointerOff();
+			lastLightController = null;
+		}
+
+		if (lastPot != null) {
+			lastPot.PointerOff();
+			lastPot = null;
+		}
+
+		if (lastSprinkler != null) {
+			lastSprinkler.PointerOff();
+			lastSprinkler = null;
+		}
+
+		if (lastPlantInterface != null) {
+			lastPlantInterface.DisableInterface();
+			lastPlantInterface = null;
+		}
+
+		if (lastRadioManager != null) {
+			lastRadioManager.PointerOff();
+			lastRadioManager = null;
+		}
+	}
 }

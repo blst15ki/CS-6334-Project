@@ -173,9 +173,10 @@ public class Hotbar : MonoBehaviour
                         items[slot].GetComponentInChildren<Renderer>().enabled = false;
                         items[slot].GetComponentInChildren<Collider>().enabled = false;
                         items[slot].GetComponent<AudioSource>().Play();
+                        mainCamera.GetComponent<ParticleSystem>().Play();
 
                         // water plant
-                        hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.blue;
+                        hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.cyan;
                         hit.collider.gameObject.GetComponent<Pot>().WaterPlant();
                         inUse = true;
                     }
@@ -187,7 +188,7 @@ public class Hotbar : MonoBehaviour
                     items[slot].GetComponent<AudioSource>().Play();
                     mainCamera.GetComponent<ParticleSystem>().Play();
                     // water plant
-                    hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.blue;
+                    hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.cyan;
                     hit.collider.gameObject.GetComponent<Plant>().GiveWater();
                     inUse = true;
                 }
