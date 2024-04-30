@@ -14,9 +14,13 @@ public class Sprinkler : MonoBehaviour
     GameObject spsObj;
     ParticleSystem sprinklerParticleSystem;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
+        if(hotbar == null) {
+            hotbar = FindObjectOfType<Hotbar>();
+        }
+    }
+
+    void Awake() {
         outline = GetComponent<Outline>();
         outline.enabled = false;
 
@@ -26,14 +30,16 @@ public class Sprinkler : MonoBehaviour
         XInput = "js2";
 
         waterSound = GetComponent<AudioSource>();
-        spsObj = Instantiate(spsPrefab, transform.position + new Vector3(0f, 0.5f, 0f), spsPrefab.transform.rotation);
-        sprinklerParticleSystem = spsObj.GetComponent<ParticleSystem>();
+
+        if(spsObj == null) {
+            spsObj = Instantiate(spsPrefab, transform.position + new Vector3(0f, 0.5f, 0f), spsPrefab.transform.rotation);
+            sprinklerParticleSystem = spsObj.GetComponent<ParticleSystem>();
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (hotbar == null) {
+        if(hotbar == null) {
             hotbar = FindObjectOfType<Hotbar>();
         }
         

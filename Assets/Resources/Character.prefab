@@ -1455,7 +1455,6 @@ MonoBehaviour:
   - {fileID: 8893531536069118802}
   - {fileID: 2167830542699479833}
   mainCamera: {fileID: 3061531332423279660}
-  basicPlantPrefab: {fileID: 0}
   enable: 1
 --- !u!1 &4559219605274075604
 GameObject:
@@ -3785,7 +3784,7 @@ ParticleSystem:
     radiusThickness: 1
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 10, y: 0, z: 0}
+    m_Rotation: {x: 0, y: 0, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0

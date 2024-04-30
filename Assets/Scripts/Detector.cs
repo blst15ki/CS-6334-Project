@@ -15,6 +15,7 @@ public class Detector : MonoBehaviour
 	private Sprinkler lastSprinkler = null;
 	private PlantInterface lastPlantInterface = null;
 	private RadioManager lastRadioManager = null;
+	private Chest lastChest = null;
 	private GameObject lastHitObject = null;
 
     void Update()
@@ -84,6 +85,12 @@ public class Detector : MonoBehaviour
 					radioManager.PointerOn();
 					lastRadioManager = radioManager;
 				}
+
+				Chest chest = hitObject.GetComponent<Chest>();
+				if(chest != null) {
+					chest.PointerOn();
+					lastChest = chest;
+				}
             }
             else {
                 reticle.OnEndHover();
@@ -133,6 +140,11 @@ public class Detector : MonoBehaviour
 		if (lastRadioManager != null) {
 			lastRadioManager.PointerOff();
 			lastRadioManager = null;
+		}
+		
+		if(lastChest != null) {
+			lastChest.PointerOff();
+			lastChest = null;
 		}
 	}
 }

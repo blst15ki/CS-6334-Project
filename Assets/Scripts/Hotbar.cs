@@ -9,7 +9,6 @@ public class Hotbar : MonoBehaviour
     [SerializeField] GameObject[] slots = new GameObject[9]; // references outer image of slots (for slot outlines)
     [SerializeField] GameObject[] itemSlots = new GameObject[9]; // references inner image of slots
     [SerializeField] Camera mainCamera;
-    [SerializeField] GameObject basicPlantPrefab;
     GameObject[] items = new GameObject[9]; // contains item references per slot
     UnityEngine.UI.Outline[] slotOutlines = new UnityEngine.UI.Outline[9]; // handles outer slot outline
     Image[] images = new Image[9]; // contains sprites for slots
@@ -42,7 +41,6 @@ public class Hotbar : MonoBehaviour
     {
         if(enable) {
             // prevent using other buttons if item is being used
-            
             if(inUse == false) {
                 if(Input.GetButtonDown(XInput)) {
                     MoveSlot("left");
@@ -103,37 +101,45 @@ public class Hotbar : MonoBehaviour
     }
 
     public void PlaceObject() {
+        // cannot place empty slot
         if(items[slot] == null) {
+            return;
+        }
+
+        // cannot place sprinkler in inside scene
+        if(items[slot].tag == "Sprinkler" && SceneManager.GetActiveScene().name == "Inside") {
+            return;
+        }
+
+        // cannot place seeds
+        if(items[slot].tag == "Seed") {
             return;
         }
 
         if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
             // ensure raycast is hitting floor
             if(hit.collider.gameObject.layer == floorLayer) {
-                // don't allow sprinkler to be placed in inside scene
-                if(items[slot].tag != "Sprinkler" || SceneManager.GetActiveScene().name != "Inside") {
-                    images[slot].sprite = null;
-                    images[slot].color = Color.grey;
-                    items[slot].transform.position = new Vector3(hit.point.x, items[slot].transform.position.y, hit.point.z);
-                    items[slot].SetActive(true);
+                images[slot].sprite = null;
+                images[slot].color = Color.grey;
+                items[slot].transform.position = new Vector3(hit.point.x, items[slot].transform.position.y, hit.point.z);
+                items[slot].SetActive(true);
 
-                    // if placing pot and pot has plant, move plant
-                    if(items[slot].tag == "Pot" && items[slot].GetComponent<Pot>().HasPlant()) {
-                        GameObject plantObj = items[slot].GetComponent<Pot>().GetPlant();
-                        Vector3 potPos = items[slot].transform.position;
-                        plantObj.transform.position = new Vector3(potPos.x, plantObj.transform.position.y, potPos.z - 0.15f);
-                        plantObj.SetActive(true);
-                    }
-                    
-                    // if sprinkler, move sprinkler particle system with sprinkler
-                    if(items[slot].tag == "Sprinkler") {
-                        GameObject spsObj = items[slot].GetComponent<Sprinkler>().GetSprinklerParticleSystem();
-                        spsObj.transform.position = items[slot].transform.position + new Vector3(0f, 0.5f, 0f);
-                        spsObj.SetActive(true);
-                    }
-
-                    items[slot] = null;
+                // if placing pot and pot has plant, move plant
+                if(items[slot].tag == "Pot" && items[slot].GetComponent<Pot>().HasPlant()) {
+                    GameObject plantObj = items[slot].GetComponent<Pot>().GetPlant();
+                    Vector3 potPos = items[slot].transform.position;
+                    plantObj.transform.position = new Vector3(potPos.x, plantObj.transform.position.y, potPos.z - 0.15f);
+                    plantObj.SetActive(true);
                 }
+                
+                // if sprinkler, move sprinkler particle system with sprinkler
+                if(items[slot].tag == "Sprinkler") {
+                    GameObject spsObj = items[slot].GetComponent<Sprinkler>().GetSprinklerParticleSystem();
+                    spsObj.transform.position = items[slot].transform.position + new Vector3(0f, 0.5f, 0f);
+                    spsObj.SetActive(true);
+                }
+
+                items[slot] = null;
             }
         }
     }
@@ -163,13 +169,15 @@ public class Hotbar : MonoBehaviour
                 plantObj.SetActive(false);
             }
 
-            // if sprinkler, disable sprinkler particle system too
+            // if sprinkler, disable sprinkler particle system too if it exists
             if(obj.tag == "Sprinkler") {
                 GameObject spsObj = obj.GetComponent<Sprinkler>().GetSprinklerParticleSystem();
-                if(spsObj.GetComponent<DontDestroy>() == null) {
-                    spsObj.AddComponent<DontDestroy>();
+                if(spsObj != null) {
+                    if(spsObj.GetComponent<DontDestroy>() == null) {
+                        spsObj.AddComponent<DontDestroy>();
+                    }
+                    spsObj.SetActive(false);
                 }
-                spsObj.SetActive(false);
             }
 
             return true;
@@ -228,8 +236,19 @@ public class Hotbar : MonoBehaviour
                 // check if raycasthit is pot (plant seed in pot)
                 GameObject obj = hit.collider.gameObject;
                 if(obj.tag == "Pot" && !obj.GetComponent<Pot>().HasPlant()) {
-                    // instantiate plant prefab on top of pot +(0, 0.75, -0.15)
-                    GameObject plant = Instantiate(basicPlantPrefab, obj.transform.position + new Vector3(0f, 0.75f, -0.15f), Quaternion.identity);
+                    string plantType = items[slot].GetComponent<Seed>().GetPlantType();
+                    Vector3 adjustPlantPos;
+                    if(plantType == "Basic Plant") {
+                        adjustPlantPos = new Vector3(0f, 0.75f, -0.15f);
+                    } else if(plantType == "Fern") {
+                        adjustPlantPos = new Vector3(0f, 0.6f, -0.15f);
+                    } else { // default
+                        Debug.Log("Unexpected type: " + plantType);
+                        plantType = "Basic Plant";
+                        adjustPlantPos = new Vector3(0f, 0.75f, -0.15f);
+                    }
+
+                    GameObject plant = Instantiate(GameManager.Instance.GetPrefab(plantType), obj.transform.position + adjustPlantPos, Quaternion.identity);
                     
                     // link pot and plant
                     Pot potScript = obj.GetComponent<Pot>();
@@ -239,8 +258,10 @@ public class Hotbar : MonoBehaviour
                     plantScript.SetPot(obj);
                     plantScript.SetPotID(potScript.id);
 
-                    // delete seed from hotbar
-                    ClearSlot();
+                    // delete seed from hotbar (passed asset so cannot destroy)
+                    items[slot] = null;
+                    images[slot].sprite = null;
+                    images[slot].color = Color.grey;
                 }
             }
         }

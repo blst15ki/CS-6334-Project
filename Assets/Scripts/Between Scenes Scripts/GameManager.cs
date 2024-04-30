@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
     public List<GameObject> savedHotBarItems = new List<GameObject>();
     public GameData outsideGameData = null;
     public GameData indoorGameData = null;
-    public bool enableTutorial = true;
     public string indoorSpawnPoint = "end";
     
     void Awake() {
@@ -52,7 +51,7 @@ public class GameManager : MonoBehaviour
             new PotData { 
                 position = new Vector3(0.00f, 0.00f, -4.21f),
                 rotation = Quaternion.identity,
-                plantID = "6209b900-e00c-4cdb-abee-77e43203fb7d",
+                plantID = "",
                 potID = "9d9bb88b-23bc-441c-a253-931a9fd01469"
             }
         };
@@ -71,20 +70,6 @@ public class GameManager : MonoBehaviour
                 isHalf = false,
                 isMature = false,
                 scale = new Vector3(0.15f, 0.15f, 0.15f),
-            },
-            new PlantData {
-                position = new Vector3(0.00f, 0.6f, -4.36f),
-                rotation = Quaternion.identity,
-                plantID = "6209b900-e00c-4cdb-abee-77e43203fb7d",
-                potID = "9d9bb88b-23bc-441c-a253-931a9fd01469",
-                type = "Fern",
-                water = 10,
-                stage = "Seedling",
-                timeHalf = DateTime.Now.AddMinutes(1.5f),
-                timeMature = DateTime.Now.AddMinutes(3f),
-                isHalf = false,
-                isMature = false,
-                scale = new Vector3(100f, 100f, 100f)
             }
         };
 

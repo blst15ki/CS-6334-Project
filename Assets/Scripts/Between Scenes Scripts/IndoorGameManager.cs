@@ -6,8 +6,6 @@ using System;
 public class IndoorGameManager : MonoBehaviour
 {
     [SerializeField] Hotbar hotbar;
-    [SerializeField] GameObject tutorial;
-    [SerializeField] GameObject tutorialObj;
     [SerializeField] GameObject character;
     [SerializeField] GameObject camera;
     [SerializeField] GameObject cardboard;
@@ -47,11 +45,6 @@ public class IndoorGameManager : MonoBehaviour
 
         LoadItemsIntoHotbar();
         LoadGameData();
-
-        if (GameManager.Instance.enableTutorial) {
-            tutorial.GetComponent<Tutorial>().EnableTutorial();
-            GameManager.Instance.enableTutorial = false;
-        }
     }
 
     public void LoadItemsIntoHotbar()
