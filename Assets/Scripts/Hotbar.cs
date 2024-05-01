@@ -158,7 +158,7 @@ public class Hotbar : MonoBehaviour
                 obj.AddComponent<DontDestroy>();
             }
             
-            SetIcon(obj.tag, i);
+            SetIcon(obj.tag, i, obj);
             items[i] = obj;
             obj.SetActive(false);
             wait = true;
@@ -243,7 +243,7 @@ public class Hotbar : MonoBehaviour
                     Vector3 adjustPlantPos;
                     if(plantType == "Basic Plant") {
                         adjustPlantPos = new Vector3(0f, 0.75f, -0.15f);
-                    } else if(plantType == "Fern") {
+                    } else if(plantType == "Fern" || plantType == "Grass" || plantType == "Mint") {
                         adjustPlantPos = new Vector3(0f, 0.6f, -0.15f);
                     } else { // default
                         Debug.Log("Unexpected type: " + plantType);
@@ -252,7 +252,7 @@ public class Hotbar : MonoBehaviour
                     }
 
                     GameObject plant = Instantiate(GameManager.Instance.GetPrefab(plantType), obj.transform.position + adjustPlantPos, Quaternion.identity);
-                    
+
                     // link pot and plant
                     Pot potScript = obj.GetComponent<Pot>();
                     Plant plantScript = plant.GetComponent<Plant>();
@@ -270,8 +270,12 @@ public class Hotbar : MonoBehaviour
         }
     }
 
-    public void SetIcon(string tag, int i) {
-        images[i].sprite = GameManager.Instance.GetSprite(tag);
+    public void SetIcon(string tag, int i, GameObject obj) {
+        if(tag == "Seed") {
+            images[i].sprite = GameManager.Instance.GetSprite(obj.GetComponent<Seed>().GetPlantType());
+        } else {
+            images[i].sprite = GameManager.Instance.GetSprite(tag);
+        }
         images[i].color = Color.white;
     }
 

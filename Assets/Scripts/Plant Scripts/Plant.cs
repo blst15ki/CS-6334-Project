@@ -22,15 +22,15 @@ public abstract class Plant : MonoBehaviour
     void Awake()
     {
         if (!isDataLoaded) {
-            water = 30;
-            maxWater = 120;
-            time = 120;
+            water = 25;
+            maxWater = 100;
+            time = 165;
             type = "";
             id = uuid.ToString();
             stage = "Seedling";
             cur = DateTime.Now;
-            timeHalf = cur.AddMinutes(2f);
-            timeMature = cur.AddMinutes(4f);
+            timeHalf = cur.AddMinutes(2.75f);
+            timeMature = cur.AddMinutes(5.5f);
             timeLeave = cur;
             delay = false;
             isHalf = false;

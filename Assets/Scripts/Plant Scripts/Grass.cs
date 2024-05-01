@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Fern : Plant
+public class Grass : Plant
 {
     public override void InitializePlant() {
-        water = 20;
-        time = 135;
-        type = "Fern";
+        water = 25;
+        time = 150;
+        type = "Grass";
         stage = "Seedling";
-        timeHalf = DateTime.Now.AddMinutes(2.25f);
-        timeMature = DateTime.Now.AddMinutes(4.5f);
-        maxWater = 80;
+        timeHalf = DateTime.Now.AddMinutes(2.5f);
+        timeMature = DateTime.Now.AddMinutes(5f);
+        maxWater = 100;
     }
 
     protected override void CheckPlantGrowth() {
@@ -30,13 +30,13 @@ public class Fern : Plant
             if(!isHalf && DateTime.Compare(cur, timeHalf) >= 0) {
                 isHalf = true;
                 stage = "Adult";
-                transform.localScale = new Vector3(200f, 200f, 200f);
+                transform.localScale = new Vector3(30f, 30f, 30f);
             }
             // reach full grown
             if(!isMature && DateTime.Compare(cur, timeMature) >= 0) {
                 isMature = true;
                 stage = "Mature";
-                transform.localScale = new Vector3(400f, 400f, 400f);
+                transform.localScale = new Vector3(40f, 40f, 40f);
             }
         }
     }

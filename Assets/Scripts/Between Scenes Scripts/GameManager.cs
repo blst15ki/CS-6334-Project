@@ -11,12 +11,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] Sprite potSprite;
     [SerializeField] Sprite fertilizerSprite;
     [SerializeField] Sprite sprinklerSprite;
+    [SerializeField] Sprite basicPlantSprite;
+    [SerializeField] Sprite fernSprite;
+    [SerializeField] Sprite grassSprite;
+    [SerializeField] Sprite mintSprite;
     [SerializeField] GameObject wateringCanPrefab;
     [SerializeField] GameObject potPrefab;
     [SerializeField] GameObject fertilizerPrefab;
     [SerializeField] GameObject sprinklerPrefab;
     [SerializeField] GameObject basicPlantPrefab;
     [SerializeField] GameObject fernPrefab;
+    [SerializeField] GameObject grassPrefab;
+    [SerializeField] GameObject mintPrefab;
     public List<GameObject> savedHotBarItems = new List<GameObject>();
     public GameData outsideGameData = null;
     public GameData indoorGameData = null;
@@ -78,7 +84,7 @@ public class GameManager : MonoBehaviour
 
         List<FertilizerData> indoorFertilizerList = new List<FertilizerData>() {
             new FertilizerData {
-                position = new Vector3(3.77f, 0.25f, 1.91f),
+                position = new Vector3(6.3f, 0.25f, 4.35f),
                 rotation = Quaternion.identity
             }
         };
@@ -157,6 +163,14 @@ public class GameManager : MonoBehaviour
                 return fertilizerSprite;
             case "Sprinkler":
                 return sprinklerSprite;
+            case "Basic Plant":
+                return basicPlantSprite;
+            case "Fern":
+                return fernSprite;
+            case "Grass":
+                return grassSprite;
+            case "Mint":
+                return mintSprite;
             default:
                 return null;
         }
@@ -175,6 +189,10 @@ public class GameManager : MonoBehaviour
                 return basicPlantPrefab;
             case "Fern":
                 return fernPrefab;
+            case "Grass":
+                return grassPrefab;
+            case "Mint":
+                return mintPrefab;
             default:
                 return null;
         }
