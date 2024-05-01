@@ -24,6 +24,8 @@ public class Hotbar : MonoBehaviour
     PhotonView photonView = null;
     GetPlayerId playerIdScript;
     int ownerId;
+
+    GameObject setActiveGameObject;
     
     // Start is called before the first frame update
     void Start()
@@ -74,11 +76,14 @@ public class Hotbar : MonoBehaviour
                     items[slot].GetComponentInChildren<Renderer>().enabled = true;
                     items[slot].GetComponentInChildren<Collider>().enabled = true;
                     
-                    photonView = items[slot].GetComponent<PhotonView>();
-                    ownerId = playerIdScript.GetLocalPlayerID();
-                    photonView.TransferOwnership(ownerId);
+                    
                     if(PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
-                        photonView.RPC("SetActiveState", RpcTarget.Others, items[slot].name, false);
+                        photonView = items[slot].GetComponent<PhotonView>();
+                        ownerId = playerIdScript.GetLocalPlayerID();
+                        photonView.TransferOwnership(ownerId);
+                        setActiveGameObject = items[slot];
+                        Invoke("CallSetActiveFalse", 0.1f);
+                        // photonView.RPC("SetActiveState", RpcTarget.All, items[slot].name, false);
                     } else {
                         items[slot].SetActive(false);
                     }
@@ -158,7 +163,9 @@ public class Hotbar : MonoBehaviour
                 
 
                 if(PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
-                    photonView.RPC("SetActiveState", RpcTarget.Others, items[slot].name, true);
+                    setActiveGameObject = items[slot];
+                    Invoke("CallSetActiveTrue", 0.1f);
+                    // photonView.RPC("SetActiveState", RpcTarget.All, items[slot].name, true);
                 } else {
                     items[slot].SetActive(true);
                 }
@@ -177,7 +184,9 @@ public class Hotbar : MonoBehaviour
                     }
 
                     if(PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
-                        photonView.RPC("SetActiveState", RpcTarget.Others, plantObj.name, true);
+                        setActiveGameObject = plantObj;
+                        Invoke("CallSetActiveTrue", 0.1f);
+                        // photonView.RPC("SetActiveState", RpcTarget.All, plantObj.name, true);
                     } else {
                         plantObj.SetActive(true);
                     }
@@ -196,7 +205,9 @@ public class Hotbar : MonoBehaviour
                     } 
                     
                     if(PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
-                        photonView.RPC("SetActiveState", RpcTarget.Others, spsObj.name, true);
+                        setActiveGameObject = spsObj;
+                        Invoke("CallSetActiveTrue", 0.1f);
+                        // photonView.RPC("SetActiveState", RpcTarget.All, spsObj.name, true);
                     } else {
                         spsObj.SetActive(true);
                     }
@@ -228,7 +239,9 @@ public class Hotbar : MonoBehaviour
             }
             
             if(PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
-                photonView.RPC("SetActiveState", RpcTarget.Others, obj.name, false);
+                setActiveGameObject = obj;
+                Invoke("CallSetActiveFalse", 0.1f);
+                // photonView.RPC("SetActiveState", RpcTarget.All, obj.name, false);
             } else {
                 obj.SetActive(false);
             }
@@ -249,7 +262,9 @@ public class Hotbar : MonoBehaviour
                 }
                 
                 if(PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
-                    photonView.RPC("SetActiveState", RpcTarget.Others, plantObj.name, false);
+                    setActiveGameObject = plantObj;
+                    Invoke("CallSetActiveFalse", 0.1f);
+                    // photonView.RPC("SetActiveState", RpcTarget.All, plantObj.name, false);
                 } else {
                     plantObj.SetActive(false);
                 }
@@ -271,7 +286,9 @@ public class Hotbar : MonoBehaviour
                     }
                     
                     if(PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
-                        photonView.RPC("SetActiveState", RpcTarget.Others, spsObj.name, false);
+                        setActiveGameObject = spsObj;
+                        Invoke("CallSetActiveFalse", 0.1f);
+                        // photonView.RPC("SetActiveState", RpcTarget.All, spsObj.name, false);
                     } else {
                         spsObj.SetActive(false);
                     }
@@ -303,7 +320,9 @@ public class Hotbar : MonoBehaviour
                         }
                         
                         if(PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
-                            photonView.RPC("SetActiveState", RpcTarget.Others, items[slot].name, true);
+                            setActiveGameObject = items[slot];
+                            Invoke("CallSetActiveTrue", 0.1f);
+                            // photonView.RPC("SetActiveState", RpcTarget.All, items[slot].name, true);
                         } else {
                             items[slot].SetActive(true);
                         }
@@ -327,7 +346,9 @@ public class Hotbar : MonoBehaviour
                     } 
                     
                     if(PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
-                        photonView.RPC("SetActiveState", RpcTarget.Others, items[slot].name, true);
+                        setActiveGameObject = items[slot];
+                        Invoke("CallSetActiveTrue", 0.1f);
+                        // photonView.RPC("SetActiveState", RpcTarget.All, items[slot].name, true);
                     } else {
                         items[slot].SetActive(true);
                     }
@@ -460,11 +481,14 @@ public class Hotbar : MonoBehaviour
                 // if (PhotonNetwork.IsMasterClient) {
                     ownerId = playerIdScript.GetLocalPlayerID();
                     GameObject networkedItem = PhotonNetwork.Instantiate(itemObject, item.transform.position, item.transform.rotation);
+                    Debug.Log(networkedItem.name);
                     
                     if (PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
                         photonView = networkedItem.GetComponent<PhotonView>();
-                        photonView.TransferOwnership(ownerId);                 
-                        photonView.RPC("SetActiveState", RpcTarget.Others, networkedItem.name, false);
+                        photonView.TransferOwnership(ownerId);
+                        setActiveGameObject = networkedItem;
+                        Invoke("CallSetActiveFalse", 0.1f);
+                        // photonView.RPC("SetActiveState", RpcTarget.All, networkedItem.name, false);
                      } else {
                         networkedItem.SetActive(false); 
                      }
@@ -492,8 +516,9 @@ public class Hotbar : MonoBehaviour
                                     photonView = plantObjectNetwork.GetComponent<PhotonView>();
                                     photonView.TransferOwnership(ownerId);
                                     // networkPlant.transform.SetParent(networkedItem.transform);
-                                    
-                                    photonView.RPC("SetActiveState", RpcTarget.Others, plantObjectNetwork.name, false);
+                                    setActiveGameObject = plantObjectNetwork;
+                                    Invoke("CallSetActiveFalse", 0.1f);
+                                    // photonView.RPC("SetActiveState", RpcTarget.All, plantObjectNetwork.name, false);
                                 } else {
                                     plantObjectNetwork.SetActive(false);
                                 }
@@ -532,6 +557,20 @@ public class Hotbar : MonoBehaviour
                 // }
             }
         }
+    }
+
+    void CallSetActiveFalse()
+    {
+        Debug.Log("Attempting to set active state to false: " + setActiveGameObject.name);
+        photonView.RPC("SetActiveState", RpcTarget.All, false);
+        Debug.Log("After: " + setActiveGameObject.name);
+    }
+
+    void CallSetActiveTrue()
+    {
+        Debug.Log("Attempting to set active state to true: " + setActiveGameObject.name);
+        photonView.RPC("SetActiveState", RpcTarget.All, true);
+        Debug.Log("After: " + setActiveGameObject.name);
     }
 
     public string getPrefabName(GameObject item) {

@@ -22,14 +22,8 @@ public class Interact : MonoBehaviour
     }
 
     [PunRPC]
-    void SetActiveState(string name, bool active) {
-        GameObject obj = GameObject.Find(name);
-        if (obj != null) {
-            obj.SetActive(active);
-            Debug.Log($"RPC SetActiveState: Setting {name} to {active}");
-        } else {
-            Debug.LogError("Object not found: " + name);
-        }
+    void SetActiveState(bool active) {
+        gameObject.SetActive(active);
     }
     // Update is called once per frame
     void Update()
