@@ -7,24 +7,23 @@ public abstract class Plant : MonoBehaviour
 {
     [SerializeField] protected GameObject potObj;
     Outline outline;
-    public int water, deadWater, maxWater, time;
+    public int water, maxWater, time;
     public string type;
     public string id;
     public string potID = null;
     public string stage;
-    public DateTime cur, timeHalf, timeMature;
+    public DateTime cur, timeHalf, timeMature, timeLeave;
     public bool isHalf, isMature, hasLight = false;
     public Guid uuid = Guid.NewGuid();
-    public bool isDataLoaded = false;
+    public bool isDataLoaded = false, delay;
     public Light lightSource;
 
     // Start is called before the first frame update
     void Awake()
     {
         if (!isDataLoaded) {
-            water = 10;
-            deadWater = -20; // limit on how low water can reach before plant dies
-            maxWater = 100;
+            water = 30;
+            maxWater = 120;
             time = 120;
             type = "";
             id = uuid.ToString();
@@ -32,6 +31,8 @@ public abstract class Plant : MonoBehaviour
             cur = DateTime.Now;
             timeHalf = cur.AddMinutes(2f);
             timeMature = cur.AddMinutes(4f);
+            timeLeave = cur;
+            delay = false;
             isHalf = false;
             isMature = false;
             InitializePlant();
@@ -54,20 +55,30 @@ public abstract class Plant : MonoBehaviour
         if(lightSource == null || !lightSource.gameObject.activeInHierarchy) {
             lightSource = FindObjectOfType<Light>();
         }
-        CheckLight();
+        CheckStats();
         CheckPlantGrowth();
     }
 
     protected abstract void CheckPlantGrowth();
 
-    void CheckLight() {
+    void CheckStats() {
+        if(lightSource.enabled) {
+            hasLight = true;
+        } else {
+            hasLight = false;
+        }
+
         if(!isMature) {
-            if(lightSource.enabled) {
-                hasLight = true;
-                CancelInvoke("DelayGrowth");
+            float amount = (float)water / maxWater;
+            // stop growth if no light or too little or too much water
+            if((amount < 0.2 || amount > 0.8) || !hasLight) {
+                if(!IsInvoking("DelayGrowth")) {
+                    InvokeRepeating("DelayGrowth", 1f, 1f);
+                    delay = true;
+                }
             } else {
-                hasLight = false;
-                InvokeRepeating("DelayGrowth", 1f, 1f);
+                CancelInvoke("DelayGrowth");
+                delay = false;
             }
         }
     }
@@ -83,24 +94,16 @@ public abstract class Plant : MonoBehaviour
         }
     }
 
-    // stop growth if no light (TODO: or not enough water)
     void DelayGrowth() {
-        timeHalf.AddSeconds(1f);
-        timeMature.AddSeconds(1f);
+        timeHalf = timeHalf.AddSeconds(1f);
+        timeMature = timeMature.AddSeconds(1f);
     }
 
     void AddWater() {
-        if(water < maxWater) {
-            water += 5;
-        }
-        if(water > maxWater) {
-            water = maxWater;
-        }
+        water += 5;
     }
     void LoseWater() {
-        if(water > deadWater) {
-            water--;
-        }
+        water--;
     }
 
     public void GiveWater() {
@@ -113,7 +116,7 @@ public abstract class Plant : MonoBehaviour
         outline.OutlineColor = Color.white;
         outline.enabled = false;
     }
-    public void StopWaterTimed(float time) { Invoke("StopWater", time); } // stop watering after time seconds
+    public void StopWaterTimed(float timer) { Invoke("StopWater", timer); } // stop watering after timer seconds
 
     public int GetWater() { return water; }
     public int GetMaxWater() { return maxWater; }

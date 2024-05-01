@@ -58,18 +58,18 @@ public class GameManager : MonoBehaviour
 
         List<PlantData> indoorPlantList = new List<PlantData>() {
             new PlantData {
-                position = new Vector3(0f, 0.6f, -4.36f),
+                position = new Vector3(-0.75f, 0.6f, -4.36f),
                 rotation = Quaternion.identity,
                 plantID = "93ab33b5-05dc-4559-952a-401ff7553ef6",
                 potID = "981603f4-2d5a-47ca-af5b-d7fe8d7e1c2d",
                 type = "Fern",
-                water = 10,
+                water = 30,
                 stage = "Seedling",
                 timeHalf = DateTime.Now.AddMinutes(1.5f),
                 timeMature = DateTime.Now.AddMinutes(3f),
                 isHalf = false,
                 isMature = false,
-                scale = new Vector3(0.15f, 0.15f, 0.15f),
+                scale = new Vector3(100f, 100f, 100f),
             }
         };
 
@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
                 plantID = "ca5c832e-e979-49d4-b333-59528e746ccb",
                 potID = "d2d5baca-e619-473e-a82e-5f58d9fb8de5",
                 type = "Basic Plant",
-                water = 10,
+                water = 30,
                 stage = "Seedling",
                 timeHalf = DateTime.Now.AddMinutes(2f),
                 timeMature = DateTime.Now.AddMinutes(2f),

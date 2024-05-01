@@ -138,10 +138,18 @@ public class OutsideGameManager : MonoBehaviour
                 plantScript.type = plantData.type;
                 plantScript.stage = plantData.stage;
                 plantScript.cur = DateTime.Now;
-                plantScript.timeHalf = plantData.timeHalf;
-                plantScript.timeMature = plantData.timeMature;
+                plantScript.timeLeave = plantData.timeLeave;
+                plantScript.delay = plantData.delay;
                 plantScript.isHalf = plantData.isHalf;
                 plantScript.isMature = plantData.isMature;
+
+                if(plantData.delay) {
+                    plantScript.timeHalf = DateTime.Now.AddMinutes((plantData.timeHalf - plantData.timeLeave).TotalMinutes);
+                    plantScript.timeMature = DateTime.Now.AddMinutes((plantData.timeMature - plantData.timeLeave).TotalMinutes);
+                } else {
+                    plantScript.timeHalf = plantData.timeHalf;
+                    plantScript.timeMature = plantData.timeMature;
+                }
                 
                 // link plant and pot objects
                 plantScript.SetPot(potsMap[plantData.potID]);

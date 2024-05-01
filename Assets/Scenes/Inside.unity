@@ -17362,10 +17362,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlantInterfaceObj
       objectReference: {fileID: 0}
-    - target: {fileID: 3331814015294504536, guid: 1700d3d4b0af82f49b1c7555a3973b23, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3331814016482259399, guid: 1700d3d4b0af82f49b1c7555a3973b23, type: 3}
       propertyPath: m_Camera
       value: 

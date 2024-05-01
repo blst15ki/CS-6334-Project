@@ -11,15 +11,15 @@ public class Fern : Plant
         stage = "Seedling";
         timeHalf = DateTime.Now.AddMinutes(1.5f);
         timeMature = DateTime.Now.AddMinutes(3f);
-        deadWater = -10;
-        maxWater = 80;
+        maxWater = 90;
     }
 
     protected override void CheckPlantGrowth() {
         cur = DateTime.Now;
         
         // check if dead (mature plants cannot die)
-        if(!isMature && water <= deadWater) {
+        // plants die if too underwatered or overwatered
+        if(!isMature && (water <= 0 || water >= maxWater)) {
             // remove link to pot and destroy plant
             Pot potScript = potObj.GetComponent<Pot>();
             potScript.ClearPlant();

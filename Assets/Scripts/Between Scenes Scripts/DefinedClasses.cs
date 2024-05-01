@@ -12,10 +12,11 @@ public class PlantData {
     public string stage;
     public DateTime timeHalf;
     public DateTime timeMature;
+    public DateTime timeLeave;
+    public bool delay;
     public bool isHalf;
     public bool isMature;
     public Vector3 scale;
-    public Color color;
 
     public PlantData(GameObject plant) {
         Plant plantScript = plant.GetComponent<Plant>();
@@ -28,6 +29,8 @@ public class PlantData {
         stage = plantScript.GetStage();
         timeHalf = plantScript.timeHalf;
         timeMature = plantScript.timeMature;
+        timeLeave = DateTime.Now;
+        delay = plantScript.delay;
         isHalf = plantScript.isHalf;
         isMature = plantScript.isMature;
         scale = plant.transform.localScale;
@@ -36,7 +39,7 @@ public class PlantData {
     public PlantData() {}
 
     public override string ToString() {
-        return $"PlantData: ID={plantID}, PotID={potID}, Type={type}, Position={position}, Rotation={rotation.eulerAngles}, Water={water}, Stage={stage}, TimeHalf={timeHalf}, TimeMature={timeMature}, IsHalf={isHalf}, IsMature={isMature}, Scale={scale}";
+        return $"PlantData: ID={plantID}, PotID={potID}, Type={type}, Position={position}, Rotation={rotation.eulerAngles}, Water={water}, Stage={stage}, TimeHalf={timeHalf}, TimeMature={timeMature}, TimeLeave={timeLeave}, Delay={delay}, IsHalf={isHalf}, IsMature={isMature}, Scale={scale}";
     }
 }
 
