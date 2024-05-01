@@ -1335,6 +1335,7 @@ GameObject:
   - component: {fileID: 4425563086859936889}
   - component: {fileID: 8351258357850125164}
   - component: {fileID: 3187389742572135943}
+  - component: {fileID: 1049727548080637822}
   m_Layer: 5
   m_Name: Hotbar
   m_TagString: Untagged
@@ -1458,6 +1459,28 @@ MonoBehaviour:
   - {fileID: 2167830542699479833}
   mainCamera: {fileID: 3061531332423279660}
   enable: 1
+--- !u!114 &1049727548080637822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4393503918773242807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &4559219605274075604
 GameObject:
   m_ObjectHideFlags: 0
@@ -7991,6 +8014,7 @@ MonoBehaviour:
   reticle: {fileID: 3061531333354020692}
   maxDistance: 20
   plantInterface: {fileID: 1636600043724558900}
+  thisHotBar: {fileID: 3187389742572135943}
 --- !u!114 &3061531333354020692 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7287137019806045175, guid: 186741bf17cbb0e4fa3ef06daa1f190f, type: 3}

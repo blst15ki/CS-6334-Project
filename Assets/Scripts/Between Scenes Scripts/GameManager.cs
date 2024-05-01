@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> savedHotBarItems = new List<GameObject>();
     public GameData outsideGameData = null;
     public GameData indoorGameData = null;
+    public GameData lobbyGameData = null;
     public string indoorSpawnPoint = "end";
     
     void Awake() {
@@ -187,12 +188,20 @@ public class GameManager : MonoBehaviour
         return savedHotBarItems;
     }
 
+    public void SaveLobbyGameData(GameData gameData){
+        lobbyGameData = gameData;
+    }
+
     public void SaveIndoorGameData(GameData gameData){
         indoorGameData = gameData;
     }
 
     public GameData GetIndoorGameData() {
         return indoorGameData;
+    }
+
+    public GameData GetLobbyGameData() {
+        return lobbyGameData;
     }
 
     public void SaveOutsideGameData(GameData gameData){

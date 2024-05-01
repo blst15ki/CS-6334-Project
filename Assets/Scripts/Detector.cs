@@ -7,16 +7,18 @@ public class Detector : MonoBehaviour
     public XRCardboardReticle reticle;
     public float maxDistance = 20f;
     [SerializeField] PlantInterface plantInterface;
+		[SerializeField] Hotbar thisHotBar = null;
     private Outline lastOutline = null;
-	private DoorTeleport lastDoorTeleport = null;
-	private Interact lastInteract = null;
-	private LightController lastLightController = null;
-	private Pot lastPot = null;
-	private Sprinkler lastSprinkler = null;
-	private PlantInterface lastPlantInterface = null;
-	private RadioManager lastRadioManager = null;
-	private Chest lastChest = null;
-	private GameObject lastHitObject = null;
+		private DoorTeleport lastDoorTeleport = null;
+		private Interact lastInteract = null;
+		private LightController lastLightController = null;
+		private Pot lastPot = null;
+		private Sprinkler lastSprinkler = null;
+		private PlantInterface lastPlantInterface = null;
+		private RadioManager lastRadioManager = null;
+		private Chest lastChest = null;
+		private GameObject lastHitObject = null;
+		
 
     void Update()
     {
@@ -49,6 +51,7 @@ public class Detector : MonoBehaviour
 				if (interact != null) {
 					interact.PointerOn();
 					lastInteract = interact;
+					interact.hotbar = thisHotBar; 
 				}
 
 				LightController lightController = hitObject.GetComponent<LightController>();

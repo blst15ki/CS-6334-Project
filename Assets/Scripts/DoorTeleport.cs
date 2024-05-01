@@ -44,13 +44,16 @@ public class DoorTeleport : MonoBehaviour
             Hotbar hotbar = collider.gameObject.GetComponentInChildren<Hotbar>();
 
             if (hotbar != null) {
-                List<GameObject> items = hotbar.GetItems();
-                GameManager.Instance.SaveItems(items);
+
+                if (currentScene != "Lobby") {
+                    GameManager.Instance.SaveItems(hotbar.GetItems());
+                } else {
+                    GameManager.Instance.SaveItems(hotbar.getNonPhotonVeiwVersion());
+                }
+                
             }
 
-            if (PhotonNetwork.IsConnected) {
-                PhotonNetwork.Disconnect();
-            }
+            TryDisconnect();
 
             if(currentScene == "Inside"){
                 IndoorGameManager indoorGameManager = FindObjectOfType<IndoorGameManager>();
@@ -65,5 +68,22 @@ public class DoorTeleport : MonoBehaviour
 
             SceneManager.LoadScene(scene);
         }
+    }
+
+    public void TryDisconnect()
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            StartCoroutine(DisconnectAndLog());
+        }
+    }
+
+    private IEnumerator DisconnectAndLog() {
+        PhotonNetwork.Disconnect();
+        while (PhotonNetwork.IsConnected)
+        {
+            yield return null;
+        }
+        Debug.Log("Disconnected from Photon Network");
     }
 }

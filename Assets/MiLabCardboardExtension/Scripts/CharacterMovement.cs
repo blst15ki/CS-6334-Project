@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -21,33 +22,37 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Get horizontal and Vertical movements
-        float horComp = Input.GetAxis("Horizontal");
-        float vertComp = Input.GetAxis("Vertical");
-
-        if (joyStickMode)
+        PhotonView photonView = GetComponent<PhotonView>();
+        if (photonView == null || photonView.IsMine)
         {
-            horComp = Input.GetAxis("Vertical");
-            vertComp = Input.GetAxis("Horizontal") * -1;
+            //Get horizontal and Vertical movements
+            float horComp = Input.GetAxis("Horizontal");
+            float vertComp = Input.GetAxis("Vertical");
+
+            if (joyStickMode)
+            {
+                horComp = Input.GetAxis("Vertical");
+                vertComp = Input.GetAxis("Horizontal") * -1;
+            }
+
+            Vector3 moveVect = Vector3.zero;
+
+            //Get look Direction
+            Vector3 cameraLook = cameraObj.transform.forward;
+            cameraLook.y = 0f;
+            cameraLook = cameraLook.normalized;
+
+            Vector3 forwardVect = cameraLook;
+            Vector3 rightVect = Vector3.Cross(forwardVect, Vector3.up).normalized * -1;
+
+            moveVect += rightVect * horComp;
+            moveVect += forwardVect * vertComp;
+
+            moveVect *= speed;
+        
+
+            charCntrl.SimpleMove(moveVect);
         }
-
-        Vector3 moveVect = Vector3.zero;
-
-        //Get look Direction
-        Vector3 cameraLook = cameraObj.transform.forward;
-        cameraLook.y = 0f;
-        cameraLook = cameraLook.normalized;
-
-        Vector3 forwardVect = cameraLook;
-        Vector3 rightVect = Vector3.Cross(forwardVect, Vector3.up).normalized * -1;
-
-        moveVect += rightVect * horComp;
-        moveVect += forwardVect * vertComp;
-
-        moveVect *= speed;
-     
-
-        charCntrl.SimpleMove(moveVect);
 
 
     }
