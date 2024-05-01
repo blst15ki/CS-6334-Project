@@ -87,13 +87,11 @@ public class CustomizeMenu : MonoBehaviour
         }
         else if (button == 2)
         {
-            Debug.Log("Selected Avatar 1");
-            // TODO: add avatar;           
+            GameManager.Instance.avatarValue = 0;          
         }
         else if (button == 3)
         {
-            Debug.Log("Selected Avatar 2");
-            // TODO: add avatar;           
+            GameManager.Instance.avatarValue = 1;
         }
     }
 }

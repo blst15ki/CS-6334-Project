@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public GameData outsideGameData = null;
     public GameData indoorGameData = null;
     public string indoorSpawnPoint = "end";
+    public int avatarValue = 0;
     
     void Awake() {
         if (Instance == null)

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1770,6 +1770,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1083295925}
   m_CullTransparentMesh: 1
+--- !u!1 &1115503868
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1115503870}
+  - component: {fileID: 1115503869}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1115503869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115503868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488016e2d0d3a4148ba0db7e860c62c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wateringCanSprite: {fileID: 21300000, guid: 839a0c0b9ebcd4b9685596a388fcdd02, type: 3}
+  potSprite: {fileID: 21300000, guid: 68a9800d415f54ac1a397334402e57e7, type: 3}
+  fertilizerSprite: {fileID: 21300000, guid: bff84b115c07b4f84b88d901ee40cd79, type: 3}
+  sprinklerSprite: {fileID: 21300000, guid: 7e518ae4914064486948e2b52b0633fe, type: 3}
+  wateringCanPrefab: {fileID: 179056, guid: 220c818457a8d2441bf84edb4edee095, type: 3}
+  potPrefab: {fileID: 8808214653859070342, guid: da915fba24b5e3446ba5c23ae9243acc, type: 3}
+  fertilizerPrefab: {fileID: 9070345395880169474, guid: a294e12a9d420cd4c86339a4c0eb651a, type: 3}
+  sprinklerPrefab: {fileID: 6710239645296517835, guid: 58e2026cd7b45224ebbd3315107901f0, type: 3}
+  basicPlantPrefab: {fileID: 5050005892461381086, guid: 2ee099d8adbca4677aa35eb9cc121046, type: 3}
+  fernPrefab: {fileID: 1840016888200548, guid: b6ffc5548aaa747c2bd6716da5cfdbc4, type: 3}
+  avatar:
+  - {fileID: 919132149155446097, guid: 1fc2bb92002ec4ee9a19b54dd044eac3, type: 3}
+  - {fileID: 919132149155446097, guid: 661eb0d33a3b7474fa047268530ff545, type: 3}
+  savedHotBarItems: []
+  indoorSpawnPoint: middle
+  avatarValue: 0
+--- !u!4 &1115503870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115503868}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.060482, y: 0.41786706, z: -0.21971273}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1161513012
 GameObject:
   m_ObjectHideFlags: 0

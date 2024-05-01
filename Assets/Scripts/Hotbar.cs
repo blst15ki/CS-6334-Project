@@ -12,6 +12,7 @@ public class Hotbar : MonoBehaviour
     GameObject[] items = new GameObject[9]; // contains item references per slot
     UnityEngine.UI.Outline[] slotOutlines = new UnityEngine.UI.Outline[9]; // handles outer slot outline
     Image[] images = new Image[9]; // contains sprites for slots
+    [SerializeField] GameObject[] avatar;
     int slot, floorLayer;
     string XInput, YInput, AInput, BInput;
     public bool enable = true;
@@ -34,6 +35,8 @@ public class Hotbar : MonoBehaviour
         BInput = "js5";
         wait = false; // prevent selecting and placing an object in the same frame
         inUse = false;
+
+        avatar[GameManager.Instance.avatarValue].SetActive(true);
     }
 
     // Update is called once per frame
