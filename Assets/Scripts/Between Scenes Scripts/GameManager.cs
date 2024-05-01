@@ -42,24 +42,47 @@ public class GameManager : MonoBehaviour
     }
     
     void Start() {
+        int potSizeIn = 5;
+        string[] potIDin = new string[potSizeIn];
+        for(int i = 0; i < potSizeIn; i++) {
+            potIDin[i] = Guid.NewGuid().ToString();
+        }
+        int plantSizeIn = 3;
+        string[] plantIDin = new string[plantSizeIn];
+        for(int i = 0; i < plantSizeIn; i++) {
+            plantIDin[i] = Guid.NewGuid().ToString();
+        }
+
         List<PotData> indoorPotList = new List<PotData>() {
             new PotData { 
                 position = new Vector3(-1.50f, 0.00f, -4.21f),
                 rotation = Quaternion.identity,
                 plantID = "",
-                potID = "be2eb360-320e-48d3-b91f-f760b7e2f035"
+                potID = potIDin[0]
             },
             new PotData { 
                 position = new Vector3(-0.75f, 0.00f, -4.21f),
                 rotation = Quaternion.identity,
-                plantID = "93ab33b5-05dc-4559-952a-401ff7553ef6",
-                potID = "981603f4-2d5a-47ca-af5b-d7fe8d7e1c2d"
+                plantID = plantIDin[0],
+                potID = potIDin[1]
             },
             new PotData { 
                 position = new Vector3(0.00f, 0.00f, -4.21f),
                 rotation = Quaternion.identity,
                 plantID = "",
-                potID = "9d9bb88b-23bc-441c-a253-931a9fd01469"
+                potID = potIDin[2]
+            },
+            new PotData { 
+                position = new Vector3(-9.3f, 0f, 4f),
+                rotation = Quaternion.identity,
+                plantID = plantIDin[1],
+                potID = potIDin[3]
+            },
+            new PotData { 
+                position = new Vector3(-9.3f, 0f, 3f),
+                rotation = Quaternion.identity,
+                plantID = plantIDin[2],
+                potID = potIDin[4]
             }
         };
 
@@ -67,13 +90,41 @@ public class GameManager : MonoBehaviour
             new PlantData {
                 position = new Vector3(-0.75f, 0.6f, -4.36f),
                 rotation = Quaternion.identity,
-                plantID = "93ab33b5-05dc-4559-952a-401ff7553ef6",
-                potID = "981603f4-2d5a-47ca-af5b-d7fe8d7e1c2d",
+                plantID = plantIDin[0],
+                potID = potIDin[1],
                 type = "Fern",
-                water = 30,
+                water = 20,
                 stage = "Seedling",
-                timeHalf = DateTime.Now.AddMinutes(1.5f),
-                timeMature = DateTime.Now.AddMinutes(3f),
+                timeHalf = DateTime.Now.AddMinutes(2.25f),
+                timeMature = DateTime.Now.AddMinutes(4.5f),
+                isHalf = false,
+                isMature = false,
+                scale = new Vector3(100f, 100f, 100f),
+            },
+            new PlantData {
+                position = new Vector3(-9.3f, 0.6f, 3.85f),
+                rotation = Quaternion.identity,
+                plantID = plantIDin[1],
+                potID = potIDin[3],
+                type = "Grass",
+                water = 25,
+                stage = "Seedling",
+                timeHalf = DateTime.Now.AddMinutes(2.5f),
+                timeMature = DateTime.Now.AddMinutes(5f),
+                isHalf = false,
+                isMature = false,
+                scale = new Vector3(20f, 20f, 20f),
+            },
+            new PlantData {
+                position = new Vector3(-9.3f, 0.6f, 2.85f),
+                rotation = Quaternion.identity,
+                plantID = plantIDin[2],
+                potID = potIDin[4],
+                type = "Mint",
+                water = 25,
+                stage = "Seedling",
+                timeHalf = DateTime.Now.AddMinutes(3f),
+                timeMature = DateTime.Now.AddMinutes(6f),
                 isHalf = false,
                 isMature = false,
                 scale = new Vector3(100f, 100f, 100f),
@@ -84,14 +135,14 @@ public class GameManager : MonoBehaviour
 
         List<FertilizerData> indoorFertilizerList = new List<FertilizerData>() {
             new FertilizerData {
-                position = new Vector3(6.3f, 0.25f, 4.35f),
+                position = new Vector3(8.2f, 0.25f, 4.35f),
                 rotation = Quaternion.identity
             }
         };
 
         List<WateringCanData> indoorWateringCanList = new List<WateringCanData>() {
             new WateringCanData {
-                position = new Vector3(0.0f, 0.33f, 0.0f),
+                position = new Vector3(3f, 0.33f, -3.66f),
                 rotation = Quaternion.identity
             }
         };
@@ -109,18 +160,29 @@ public class GameManager : MonoBehaviour
 
         indoorGameData = new GameData(indoorPotsAndPlants, new List<SprinklerData>(), indoorFertilizerList, indoorWateringCanList, chestList);
 
+        int potSizeOut = 2;
+        string[] potIDout = new string[potSizeOut];
+        for(int i = 0; i < potSizeOut; i++) {
+            potIDout[i] = Guid.NewGuid().ToString();
+        }
+
+        int plantSizeOut = 1;
+        string[] plantIDout = new string[plantSizeOut];
+        for(int i = 0; i < plantSizeOut; i++) {
+            plantIDout[i] = Guid.NewGuid().ToString();
+        }
         List<PotData> outsidePotList = new List<PotData>() {
             new PotData { 
                 position = new Vector3(-2.20f, 0.00f, -8.08f),
                 rotation = Quaternion.identity,
                 plantID = "",
-                potID = "0774b5a1-9c99-465e-9582-58aa43b7fc1c"
+                potID = potIDout[0]
             },
             new PotData { 
                 position = new Vector3(-4.02f, 0.00f, -8.08f),
                 rotation = Quaternion.identity,
-                plantID = "ca5c832e-e979-49d4-b333-59528e746ccb",
-                potID = "d2d5baca-e619-473e-a82e-5f58d9fb8de5"
+                plantID = plantIDout[0],
+                potID = potIDout[1]
             }
         };
 
@@ -128,13 +190,13 @@ public class GameManager : MonoBehaviour
             new PlantData {
                 position = new Vector3(-4.02f, 0.75f, -8.23f),
                 rotation = Quaternion.identity,
-                plantID = "ca5c832e-e979-49d4-b333-59528e746ccb",
-                potID = "d2d5baca-e619-473e-a82e-5f58d9fb8de5",
+                plantID = plantIDout[0],
+                potID = potIDout[1],
                 type = "Basic Plant",
-                water = 30,
+                water = 25,
                 stage = "Seedling",
-                timeHalf = DateTime.Now.AddMinutes(2f),
-                timeMature = DateTime.Now.AddMinutes(2f),
+                timeHalf = DateTime.Now.AddMinutes(2.75f),
+                timeMature = DateTime.Now.AddMinutes(5.5f),
                 isHalf = false,
                 isMature = false,
                 scale = new Vector3(0.15f, 0.15f, 0.15f),

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -2783547953278927471}
   m_Layer: 0
   m_Name: Grass D Bush 4
-  m_TagString: Untagged
+  m_TagString: Plant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

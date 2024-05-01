@@ -124,7 +124,7 @@ public class OutsideGameManager : MonoBehaviour
             plant.transform.localScale = plantData.scale;
 
             Plant plantScript = null;
-            if (plantData.type == "Basic Plant" || plantData.type == "Fern") {
+            if (plantData.type != "") {
                 plantScript = plant.GetComponent<Plant>();
             } else {
                 Debug.Log("Error no script found for plant type");
