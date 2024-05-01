@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Photon.Pun;
 
 public abstract class Plant : MonoBehaviour
 {
@@ -130,6 +131,11 @@ public abstract class Plant : MonoBehaviour
         if(!isMature) {
             timeMature = cur.AddMinutes((timeMature - cur).TotalMinutes * 0.8);
         }
+    }
+
+    [PunRPC]
+    void SetActiveState(bool active) {
+        gameObject.SetActive(active);
     }
 
     public GameObject GetPot() { return potObj; }

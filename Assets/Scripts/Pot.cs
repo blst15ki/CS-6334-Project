@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
+using Photon.Pun;
 
 public class Pot : MonoBehaviour
 {
@@ -55,6 +56,11 @@ public class Pot : MonoBehaviour
                 }
             }
         }
+    }
+
+    [PunRPC]
+    void SetActiveState(bool active) {
+        gameObject.SetActive(active);
     }
 
     public void PointerOn() { pointer = true; }

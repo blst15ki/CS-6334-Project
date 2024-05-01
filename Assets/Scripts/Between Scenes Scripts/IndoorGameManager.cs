@@ -50,6 +50,7 @@ public class IndoorGameManager : MonoBehaviour
 
     public void LoadItemsIntoHotbar()
     {
+        Debug.Log("From Indoor GM: LoadItemsIntoHotbar");
         if (hotbar == null) {
             hotbar = FindObjectOfType<Hotbar>();
         }
@@ -114,11 +115,11 @@ public class IndoorGameManager : MonoBehaviour
             chestList.Add(chestData);
         }
 
-        // LogGameData("Pots", potList);
-        // LogGameData("Plants", plantList);
-        // LogGameData("Sprinklers", sprinklerList);
-        // LogGameData("Fertilizers", fertilizerList);
-        // LogGameData("Water Cans", wateringCanList);
+        LogGameData("Pots", potList);
+        LogGameData("Plants", plantList);
+        LogGameData("Sprinklers", sprinklerList);
+        LogGameData("Fertilizers", fertilizerList);
+        LogGameData("Water Cans", wateringCanList);
 
         return new GameData(potsAndPlants, sprinklerList, fertilizerList, wateringCanList, chestList);
     }
@@ -131,10 +132,12 @@ public class IndoorGameManager : MonoBehaviour
     }
 
     public void LoadGameData(){
+        Debug.Log("From Indoor GM: LoadGameData1");
         if (GameManager.Instance == null || GameManager.Instance.GetIndoorGameData() == null) {
+            Debug.Log("From Indoor GM: LoadGameData2 inside if");
             return;
         }
-
+        Debug.Log("From Indoor GM: LoadGameData3");
         GameData gameData = GameManager.Instance.GetIndoorGameData();
         Dictionary<string, GameObject> potsMap = new Dictionary<string, GameObject>();
         foreach (PotData potData in gameData.potsAndPlants.listOfPots) {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Photon.Pun;
 
 public class BasicPlant : Plant
 {
@@ -12,6 +13,11 @@ public class BasicPlant : Plant
         timeHalf = DateTime.Now.AddMinutes(2f);
         timeMature = DateTime.Now.AddMinutes(4f);
         maxWater = 120;
+    }
+
+    [PunRPC]
+    void SetActiveState(bool active) {
+        gameObject.SetActive(active);
     }
 
     protected override void CheckPlantGrowth() {

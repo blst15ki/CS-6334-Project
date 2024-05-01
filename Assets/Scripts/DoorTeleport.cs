@@ -9,6 +9,7 @@ public class DoorTeleport : MonoBehaviour
     [SerializeField] string currentScene;
     [SerializeField] string scene;
     [SerializeField] GameObject sign;
+    GetPlayerId playerIdScript;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,8 @@ public class DoorTeleport : MonoBehaviour
         if(sign != null) {
             sign.SetActive(false); 
         } 
+
+        playerIdScript = GameObject.FindObjectOfType<GetPlayerId>();
     }
 
     // Update is called once per frame
@@ -53,6 +56,11 @@ public class DoorTeleport : MonoBehaviour
                 
             }
 
+            // if(PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
+            //     Debug.Log("Disconnecting");
+            //     PhotonNetwork.Disconnect();
+            //     Debug.Log("After Disconnecting");
+            // }
             TryDisconnect();
 
             if(currentScene == "Inside"){
@@ -74,11 +82,28 @@ public class DoorTeleport : MonoBehaviour
     {
         if (PhotonNetwork.IsConnected)
         {
+            TransferOwnershipToLocalPlayer();
             StartCoroutine(DisconnectAndLog());
         }
     }
 
+    private void TransferOwnershipToLocalPlayer()
+    {
+        PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
+        int localPlayerId = playerIdScript.GetLocalPlayerID();
+        Debug.Log(localPlayerId);
+        foreach (PhotonView pv in photonViews)
+        {
+            if (pv.Owner != null && pv.OwnerActorNr != localPlayerId)
+            {
+                pv.TransferOwnership(localPlayerId);
+            }
+        }
+    }
+
     private IEnumerator DisconnectAndLog() {
+        Debug.Log("Before Disconnected from Photon Network");
+        yield return new WaitForSeconds(0.5f);
         PhotonNetwork.Disconnect();
         while (PhotonNetwork.IsConnected)
         {

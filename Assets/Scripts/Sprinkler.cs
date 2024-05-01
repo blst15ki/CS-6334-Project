@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Sprinkler : MonoBehaviour
 {
@@ -55,6 +56,11 @@ public class Sprinkler : MonoBehaviour
                 }
             }
         }
+    }
+
+    [PunRPC]
+    void SetActiveState(bool active) {
+        gameObject.SetActive(active);
     }
 
     public void PointerOn() { pointer = true; hotbar.DisableHotbar(); }
