@@ -9,6 +9,8 @@ public class DoorTeleport : MonoBehaviour
     [SerializeField] string currentScene;
     [SerializeField] string scene;
     [SerializeField] GameObject sign;
+    private string BInput;
+    private GameObject player;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +18,7 @@ public class DoorTeleport : MonoBehaviour
         if(sign != null) {
             sign.SetActive(false); 
         } 
+        BInput = "js5";
     }
 
     // Update is called once per frame
@@ -27,21 +30,9 @@ public class DoorTeleport : MonoBehaviour
     public void PointerOn() { 
         if(sign != null) {
             sign.SetActive(true); 
-        }
-        
-    }
-    public void PointerOff() {
-        if(sign != null) {
-            sign.SetActive(false); 
-        } 
-    }
-
-    // teleport player
-    void OnTriggerEnter(Collider collider) {
-
-        if(collider.gameObject.tag == "Player") {
-
-            Hotbar hotbar = collider.gameObject.GetComponentInChildren<Hotbar>();
+            if (Input.GetButtonDown(BInput)){
+            player = GameObject.FindGameObjectWithTag("Player");
+            Hotbar hotbar = player.GetComponentInChildren<Hotbar>();
 
             if (hotbar != null) {
                 List<GameObject> items = hotbar.GetItems();
@@ -64,6 +55,13 @@ public class DoorTeleport : MonoBehaviour
             }
 
             SceneManager.LoadScene(scene);
+            }
         }
+        
+    }
+    public void PointerOff() {
+        if(sign != null) {
+            sign.SetActive(false); 
+        } 
     }
 }
