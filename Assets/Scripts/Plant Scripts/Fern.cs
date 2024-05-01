@@ -6,6 +6,7 @@ using System;
 public class Fern : Plant
 {
     public override void InitializePlant() {
+        time = 90;
         type = "Fern";
         stage = "Seedling";
         timeHalf = DateTime.Now.AddMinutes(1.5f);

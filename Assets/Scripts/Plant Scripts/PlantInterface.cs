@@ -8,17 +8,13 @@ public class PlantInterface : MonoBehaviour
     [SerializeField] GameObject plantInterfaceObj;
     [SerializeField] Camera mainCamera;
     [SerializeField] GameObject waterLevel;
-    [SerializeField] GameObject stageText;
-    [SerializeField] GameObject plantType;
-    TextMeshProUGUI stageTMP, plantTypeTMP;
+    [SerializeField] TextMeshProUGUI stageTMP, plantTypeTMP, hasLightTMP, growTimeTMP;
     Transform PIOtransform;
     RectTransform WLrt;
     Plant plant;
     // Start is called before the first frame update
     void Start()
     {
-        stageTMP = stageText.GetComponent<TextMeshProUGUI>();
-        plantTypeTMP = plantType.GetComponent<TextMeshProUGUI>();
         PIOtransform = plantInterfaceObj.transform;
         WLrt = waterLevel.GetComponent<RectTransform>();
 
@@ -52,5 +48,15 @@ public class PlantInterface : MonoBehaviour
         WLrt.sizeDelta = new Vector2((float)plant.GetWater() / plant.GetMaxWater() * 120, 20);
         stageTMP.text = "Stage: " + plant.GetStage();
         plantTypeTMP.text = plant.GetPlantType();
+
+        if(plant.HasLight()) {
+            hasLightTMP.text = "Yes";
+            hasLightTMP.color = Color.green;
+        } else {
+            hasLightTMP.text = "No";
+            hasLightTMP.color = Color.red;
+        }
+
+        growTimeTMP.text = "Time to Next Stage: " + plant.GetTime() + " sec";
     }
 }
