@@ -22,6 +22,8 @@ public class Hotbar : MonoBehaviour
     bool wait, inUse;
     RaycastHit hit;
     PhotonView photonView = null;
+    GetPlayerId playerIdScript;
+    int ownerId;
     
     // Start is called before the first frame update
     void Start()
@@ -39,16 +41,13 @@ public class Hotbar : MonoBehaviour
         BInput = "js5";
         wait = false; // prevent selecting and placing an object in the same frame
         inUse = false;
-
+        playerIdScript = GameObject.FindObjectOfType<GetPlayerId>();
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (photonView == null) {
-            photonView = GetComponent<PhotonView>();
-        }
 
         if(enable) {
             // prevent using other buttons if item is being used
@@ -75,7 +74,9 @@ public class Hotbar : MonoBehaviour
                     items[slot].GetComponentInChildren<Renderer>().enabled = true;
                     items[slot].GetComponentInChildren<Collider>().enabled = true;
                     items[slot].SetActive(false);
-
+                    photonView = items[slot].GetComponent<PhotonView>();
+                    ownerId = playerIdScript.GetLocalPlayerID();
+                    photonView.TransferOwnership(ownerId);
                     if(PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
                         photonView.RPC("SetActiveState", RpcTarget.Others, items[slot].name, false);
                     }
@@ -134,12 +135,21 @@ public class Hotbar : MonoBehaviour
         if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
             // ensure raycast is hitting floor
             if(hit.collider.gameObject.layer == floorLayer) {
-                PhotonTransformView transformView = items[slot].GetComponent<PhotonTransformView>();
-                photonView = GetComponent<PhotonView>();
-                photonView.ObservedComponents.Add(transformView);
-                transformView.m_SynchronizePosition = true;
-                transformView.m_SynchronizeRotation = true;
-                transformView.m_SynchronizeScale = false;
+                
+
+                if (PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
+                    PhotonTransformView transformView = items[slot].GetComponent<PhotonTransformView>();
+                    photonView = items[slot].GetComponent<PhotonView>();
+                    ownerId = playerIdScript.GetLocalPlayerID();
+                    Debug.Log("OwnerID: " + ownerId);
+                    Debug.Log(items[slot].name);
+                    photonView.TransferOwnership(ownerId);
+                    photonView.ObservedComponents.Add(transformView);
+                    transformView.m_SynchronizePosition = true;
+                    transformView.m_SynchronizeRotation = true;
+                    transformView.m_SynchronizeScale = false;
+                }
+                
                 images[slot].sprite = null;
                 images[slot].color = Color.grey;
                 items[slot].transform.position = new Vector3(hit.point.x, items[slot].transform.position.y, hit.point.z);
@@ -155,6 +165,13 @@ public class Hotbar : MonoBehaviour
                     Vector3 potPos = items[slot].transform.position;
                     plantObj.transform.position = new Vector3(potPos.x, plantObj.transform.position.y, potPos.z - 0.15f);
                     plantObj.SetActive(true);
+
+                    if (PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
+                        photonView = plantObj.GetComponent<PhotonView>();
+                        ownerId = playerIdScript.GetLocalPlayerID();
+                        photonView.TransferOwnership(ownerId);
+                    }
+
                     if(PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
                         photonView.RPC("SetActiveState", RpcTarget.Others, plantObj.name, true);
                     }
@@ -165,6 +182,13 @@ public class Hotbar : MonoBehaviour
                     GameObject spsObj = items[slot].GetComponent<Sprinkler>().GetSprinklerParticleSystem();
                     spsObj.transform.position = items[slot].transform.position + new Vector3(0f, 0.5f, 0f);
                     spsObj.SetActive(true);
+
+                    if (PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
+                        photonView = spsObj.GetComponent<PhotonView>();
+                        ownerId = playerIdScript.GetLocalPlayerID();
+                        photonView.TransferOwnership(ownerId);
+                    }
+                    
                     if(PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
                         photonView.RPC("SetActiveState", RpcTarget.Others, spsObj.name, true);
                     }
@@ -189,6 +213,12 @@ public class Hotbar : MonoBehaviour
             SetIcon(obj.tag, i);
             items[i] = obj;
             obj.SetActive(false);
+            if (PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
+                photonView = obj.GetComponent<PhotonView>();
+                ownerId = playerIdScript.GetLocalPlayerID();
+                photonView.TransferOwnership(ownerId);
+            }
+            
             if(PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
                 photonView.RPC("SetActiveState", RpcTarget.Others, obj.name, false);
             }
@@ -201,6 +231,13 @@ public class Hotbar : MonoBehaviour
                     plantObj.AddComponent<DontDestroy>();
                 }
                 plantObj.SetActive(false);
+
+                if (PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
+                    photonView = plantObj.GetComponent<PhotonView>();
+                    ownerId = playerIdScript.GetLocalPlayerID();
+                    photonView.TransferOwnership(ownerId);
+                }
+                
                 if(PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
                     photonView.RPC("SetActiveState", RpcTarget.Others, plantObj.name, false);
                 }
@@ -214,6 +251,13 @@ public class Hotbar : MonoBehaviour
                         spsObj.AddComponent<DontDestroy>();
                     }
                     spsObj.SetActive(false);
+
+                    if (PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) { 
+                        photonView = spsObj.GetComponent<PhotonView>();
+                        ownerId = playerIdScript.GetLocalPlayerID();
+                        photonView.TransferOwnership(ownerId);
+                    }
+                    
                     if(PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
                         photonView.RPC("SetActiveState", RpcTarget.Others, spsObj.name, false);
                     }
@@ -237,6 +281,13 @@ public class Hotbar : MonoBehaviour
                     if(hit.collider.gameObject.GetComponent<Pot>().GetPlant() != null) {
                         // enable watering can but hide mesh/collider to play audio
                         items[slot].SetActive(true);
+
+                        if (PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
+                            photonView = items[slot].GetComponent<PhotonView>();
+                            ownerId = playerIdScript.GetLocalPlayerID();
+                            photonView.TransferOwnership(ownerId);
+                        }
+                        
                         if(PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
                             photonView.RPC("SetActiveState", RpcTarget.Others, items[slot].name, true);
                         }
@@ -253,6 +304,12 @@ public class Hotbar : MonoBehaviour
                 } else if(hit.collider.gameObject.tag == "Plant") { // check if raycasthit is plant
                     // enable watering can but hide mesh/collider to play audio
                     items[slot].SetActive(true);
+                    if (PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) { 
+                        photonView = items[slot].GetComponent<PhotonView>();
+                        ownerId = playerIdScript.GetLocalPlayerID();
+                        photonView.TransferOwnership(ownerId);
+                    }
+                    
                     if(PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
                         photonView.RPC("SetActiveState", RpcTarget.Others, items[slot].name, true);
                     }
@@ -394,16 +451,20 @@ public class Hotbar : MonoBehaviour
                 string itemObject = getPrefabName(item);
 
                 // if (PhotonNetwork.IsMasterClient) {
-                
+                    ownerId = playerIdScript.GetLocalPlayerID();
                     GameObject networkedItem = PhotonNetwork.Instantiate(itemObject, item.transform.position, item.transform.rotation);
-                    networkedItem.SetActive(false);                  
-                    photonView = GetComponent<PhotonView>();
-                    photonView.RPC("SetActiveState", RpcTarget.Others, networkedItem.name, false);
+                    networkedItem.SetActive(false); 
+                    if (PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
+                        photonView = networkedItem.GetComponent<PhotonView>();
+                        photonView.TransferOwnership(ownerId);                 
+                        photonView.RPC("SetActiveState", RpcTarget.Others, networkedItem.name, false);
+                     }
                     
 
                     Debug.Log(itemObject);
 
                     if(itemObject == "flowerpot") {
+                        
                         Pot potScript = item.GetComponent<Pot>();
                         
                         Pot networkPotScript = networkedItem.GetComponent<Pot>();
@@ -417,12 +478,14 @@ public class Hotbar : MonoBehaviour
                                 Plant plantScript = plant.GetComponent<Plant>();
                                 string plantPrefabName = getPrefabName(plant);
                                 plantObjectNetwork = PhotonNetwork.Instantiate(plantPrefabName, plant.transform.position, plant.transform.rotation);
-                                Debug.Log(plantObjectNetwork.tag);
-                                // networkPlant.transform.SetParent(networkedItem.transform);
-                                
                                 plantObjectNetwork.SetActive(false);
-                                photonView = GetComponent<PhotonView>();
-                                photonView.RPC("SetActiveState", RpcTarget.Others, plantObjectNetwork.name, false);
+                                if (PhotonNetwork.IsConnected != null && PhotonNetwork.IsConnected) {
+                                    photonView = plantObjectNetwork.GetComponent<PhotonView>();
+                                    photonView.TransferOwnership(ownerId);
+                                    // networkPlant.transform.SetParent(networkedItem.transform);
+                                    
+                                    photonView.RPC("SetActiveState", RpcTarget.Others, plantObjectNetwork.name, false);
+                                }
                                 
                                 Plant networkPlantScript = plantObjectNetwork.GetComponent<Plant>();
                                 if (networkPlantScript != null) {
