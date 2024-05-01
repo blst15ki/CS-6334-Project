@@ -9,7 +9,10 @@ TagManager:
   - Watering Can
   - Plant
   - Sprinkler
+  - Seed
+  - Plant Interface
   - Radio
+  - Chest
   layers:
   - Default
   - TransparentFX
@@ -17,7 +20,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Plants
   - Floor
   - 
   - 

@@ -6,11 +6,10 @@ using System;
 public class IndoorGameManager : MonoBehaviour
 {
     [SerializeField] Hotbar hotbar;
-    [SerializeField] GameObject tutorial;
-    [SerializeField] GameObject tutorialObj;
     [SerializeField] GameObject character;
     [SerializeField] GameObject camera;
     [SerializeField] GameObject cardboard;
+    [SerializeField] GameObject seedChest, itemChest;
     
     void Start()
     {
@@ -18,8 +17,8 @@ public class IndoorGameManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("Before Teleport");
-        Debug.Log(GameManager.Instance.indoorSpawnPoint);
+        // Debug.Log("Before Teleport");
+        // Debug.Log(GameManager.Instance.indoorSpawnPoint);
         cardboard.GetComponent<XRCardboardController>().enabled = false;
         character.GetComponent<CharacterMovement>().enabled = false;
         character.GetComponent<CharacterController>().enabled = false;
@@ -47,16 +46,6 @@ public class IndoorGameManager : MonoBehaviour
 
         LoadItemsIntoHotbar();
         LoadGameData();
-
-        if (GameManager.Instance.enableTutorial) {
-            tutorial.SetActive(true);
-            GameManager.Instance.enableTutorial = false;
-        } else {
-            tutorial.SetActive(false);
-            tutorialObj.SetActive(false);
-            character.GetComponent<CharacterMovement>().enabled = true;
-            hotbar.GetComponent<Hotbar>().enable = true;
-        }
     }
 
     public void LoadItemsIntoHotbar()
@@ -80,27 +69,23 @@ public class IndoorGameManager : MonoBehaviour
             if (pot.activeInHierarchy) {
                 PotData potData = new PotData(pot);
                 potList.Add(potData);
-
-                Plant plant = pot.GetComponentInChildren<Plant>();
-                if (plant != null) {
-                    PlantData plantData = new PlantData(plant);
-                    plantList.Add(plantData);
-                }
                 GameObject.Destroy(pot);
+            }
+        }
+
+        GameObject[] plantObjectList = GameObject.FindGameObjectsWithTag("Plant");
+        foreach(GameObject plant in plantObjectList) {
+            if(plant.activeInHierarchy) {
+                PlantData plantData = new PlantData(plant);
+                plantList.Add(plantData);
+                GameObject.Destroy(plant);
             }
         }
 
         PotsAndPlants potsAndPlants = new PotsAndPlants(potList, plantList);
 
+        // empty list since sprinklers cannot be placed in inside scene
         List<SprinklerData> sprinklerList = new List<SprinklerData>();
-        GameObject[] sprinklers = GameObject.FindGameObjectsWithTag("Sprinkler");
-        foreach (GameObject sprinkler in sprinklers) {
-            if (sprinkler.activeInHierarchy) {
-                SprinklerData sprinklerData = new SprinklerData(sprinkler);
-                sprinklerList.Add(sprinklerData);
-                GameObject.Destroy(sprinkler);
-            }
-        }
 
         List<FertilizerData> fertilizerList = new List<FertilizerData>();
         GameObject[] fertilizers = GameObject.FindGameObjectsWithTag("Fertilizer");
@@ -122,13 +107,20 @@ public class IndoorGameManager : MonoBehaviour
             }
         }
 
-        LogGameData("Pots", potList);
-        LogGameData("Plants", plantList);
-        LogGameData("Sprinklers", sprinklerList);
-        LogGameData("Fertilizers", fertilizerList);
-        LogGameData("Water Cans", wateringCanList);
+        List<ChestData> chestList = new List<ChestData>();
+        GameObject[] chests = GameObject.FindGameObjectsWithTag("Chest");
+        foreach(GameObject chest in chests) {
+            ChestData chestData = new ChestData(chest);
+            chestList.Add(chestData);
+        }
 
-        return new GameData(potsAndPlants, sprinklerList, fertilizerList, wateringCanList);
+        // LogGameData("Pots", potList);
+        // LogGameData("Plants", plantList);
+        // LogGameData("Sprinklers", sprinklerList);
+        // LogGameData("Fertilizers", fertilizerList);
+        // LogGameData("Water Cans", wateringCanList);
+
+        return new GameData(potsAndPlants, sprinklerList, fertilizerList, wateringCanList, chestList);
     }
 
     public void LogGameData<T>(string label, List<T> items) {
@@ -139,31 +131,30 @@ public class IndoorGameManager : MonoBehaviour
     }
 
     public void LoadGameData(){
-
         if (GameManager.Instance == null || GameManager.Instance.GetIndoorGameData() == null) {
             return;
         }
 
         GameData gameData = GameManager.Instance.GetIndoorGameData();
-
         Dictionary<string, GameObject> potsMap = new Dictionary<string, GameObject>();
         foreach (PotData potData in gameData.potsAndPlants.listOfPots) {
             GameObject potPrefab = GameManager.Instance.GetPrefab("Pot");
             GameObject pot = Instantiate(potPrefab, potData.position, potData.rotation);
             Pot potScript = pot.GetComponent<Pot>();
-            potScript.setPlantID(potData.plantID);
-            potsMap[potData.plantID] = pot;
+            potScript.isDataLoaded = true;
+            potScript.id = potData.potID;
+            potScript.SetPlantID(potData.plantID);
+            potsMap[potData.potID] = pot; // key is potID so plant and pot can link
         }
 
         foreach (PlantData plantData in gameData.potsAndPlants.listOfPlants) {
             GameObject plantPrefab = GameManager.Instance.GetPrefab(plantData.type);
-            GameObject plant = Instantiate(plantPrefab, plantData.position, plantData.rotation, potsMap[plantData.plantID].transform);
+            GameObject plant = Instantiate(plantPrefab, plantData.position, plantData.rotation);
             plant.transform.localScale = plantData.scale;
-            plant.GetComponent<Renderer>().material.color = plantData.color;
 
             Plant plantScript = null;
-            if (plantData.type == "Basic Plant") {
-                plantScript = plant.GetComponent<BasicPlant>();
+            if (plantData.type == "Basic Plant" || plantData.type == "Fern") {
+                plantScript = plant.GetComponent<Plant>();
             } else {
                 Debug.Log("Error no script found for plant type");
             }
@@ -172,20 +163,27 @@ public class IndoorGameManager : MonoBehaviour
                 plantScript.isDataLoaded = true;
                 plantScript.water = plantData.water;
                 plantScript.id = plantData.plantID;
+                plantScript.SetPotID(plantData.potID);
                 plantScript.type = plantData.type;
                 plantScript.stage = plantData.stage;
                 plantScript.cur = DateTime.Now;
-                plantScript.timeHalf = plantData.timeHalf;
-                plantScript.timeMature = plantData.timeMature;
+                plantScript.timeLeave = plantData.timeLeave;
+                plantScript.delay = plantData.delay;
                 plantScript.isHalf = plantData.isHalf;
                 plantScript.isMature = plantData.isMature;
-                plantScript.isDead = plantData.isDead;
-            }
-        }
 
-        foreach (SprinklerData sprinklerData in gameData.listOfSprinkler) {
-            GameObject sprinklerPrefab = GameManager.Instance.GetPrefab("Sprinkler");
-            GameObject sprinkler = Instantiate(sprinklerPrefab, sprinklerData.position, sprinklerData.rotation);
+                if(plantData.delay) {
+                    plantScript.timeHalf = DateTime.Now.AddMinutes((plantData.timeHalf - plantData.timeLeave).TotalMinutes);
+                    plantScript.timeMature = DateTime.Now.AddMinutes((plantData.timeMature - plantData.timeLeave).TotalMinutes);
+                } else {
+                    plantScript.timeHalf = plantData.timeHalf;
+                    plantScript.timeMature = plantData.timeMature;
+                }
+
+                // link plant and pot objects
+                plantScript.SetPot(potsMap[plantData.potID]);
+                potsMap[plantData.potID].GetComponent<Pot>().SetPlant(plant);
+            }
         }
 
         foreach (FertilizerData fertilizerData in gameData.listOfFertilizer) {
@@ -196,6 +194,18 @@ public class IndoorGameManager : MonoBehaviour
         foreach (WateringCanData wateringCanData in gameData.listOfWateringCan) {
             GameObject wateringCanPrefab = GameManager.Instance.GetPrefab("Watering Can");
             GameObject wateringcan = Instantiate(wateringCanPrefab, wateringCanData.position, wateringCanData.rotation);
+        }
+
+        foreach(ChestData chestData in gameData.listOfChestData) {
+            Chest chestScript = null;
+            if(chestData.chestName == "Seed Chest") {
+                chestScript = seedChest.GetComponent<Chest>();
+            } else if(chestData.chestName == "Item Chest") {
+                chestScript = itemChest.GetComponent<Chest>();
+            }
+
+            TimeSpan diff = chestData.unlockTime - DateTime.Now;
+            chestScript.SetTime((int)(diff.TotalSeconds));
         }
     }
 }
