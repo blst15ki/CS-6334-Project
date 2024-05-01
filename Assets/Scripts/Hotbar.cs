@@ -253,7 +253,7 @@ public class Hotbar : MonoBehaviour
                     // link pot and plant
                     Pot potScript = obj.GetComponent<Pot>();
                     Plant plantScript = plant.GetComponent<Plant>();
-                    potScript.SetPlant(plant);
+                    potScript.SetPlantHotbar(plant);
                     potScript.SetPlantID(plantScript.id);
                     plantScript.SetPot(obj);
                     plantScript.SetPotID(potScript.id);

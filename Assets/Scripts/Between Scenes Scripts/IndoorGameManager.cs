@@ -10,6 +10,7 @@ public class IndoorGameManager : MonoBehaviour
     [SerializeField] GameObject camera;
     [SerializeField] GameObject cardboard;
     [SerializeField] GameObject seedChest, itemChest;
+    [SerializeField] AudioSource outsideDoorSound, lobbyDoorSound;
     
     void Start()
     {
@@ -32,11 +33,13 @@ public class IndoorGameManager : MonoBehaviour
             character.transform.position = new Vector3(9.26f, 1.11f, 0f);
             character.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
             cardboard.GetComponent<XRCardboardController>().initialRotation = Quaternion.Euler(0f, -90f, 0f);
+            lobbyDoorSound.Play();
             // camera.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         } else if (GameManager.Instance.indoorSpawnPoint == "end") {
             character.transform.position = new Vector3(-9.26f, 1.11f, 0f);
             character.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
             cardboard.GetComponent<XRCardboardController>().initialRotation = Quaternion.Euler(0f, 90f, 0f);
+            outsideDoorSound.Play();
             // camera.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
         }
 

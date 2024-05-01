@@ -17,6 +17,7 @@ public class Pot : MonoBehaviour
     public string id;
     public string plantID = null;
     public bool isDataLoaded = false;
+    [SerializeField] AudioSource fertilizerSound, plantSound;
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +64,7 @@ public class Pot : MonoBehaviour
     public bool AddFertilizer() {
         // check if plant exists
         if(HasPlant()) {
+            fertilizerSound.Play();
             plant.Fertilize();
             return true;
         }
@@ -73,6 +75,12 @@ public class Pot : MonoBehaviour
     public GameObject GetPlant() { return plantObj; }
     public void SetPlant(GameObject obj) {
         // link plant to pot
+        plantObj = obj;
+        plant = obj.GetComponent<Plant>();
+    }
+    public void SetPlantHotbar(GameObject obj) {
+        // put plant in pot (from hotbar instead of saving)
+        plantSound.Play();
         plantObj = obj;
         plant = obj.GetComponent<Plant>();
     }

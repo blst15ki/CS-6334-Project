@@ -16,6 +16,7 @@ public class ObjectChest : Chest
         if(pointer) {
             // grab from chest (instantiate since it can be placed)
             if(open && Input.GetButtonDown(BInput)) {
+                sound.Play();
                 hotbar.SelectObject(Instantiate(returnList[rand.Next(0, returnList.Length)]));
                 ResetTime();
             }
