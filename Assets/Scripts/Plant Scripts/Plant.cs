@@ -5,93 +5,118 @@ using System;
 
 public abstract class Plant : MonoBehaviour
 {
-    public int water, deadWater, maxWater;
+    [SerializeField] protected GameObject potObj;
+    Outline outline;
+    public int water, maxWater, time;
     public string type;
     public string id;
+    public string potID = null;
     public string stage;
-    public DateTime cur, timeHalf, timeMature, timeDeath;
-    public bool isHalf, isMature, isDead;
-    // death time not utilized, would depend on saving data implementation
+    public DateTime cur, timeHalf, timeMature, timeLeave;
+    public bool isHalf, isMature, hasLight = false;
     public Guid uuid = Guid.NewGuid();
-    public bool isDataLoaded = false;
+    public bool isDataLoaded = false, delay;
+    public Light lightSource;
 
     // Start is called before the first frame update
-
     void Awake()
     {
         if (!isDataLoaded) {
-            water = 0;
-            deadWater = -10; // limit on how low water can reach before plant dies
-            maxWater = 100;
+            water = 30;
+            maxWater = 120;
+            time = 120;
             type = "";
             id = uuid.ToString();
             stage = "Seedling";
             cur = DateTime.Now;
-            timeHalf = cur.AddMinutes(1f);
-            timeMature = cur.AddMinutes(2f);
-            timeDeath = cur.AddMinutes(5f);
+            timeHalf = cur.AddMinutes(2f);
+            timeMature = cur.AddMinutes(4f);
+            timeLeave = cur;
+            delay = false;
             isHalf = false;
             isMature = false;
-            isDead = false;
             InitializePlant();
         }
+        outline = GetComponent<Outline>();
     }
 
     public abstract void InitializePlant();
 
     void Start()
     {
-        // trigger lose water every 5 seconds
-        InvokeRepeating("LoseWater", 0f, 5f);
+        // trigger lose water every 10 seconds
+        InvokeRepeating("LoseWater", 0f, 10f);
+        InvokeRepeating("UpdateGrowthTimer", 1f, 1f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        cur = DateTime.Now;
-        
-        // check if dead (mature plants cannot die)
-        if(!isMature && !isDead && water <= deadWater) {
-            // isDead = true;
-            // stage = "Dead";
-            // GetComponent<Renderer>().material.color = new Color(95f / 255, 25f / 255, 28f / 255);
-            // transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-            // transform.localPosition = new Vector3(0f, 0.5f, -0.1f);
-            Destroy(gameObject);
-        } else if(!isDead) { // (dead plants cannot grow)
-            // reach half grown
-            if(!isHalf && DateTime.Compare(cur, timeHalf) >= 0) {
-                isHalf = true;
-                stage = "Adult";
-                transform.localScale = new Vector3(0.1f, 0.2f, 0.1f);
-                transform.localPosition = new Vector3(0f, 0.6f, -0.1f);
-            }
-            // reach full grown
-            if(!isMature && DateTime.Compare(cur, timeMature) >= 0) {
-                isMature = true;
-                stage = "Mature";
-                transform.localScale = new Vector3(0.1f, 0.3f, 0.1f);
-                transform.localPosition = new Vector3(0f, 0.7f, -0.1f);
+        if(lightSource == null || !lightSource.gameObject.activeInHierarchy) {
+            lightSource = FindObjectOfType<Light>();
+        }
+        CheckStats();
+        CheckPlantGrowth();
+    }
+
+    protected abstract void CheckPlantGrowth();
+
+    void CheckStats() {
+        if(lightSource.enabled) {
+            hasLight = true;
+        } else {
+            hasLight = false;
+        }
+
+        if(!isMature) {
+            float amount = (float)water / maxWater;
+            // stop growth if no light or too little or too much water
+            if((amount < 0.2 || amount > 0.8) || !hasLight) {
+                if(!IsInvoking("DelayGrowth")) {
+                    InvokeRepeating("DelayGrowth", 1f, 1f);
+                    delay = true;
+                }
+            } else {
+                CancelInvoke("DelayGrowth");
+                delay = false;
             }
         }
+    }
+
+    void UpdateGrowthTimer() {
+        if(!isHalf) {
+            time = (int)((timeHalf - DateTime.Now).TotalSeconds);
+        } else if(!isMature) {
+            time = (int)((timeMature - DateTime.Now).TotalSeconds);
+        } else {
+            time = 0;
+            CancelInvoke("UpdateGrowthTimer");
+        }
+    }
+
+    void DelayGrowth() {
+        timeHalf = timeHalf.AddSeconds(1f);
+        timeMature = timeMature.AddSeconds(1f);
     }
 
     void AddWater() {
-        if(water < maxWater) {
-            water += 10;
-        }
-        if(water > maxWater) {
-            water = maxWater;
-        }
+        water += 5;
     }
     void LoseWater() {
-        if(water > deadWater) {
-            water--;
-        }
+        water--;
     }
 
-    public void GiveWater() { InvokeRepeating("AddWater", 1f, 1f); }
-    public void StopWater() { CancelInvoke("AddWater"); }
+    public void GiveWater() {
+        InvokeRepeating("AddWater", 0f, 0.5f);
+        outline.OutlineColor = Color.cyan;
+        outline.enabled = true;
+    }
+    public void StopWater() {
+        CancelInvoke("AddWater");
+        outline.OutlineColor = Color.white;
+        outline.enabled = false;
+    }
+    public void StopWaterTimed(float timer) { Invoke("StopWater", timer); } // stop watering after timer seconds
 
     public int GetWater() { return water; }
     public int GetMaxWater() { return maxWater; }
@@ -99,11 +124,20 @@ public abstract class Plant : MonoBehaviour
 
     public void Fertilize() {
         if(!isHalf) {
-            timeHalf = cur.AddMinutes((timeHalf - cur).TotalMinutes * 0.9);
+            timeHalf = cur.AddMinutes((timeHalf - cur).TotalMinutes * 0.8);
         }
 
         if(!isMature) {
-            timeMature = cur.AddMinutes((timeMature - cur).TotalMinutes * 0.9);
+            timeMature = cur.AddMinutes((timeMature - cur).TotalMinutes * 0.8);
         }
     }
+
+    public GameObject GetPot() { return potObj; }
+    public void SetPot(GameObject obj) { potObj = obj; }
+    public string GetPotID() { return potID; }
+    public void SetPotID(string id) { potID = id; }
+    public string GetPlantType() { return type; }
+    public bool HasLight() { return hasLight; }
+    public int GetTime() { return time; }
 }
+

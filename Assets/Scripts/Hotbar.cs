@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Hotbar : MonoBehaviour
 {
-    [SerializeField] GameObject[] slots = new GameObject[9];
-    [SerializeField] GameObject[] itemSlots = new GameObject[9];
-    GameObject[] items = new GameObject[9];
+    [SerializeField] GameObject[] slots = new GameObject[9]; // references outer image of slots (for slot outlines)
+    [SerializeField] GameObject[] itemSlots = new GameObject[9]; // references inner image of slots
     [SerializeField] Camera mainCamera;
-    UnityEngine.UI.Outline[] slotOutlines = new UnityEngine.UI.Outline[9];
-    Image[] images = new Image[9];
+    GameObject[] items = new GameObject[9]; // contains item references per slot
+    UnityEngine.UI.Outline[] slotOutlines = new UnityEngine.UI.Outline[9]; // handles outer slot outline
+    Image[] images = new Image[9]; // contains sprites for slots
     int slot, floorLayer;
     string XInput, YInput, AInput, BInput;
     public bool enable = true;
@@ -40,7 +41,6 @@ public class Hotbar : MonoBehaviour
     {
         if(enable) {
             // prevent using other buttons if item is being used
-            
             if(inUse == false) {
                 if(Input.GetButtonDown(XInput)) {
                     MoveSlot("left");
@@ -66,7 +66,12 @@ public class Hotbar : MonoBehaviour
                     items[slot].SetActive(false);
                     mainCamera.GetComponent<ParticleSystem>().Stop();
                     // stop watering
-                    hit.collider.gameObject.GetComponent<Plant>().StopWater();
+                    if(hit.collider.gameObject.tag == "Pot") {
+                        hit.collider.gameObject.GetComponent<Pot>().StopWaterPlant();
+                    } else if(hit.collider.gameObject.tag == "Plant") {
+                        hit.collider.gameObject.GetComponent<Plant>().StopWater();
+                    }
+
                     hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.white;
                     inUse = false;
                 }
@@ -95,9 +100,19 @@ public class Hotbar : MonoBehaviour
         slotOutlines[slot].enabled = true;
     }
 
-    // TODO: change to use image icon instead of white/grey for select/place
     public void PlaceObject() {
+        // cannot place empty slot
         if(items[slot] == null) {
+            return;
+        }
+
+        // cannot place sprinkler in inside scene
+        if(items[slot].tag == "Sprinkler" && SceneManager.GetActiveScene().name == "Inside") {
+            return;
+        }
+
+        // cannot place seeds
+        if(items[slot].tag == "Seed") {
             return;
         }
 
@@ -108,6 +123,22 @@ public class Hotbar : MonoBehaviour
                 images[slot].color = Color.grey;
                 items[slot].transform.position = new Vector3(hit.point.x, items[slot].transform.position.y, hit.point.z);
                 items[slot].SetActive(true);
+
+                // if placing pot and pot has plant, move plant
+                if(items[slot].tag == "Pot" && items[slot].GetComponent<Pot>().HasPlant()) {
+                    GameObject plantObj = items[slot].GetComponent<Pot>().GetPlant();
+                    Vector3 potPos = items[slot].transform.position;
+                    plantObj.transform.position = new Vector3(potPos.x, plantObj.transform.position.y, potPos.z - 0.15f);
+                    plantObj.SetActive(true);
+                }
+                
+                // if sprinkler, move sprinkler particle system with sprinkler
+                if(items[slot].tag == "Sprinkler") {
+                    GameObject spsObj = items[slot].GetComponent<Sprinkler>().GetSprinklerParticleSystem();
+                    spsObj.transform.position = items[slot].transform.position + new Vector3(0f, 0.5f, 0f);
+                    spsObj.SetActive(true);
+                }
+
                 items[slot] = null;
             }
         }
@@ -128,6 +159,27 @@ public class Hotbar : MonoBehaviour
             items[i] = obj;
             obj.SetActive(false);
             wait = true;
+
+            // if pot with plant, disable plant too
+            if(obj.tag == "Pot" && obj.GetComponent<Pot>().HasPlant()) {
+                GameObject plantObj = obj.GetComponent<Pot>().GetPlant();
+                if(plantObj.GetComponent<DontDestroy>() == null) {
+                    plantObj.AddComponent<DontDestroy>();
+                }
+                plantObj.SetActive(false);
+            }
+
+            // if sprinkler, disable sprinkler particle system too if it exists
+            if(obj.tag == "Sprinkler") {
+                GameObject spsObj = obj.GetComponent<Sprinkler>().GetSprinklerParticleSystem();
+                if(spsObj != null) {
+                    if(spsObj.GetComponent<DontDestroy>() == null) {
+                        spsObj.AddComponent<DontDestroy>();
+                    }
+                    spsObj.SetActive(false);
+                }
+            }
+
             return true;
         }
         return false;
@@ -140,16 +192,31 @@ public class Hotbar : MonoBehaviour
 
         if(items[slot].tag == "Watering Can") {
             if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
-                // check if raycasthit is plant
-                if(hit.collider.gameObject.tag == "Plant") {
+                if(hit.collider.gameObject.tag == "Pot") { // check if raycasthit is pot
+                    // check if pot contains plant
+                    if(hit.collider.gameObject.GetComponent<Pot>().GetPlant() != null) {
+                        // enable watering can but hide mesh/collider to play audio
+                        items[slot].SetActive(true);
+                        items[slot].GetComponentInChildren<Renderer>().enabled = false;
+                        items[slot].GetComponentInChildren<Collider>().enabled = false;
+                        items[slot].GetComponent<AudioSource>().Play();
+                        mainCamera.GetComponent<ParticleSystem>().Play();
+
+                        // water plant
+                        hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.cyan;
+                        hit.collider.gameObject.GetComponent<Pot>().WaterPlant();
+                        inUse = true;
+                    }
+                } else if(hit.collider.gameObject.tag == "Plant") { // check if raycasthit is plant
                     // enable watering can but hide mesh/collider to play audio
                     items[slot].SetActive(true);
                     items[slot].GetComponentInChildren<Renderer>().enabled = false;
                     items[slot].GetComponentInChildren<Collider>().enabled = false;
                     items[slot].GetComponent<AudioSource>().Play();
                     mainCamera.GetComponent<ParticleSystem>().Play();
+
                     // water plant
-                    hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.blue;
+                    hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.cyan;
                     hit.collider.gameObject.GetComponent<Plant>().GiveWater();
                     inUse = true;
                 }
@@ -160,18 +227,47 @@ public class Hotbar : MonoBehaviour
                 if(hit.collider.gameObject.tag == "Pot") {
                     // remove fertilizer from scene if successful
                     if(hit.collider.gameObject.GetComponent<Pot>().AddFertilizer()) {
-                        Destroy(items[slot]);
-                        items[slot] = null;
-                        images[slot].sprite = null;
-                        images[slot].color = Color.grey;
+                        ClearSlot();
                     }
+                }
+            }
+        } else if(items[slot].tag == "Seed") {
+            if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
+                // check if raycasthit is pot (plant seed in pot)
+                GameObject obj = hit.collider.gameObject;
+                if(obj.tag == "Pot" && !obj.GetComponent<Pot>().HasPlant()) {
+                    string plantType = items[slot].GetComponent<Seed>().GetPlantType();
+                    Vector3 adjustPlantPos;
+                    if(plantType == "Basic Plant") {
+                        adjustPlantPos = new Vector3(0f, 0.75f, -0.15f);
+                    } else if(plantType == "Fern") {
+                        adjustPlantPos = new Vector3(0f, 0.6f, -0.15f);
+                    } else { // default
+                        Debug.Log("Unexpected type: " + plantType);
+                        plantType = "Basic Plant";
+                        adjustPlantPos = new Vector3(0f, 0.75f, -0.15f);
+                    }
+
+                    GameObject plant = Instantiate(GameManager.Instance.GetPrefab(plantType), obj.transform.position + adjustPlantPos, Quaternion.identity);
+                    
+                    // link pot and plant
+                    Pot potScript = obj.GetComponent<Pot>();
+                    Plant plantScript = plant.GetComponent<Plant>();
+                    potScript.SetPlant(plant);
+                    potScript.SetPlantID(plantScript.id);
+                    plantScript.SetPot(obj);
+                    plantScript.SetPotID(potScript.id);
+
+                    // delete seed from hotbar (passed asset so cannot destroy)
+                    items[slot] = null;
+                    images[slot].sprite = null;
+                    images[slot].color = Color.grey;
                 }
             }
         }
     }
 
     public void SetIcon(string tag, int i) {
-
         images[i].sprite = GameManager.Instance.GetSprite(tag);
         images[i].color = Color.white;
     }
@@ -201,5 +297,12 @@ public class Hotbar : MonoBehaviour
                 SelectObject(listOfItems[i], i);
             }
         }
+    }
+
+    void ClearSlot() {
+        Destroy(items[slot]);
+        items[slot] = null;
+        images[slot].sprite = null;
+        images[slot].color = Color.grey;
     }
 }

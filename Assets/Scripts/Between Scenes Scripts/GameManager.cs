@@ -16,12 +16,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject fertilizerPrefab;
     [SerializeField] GameObject sprinklerPrefab;
     [SerializeField] GameObject basicPlantPrefab;
+    [SerializeField] GameObject fernPrefab;
     public List<GameObject> savedHotBarItems = new List<GameObject>();
     public GameData outsideGameData = null;
     public GameData indoorGameData = null;
-    public bool enableTutorial = true;
     public string indoorSpawnPoint = "end";
-    
     
     void Awake() {
         if (Instance == null)
@@ -40,50 +39,37 @@ public class GameManager : MonoBehaviour
             new PotData { 
                 position = new Vector3(-1.50f, 0.00f, -4.21f),
                 rotation = Quaternion.identity,
-                plantID = ""
+                plantID = "",
+                potID = "be2eb360-320e-48d3-b91f-f760b7e2f035"
             },
             new PotData { 
                 position = new Vector3(-0.75f, 0.00f, -4.21f),
                 rotation = Quaternion.identity,
-                plantID = "93ab33b5-05dc-4559-952a-401ff7553ef6"
+                plantID = "93ab33b5-05dc-4559-952a-401ff7553ef6",
+                potID = "981603f4-2d5a-47ca-af5b-d7fe8d7e1c2d"
             },
             new PotData { 
                 position = new Vector3(0.00f, 0.00f, -4.21f),
                 rotation = Quaternion.identity,
-                plantID = "6209b900-e00c-4cdb-abee-77e43203fb7d"
+                plantID = "",
+                potID = "9d9bb88b-23bc-441c-a253-931a9fd01469"
             }
         };
 
         List<PlantData> indoorPlantList = new List<PlantData>() {
             new PlantData {
-                position = new Vector3(-0.75f, 0.75f, -4.36f),
+                position = new Vector3(-0.75f, 0.6f, -4.36f),
                 rotation = Quaternion.identity,
                 plantID = "93ab33b5-05dc-4559-952a-401ff7553ef6",
-                type = "Basic Plant",
-                water = 0,
+                potID = "981603f4-2d5a-47ca-af5b-d7fe8d7e1c2d",
+                type = "Fern",
+                water = 30,
                 stage = "Seedling",
-                timeHalf = DateTime.Now.AddMinutes(1),
-                timeMature = DateTime.Now.AddMinutes(2),
+                timeHalf = DateTime.Now.AddMinutes(1.5f),
+                timeMature = DateTime.Now.AddMinutes(3f),
                 isHalf = false,
                 isMature = false,
-                isDead = false,
-                scale = new Vector3(0.10f, 0.10f, 0.10f),
-                color = new Color(0.170f, 0.736f, 0.189f)
-            },
-            new PlantData {
-                position = new Vector3(0.00f, 0.75f, -4.36f),
-                rotation = Quaternion.identity,
-                plantID = "6209b900-e00c-4cdb-abee-77e43203fb7d",
-                type = "Basic Plant",
-                water = 0,
-                stage = "Seedling",
-                timeHalf = DateTime.Now.AddMinutes(1),
-                timeMature = DateTime.Now.AddMinutes(2),
-                isHalf = false,
-                isMature = false,
-                isDead = false,
-                scale = new Vector3(0.10f, 0.10f, 0.10f),
-                color = new Color(0.170f, 0.736f, 0.189f)
+                scale = new Vector3(100f, 100f, 100f),
             }
         };
 
@@ -98,23 +84,36 @@ public class GameManager : MonoBehaviour
 
         List<WateringCanData> indoorWateringCanList = new List<WateringCanData>() {
             new WateringCanData {
-                position = new Vector3(0.0f, 0.50f, 0.0f),
+                position = new Vector3(0.0f, 0.33f, 0.0f),
                 rotation = Quaternion.identity
             }
         };
 
-        indoorGameData = new GameData(indoorPotsAndPlants, new List<SprinklerData>(), indoorFertilizerList, indoorWateringCanList);
+        List<ChestData> chestList = new List<ChestData>() {
+            new ChestData{
+                chestName = "Seed Chest",
+                unlockTime = DateTime.Now
+            },
+            new ChestData{
+                chestName = "Item Chest",
+                unlockTime = DateTime.Now
+            }
+        };
+
+        indoorGameData = new GameData(indoorPotsAndPlants, new List<SprinklerData>(), indoorFertilizerList, indoorWateringCanList, chestList);
 
         List<PotData> outsidePotList = new List<PotData>() {
             new PotData { 
                 position = new Vector3(-2.20f, 0.00f, -8.08f),
                 rotation = Quaternion.identity,
-                plantID = ""
+                plantID = "",
+                potID = "0774b5a1-9c99-465e-9582-58aa43b7fc1c"
             },
             new PotData { 
                 position = new Vector3(-4.02f, 0.00f, -8.08f),
                 rotation = Quaternion.identity,
-                plantID = "ca5c832e-e979-49d4-b333-59528e746ccb"
+                plantID = "ca5c832e-e979-49d4-b333-59528e746ccb",
+                potID = "d2d5baca-e619-473e-a82e-5f58d9fb8de5"
             }
         };
 
@@ -123,16 +122,15 @@ public class GameManager : MonoBehaviour
                 position = new Vector3(-4.02f, 0.75f, -8.23f),
                 rotation = Quaternion.identity,
                 plantID = "ca5c832e-e979-49d4-b333-59528e746ccb",
+                potID = "d2d5baca-e619-473e-a82e-5f58d9fb8de5",
                 type = "Basic Plant",
-                water = 0,
+                water = 30,
                 stage = "Seedling",
-                timeHalf = DateTime.Now.AddMinutes(1),
-                timeMature = DateTime.Now.AddMinutes(2),
+                timeHalf = DateTime.Now.AddMinutes(2f),
+                timeMature = DateTime.Now.AddMinutes(2f),
                 isHalf = false,
                 isMature = false,
-                isDead = false,
-                scale = new Vector3(0.10f, 0.10f, 0.10f),
-                color = new Color(0.170f, 0.736f, 0.189f)
+                scale = new Vector3(0.15f, 0.15f, 0.15f),
             }
         };
 
@@ -140,12 +138,12 @@ public class GameManager : MonoBehaviour
 
         List<SprinklerData> outsideSprinklerList = new List<SprinklerData>() {
             new SprinklerData {
-                position = new Vector3(4.70f, 0.08f, -5.30f),
+                position = new Vector3(11f, 0.1f, -6.5f),
                 rotation = Quaternion.identity,
             }
         };
 
-        outsideGameData = new GameData(outsidePotsAndPlants, outsideSprinklerList,  new List<FertilizerData>(), new List<WateringCanData>());
+        outsideGameData = new GameData(outsidePotsAndPlants, outsideSprinklerList,  new List<FertilizerData>(), new List<WateringCanData>(), new List<ChestData>());
     }
 
     public Sprite GetSprite(string tag) {
@@ -174,6 +172,8 @@ public class GameManager : MonoBehaviour
                 return sprinklerPrefab;
             case "Basic Plant":
                 return basicPlantPrefab;
+            case "Fern":
+                return fernPrefab;
             default:
                 return null;
         }
