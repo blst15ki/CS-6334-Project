@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Interact : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Interact : MonoBehaviour
     Outline outline;
     bool pointer;
     string AInput;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +21,16 @@ public class Interact : MonoBehaviour
         AInput = "js10";
     }
 
+    [PunRPC]
+    void SetActiveState(string name, bool active) {
+        GameObject obj = GameObject.Find(name);
+        if (obj != null) {
+            obj.SetActive(active);
+            Debug.Log($"RPC SetActiveState: Setting {name} to {active}");
+        } else {
+            Debug.LogError("Object not found: " + name);
+        }
+    }
     // Update is called once per frame
     void Update()
     {
