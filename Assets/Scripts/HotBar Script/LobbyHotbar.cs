@@ -76,7 +76,7 @@ public class LobbyHotbar : Hotbar
 			Debug.Log("Local Player ID: " + PhotonNetwork.LocalPlayer.ActorNumber);
 			Debug.Log("Before " + itemView.Owner);
 			if (itemView != null) {
-                itemView.RequestOwnership();
+                itemView.TransferOwnership(PhotonNetwork.LocalPlayer.ActorNumber);
             }
 			Debug.Log("After " + itemView.Owner);
             
@@ -202,6 +202,7 @@ public class LobbyHotbar : Hotbar
 
     public void LoadItems(List<HotBarItem> listOfHotBarItem) {
 
+		Debug.Log("Local Player ID From Load Items: " + PhotonNetwork.LocalPlayer.ActorNumber);
 		Debug.Log("Item is Loading");
 
 		if (listOfHotBarItem == null) { 

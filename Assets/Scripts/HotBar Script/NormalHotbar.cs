@@ -239,6 +239,11 @@ public class NormalHotbar : Hotbar
 					obj = Instantiate(seedPrefab, listOfHotBarItem[i].position, Quaternion.identity);
 					SelectObject(obj, i);
 					break;
+                case "Fertilizer":
+                    GameObject fertilizerPrefab = GameManager.Instance.GetPrefab("Fertilizer");
+					obj = Instantiate(fertilizerPrefab, listOfHotBarItem[i].position, Quaternion.identity);
+					SelectObject(obj, i);
+					break;
 				default:
 					break;
 			}

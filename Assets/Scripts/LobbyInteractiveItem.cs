@@ -17,9 +17,9 @@ public class LobbyInteractiveItem : MonoBehaviourPun, IPunObservable
 
     public void ChangeActiveState(bool isActive) {
         photonView.RPC("RPCSetActive", RpcTarget.All, isActive);
-        if(isActive){
-            photonView.RPC("RPCClearOwnership", RpcTarget.All);
-        }
+        // if(isActive){
+        //     photonView.RPC("RPCClearOwnership", RpcTarget.All);
+        // }
     }
 
     [PunRPC]
@@ -27,10 +27,10 @@ public class LobbyInteractiveItem : MonoBehaviourPun, IPunObservable
         gameObject.SetActive(isActive);
     }
 
-    [PunRPC]
-    void RPCClearOwnership() {
-        if (photonView.Owner != null) {
-            photonView.TransferOwnership(0);
-        }
-    }
+    // [PunRPC]
+    // void RPCClearOwnership() {
+    //     if (photonView.Owner != null) {
+    //         photonView.TransferOwnership(0);
+    //     }
+    // }
 }
