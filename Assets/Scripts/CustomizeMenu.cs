@@ -14,6 +14,7 @@ public class CustomizeMenu : MonoBehaviour
     private Image image1, imagea1, imagea2;
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject customizeMenu;
+    [SerializeField] GameObject tutorialScreen;
     void Start()
     {
         image1 = button1.GetComponent<Image>();
@@ -32,7 +33,11 @@ public class CustomizeMenu : MonoBehaviour
         }
         else if (Input.GetButtonDown(AInput))
         {
-            SelectButton();
+            if(tutorialScreen.activeSelf) {
+                SceneManager.LoadScene(scene);
+            } else {
+                SelectButton();
+            }
         }
     }
 
@@ -46,7 +51,7 @@ public class CustomizeMenu : MonoBehaviour
             imagea2.color = Color.white;
         }
         else if (button == 1)
-        { // 
+        { // avatar 1
             image1.color = Color.white;
             imagea1.color = Color.yellow;
             imagea2.color = Color.white;
@@ -71,13 +76,13 @@ public class CustomizeMenu : MonoBehaviour
         else if (button == 1)
         {
             customizeMenuObj.SetActive(false);
-            SceneManager.LoadScene(scene);
+            tutorialScreen.SetActive(true);
             GameManager.Instance.avatarValue = 0;          
         }
         else if (button == 2)
         {
             customizeMenuObj.SetActive(false);
-            SceneManager.LoadScene(scene);
+            tutorialScreen.SetActive(true);
             GameManager.Instance.avatarValue = 1;
         }
     }
