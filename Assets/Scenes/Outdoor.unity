@@ -795,7 +795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaf0e3449a1a4db40a49a51964dbd938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hotbar: {fileID: 2134047316}
+  hotbar: {fileID: 2134047320}
 --- !u!1001 &312745171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2645,7 +2645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reticle: {fileID: 1061579008}
-  hotbar: {fileID: 2134047316}
+  hotbar: {fileID: 2134047320}
   maxDistance: 20
   plantInterface: {fileID: 1653734087}
 --- !u!199 &1061579010
@@ -8374,7 +8374,7 @@ MonoBehaviour:
   button1: {fileID: 1120104591}
   player: {fileID: 206300527}
   mainCamera: {fileID: 1061579007}
-  hotbar: {fileID: 2134047316}
+  hotbar: {fileID: 0}
 --- !u!1 &1383938143
 GameObject:
   m_ObjectHideFlags: 0
@@ -10749,7 +10749,7 @@ GameObject:
   - component: {fileID: 2134047319}
   - component: {fileID: 2134047318}
   - component: {fileID: 2134047317}
-  - component: {fileID: 2134047316}
+  - component: {fileID: 2134047320}
   m_Layer: 0
   m_Name: Hotbar
   m_TagString: Untagged
@@ -10778,40 +10778,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &2134047316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2134047314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a26c2d4f17f44c23bf89afb9d85983a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slots:
-  - {fileID: 645136979}
-  - {fileID: 669357129}
-  - {fileID: 851189758}
-  - {fileID: 2078459696}
-  - {fileID: 1572387453}
-  - {fileID: 1475581537}
-  - {fileID: 1679495973}
-  - {fileID: 1494529640}
-  - {fileID: 43857220}
-  itemSlots:
-  - {fileID: 1961205982}
-  - {fileID: 1246957940}
-  - {fileID: 709833624}
-  - {fileID: 812191682}
-  - {fileID: 1636179795}
-  - {fileID: 732484234}
-  - {fileID: 264708236}
-  - {fileID: 1303402909}
-  - {fileID: 1833396318}
-  mainCamera: {fileID: 1061579007}
-  enable: 1
 --- !u!114 &2134047317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10873,3 +10839,37 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &2134047320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134047314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84bedfcd72dde15448c3b05af7b559fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots:
+  - {fileID: 645136979}
+  - {fileID: 669357129}
+  - {fileID: 851189758}
+  - {fileID: 2078459696}
+  - {fileID: 1572387453}
+  - {fileID: 1475581537}
+  - {fileID: 1679495973}
+  - {fileID: 1494529640}
+  - {fileID: 43857220}
+  itemSlots:
+  - {fileID: 1961205982}
+  - {fileID: 1246957940}
+  - {fileID: 709833624}
+  - {fileID: 812191682}
+  - {fileID: 1636179795}
+  - {fileID: 732484234}
+  - {fileID: 264708236}
+  - {fileID: 1303402909}
+  - {fileID: 1833396318}
+  mainCamera: {fileID: 1061579007}
+  enable: 1

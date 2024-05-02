@@ -5,22 +5,23 @@ using UnityEngine.SceneManagement;
 
 public abstract class Hotbar : MonoBehaviour
 {
-    [SerializeField] public GameObject[] slots = new GameObject[9]; // References to the outer images of slots (for slot outlines)
-    [SerializeField] public GameObject[] itemSlots = new GameObject[9]; // References to the inner images of slots
-    [SerializeField] public Camera mainCamera;
-    public GameObject[] items = new GameObject[9]; // Contains item references per slot
-    public Outline[] slotOutlines = new Outline[9]; // Handles outer slot outline
-    public Image[] images = new Image[9]; // Contains sprites for slots
-    public int slot, floorLayer;
-    public string XInput, YInput, AInput, BInput;
+    [SerializeField] protected GameObject[] slots = new GameObject[9]; // references outer image of slots (for slot outlines)
+    [SerializeField] protected GameObject[] itemSlots = new GameObject[9]; // references inner image of slots
+    [SerializeField] protected Camera mainCamera;
+    protected GameObject[] items = new GameObject[9]; // contains item references per slot
+    protected UnityEngine.UI.Outline[] slotOutlines = new UnityEngine.UI.Outline[9];  // handles outer slot outline
+    protected Image[] images = new Image[9]; // contains sprites for slots
+    protected int slot, floorLayer;
+    protected string XInput, YInput, AInput, BInput;
     public bool enable = true;
-    public bool wait, inUse;
-    public RaycastHit hit;
+    protected bool wait, inUse;
+    protected RaycastHit hit;
     
+    // Start is called before the first frame update
     void Start()
     {
         for(int i = 0; i < 9; i++) {
-            slotOutlines[i] = slots[i].GetComponent<Outline>();
+            slotOutlines[i] = slots[i].GetComponent<UnityEngine.UI.Outline>();
             images[i] = itemSlots[i].GetComponent<Image>();
         }
 
@@ -30,7 +31,7 @@ public abstract class Hotbar : MonoBehaviour
         YInput = "js3";
         AInput = "js10";
         BInput = "js5";
-        wait = false; // Prevent selecting and placing an object in the same frame
+        wait = false; // prevent selecting and placing an object in the same frame
         inUse = false;
     }
 
