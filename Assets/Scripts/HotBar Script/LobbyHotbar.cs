@@ -215,15 +215,15 @@ public class LobbyHotbar : Hotbar
 				case "None":
 					break;
 				case "Watering Can":
-					obj = PhotonNetwork.Instantiate("WateringCanPrefab", listOfHotBarItem[i].position, Quaternion.identity);
+					obj = PhotonNetwork.Instantiate("WateringCanPrefab", listOfHotBarItem[i].position + new Vector3(100f,100f,100f), Quaternion.identity);
 					SelectObject(obj, i);
 					break;
 				case "Sprinkler":
-					obj = PhotonNetwork.Instantiate("Sprinkler", listOfHotBarItem[i].position, Quaternion.identity);
+					obj = PhotonNetwork.Instantiate("Sprinkler", listOfHotBarItem[i].position+ new Vector3(100f,100f,100f), Quaternion.identity);
 					SelectObject(obj, i);
 					break;
 				case "Pot":
-					obj = PhotonNetwork.Instantiate("flowerpot", listOfHotBarItem[i].position, Quaternion.identity);
+					obj = PhotonNetwork.Instantiate("flowerpot", listOfHotBarItem[i].position+ new Vector3(100f,100f,100f), Quaternion.identity);
 					Pot pot = obj.GetComponent<Pot>();
 
 					if(listOfHotBarItem[i].hasPlant) {
