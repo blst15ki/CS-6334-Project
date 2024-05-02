@@ -15,22 +15,22 @@ public class LobbyInteractiveItem : MonoBehaviourPun, IPunObservable
         }
     }
 
-    public void ChangeActiveState(bool isActive) {
-        photonView.RPC("RPCSetActive", RpcTarget.AllBuffered, isActive);
-        if(isActive){
-            photonView.RPC("RPCClearOwnership", RpcTarget.AllBuffered);
-        }
-    }
+    // public void ChangeActiveState(bool isActive) {
+    //     photonView.RPC("RPCSetActive", RpcTarget.All, isActive);
+    //     if(isActive){
+    //         photonView.RPC("RPCClearOwnership", RpcTarget.All);
+    //     }
+    // }
 
-    [PunRPC]
-    void RPCSetActive(bool isActive){
-        gameObject.SetActive(isActive);
-    }
+    // [PunRPC]
+    // void RPCSetActive(bool isActive){
+    //     gameObject.SetActive(isActive);
+    // }
 
-    [PunRPC]
-    void RPCClearOwnership() {
-        if (photonView.Owner != null) {
-            photonView.TransferOwnership(0);
-        }
-    }
+    // [PunRPC]
+    // void RPCClearOwnership() {
+    //     if (photonView.Owner != null) {
+    //         photonView.TransferOwnership(0);
+    //     }
+    // }
 }
