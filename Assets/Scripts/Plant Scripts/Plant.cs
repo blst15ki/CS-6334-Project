@@ -77,6 +77,10 @@ public abstract class Plant : MonoBehaviour
                     delay = true;
                 }
             } else {
+                if(delay) { // only disable on switching
+                    outline.OutlineColor = Color.white;
+                    outline.enabled = false;
+                }
                 CancelInvoke("DelayGrowth");
                 delay = false;
             }
@@ -97,6 +101,8 @@ public abstract class Plant : MonoBehaviour
     void DelayGrowth() {
         timeHalf = timeHalf.AddSeconds(1f);
         timeMature = timeMature.AddSeconds(1f);
+        outline.OutlineColor = Color.red;
+        outline.enabled = true;
     }
 
     void AddWater() {
