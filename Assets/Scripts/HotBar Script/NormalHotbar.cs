@@ -218,9 +218,9 @@ public class NormalHotbar : Hotbar
 						networkPlant.SetPlantType(listOfHotBarItem[i].plantType);
 						networkPlant.SetWater(listOfHotBarItem[i].water);
 						networkPlant.SetStage(listOfHotBarItem[i].stage);
-						networkPlant.timeHalf = listOfHotBarItem[i].timeHalf;
-						networkPlant.timeMature = listOfHotBarItem[i].timeMature;
-						networkPlant.timeLeave = listOfHotBarItem[i].timeLeave;
+                        networkPlant.SetTimeHalf(listOfHotBarItem[i].timeHalf);
+                        networkPlant.SetTimeMature(listOfHotBarItem[i].timeMature);
+                        networkPlant.SetTimeLeave(listOfHotBarItem[i].timeLeave);
 						networkPlant.delay = listOfHotBarItem[i].delay;
 						networkPlant.isHalf = listOfHotBarItem[i].isHalf;
 						networkPlant.isMature = listOfHotBarItem[i].isMature;

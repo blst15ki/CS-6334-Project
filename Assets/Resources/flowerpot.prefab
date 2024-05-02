@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -3567566979578038555}
   - component: {fileID: -2637638148820211334}
   - component: {fileID: 2890446608035084178}
+  - component: {fileID: 7937972664017581752}
   m_Layer: 0
   m_Name: flowerpot
   m_TagString: Pot
@@ -190,5 +191,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78745e8e5f51d1140917695dbaca3fb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7937972664017581752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8808214653859070342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43c84dd05b5b0eb42a72b5859d89a0dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

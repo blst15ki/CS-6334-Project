@@ -143,5 +143,29 @@ public abstract class Plant : MonoBehaviour
     public void SetPlantType(string setType) { type = setType; }
     public bool HasLight() { return hasLight; }
     public int GetTime() { return time; }
+
+    public void SetTimeHalf(string time) {
+        timeHalf = DateTime.ParseExact(time, "yyyy-MM-dd HH:mm:ss", null);
+    }
+
+    public string GetTimeHalfAsString() {
+        return timeHalf.ToString("yyyy-MM-dd HH:mm:ss");
+    }
+
+    public void SetTimeMature(string time) {
+        timeMature = DateTime.ParseExact(time, "yyyy-MM-dd HH:mm:ss", null);
+    }
+
+    public string GetTimeMatureAsString() {
+        return timeMature.ToString("yyyy-MM-dd HH:mm:ss");
+    }
+
+    public void SetTimeLeave(string time) {
+        timeLeave = DateTime.ParseExact(time, "yyyy-MM-dd HH:mm:ss", null);
+    }
+
+    public string GetTimeLeaveAsString() {
+        return timeLeave.ToString("yyyy-MM-dd HH:mm:ss");
+    }
 }
 

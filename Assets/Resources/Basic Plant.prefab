@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3780494235783989418}
   - component: {fileID: 1404367278573138792}
   - component: {fileID: 979711102905243010}
+  - component: {fileID: 2011002804952310418}
   m_Layer: 6
   m_Name: Basic Plant
   m_TagString: Plant
@@ -197,5 +198,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78745e8e5f51d1140917695dbaca3fb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2011002804952310418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5050005892461381086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20d253b8c5dabd24aa0e717f520544fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

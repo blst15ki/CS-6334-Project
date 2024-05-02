@@ -1,10 +1,11 @@
 using UnityEngine;
 using Photon.Pun;
 using System.Collections.Generic;
-using System;
 
 public class LobbyHotbar : Hotbar
 {
+	public GameObject rpcPot = null;
+	public GameObject rpcPlant = null;
 
     public override void EnableHotbar() {
         enable = true;
@@ -229,18 +230,28 @@ public class LobbyHotbar : Hotbar
 				case "Pot":
 					obj = PhotonNetwork.Instantiate("flowerpot", listOfHotBarItem[i].position, Quaternion.identity);
 					Pot pot = obj.GetComponent<Pot>();
+					GameManager.Instance.RegisterPot(pot.id, obj);
 
 					if(listOfHotBarItem[i].hasPlant) {
-						PhotonView potPhotonView = obj.GetComponent<PhotonView>();
-						CreatePlant(listOfHotBarItem[i].plantType, listOfHotBarItem[i].plantPosition, listOfHotBarItem[i].water, listOfHotBarItem[i].stage, listOfHotBarItem[i].timeHalf, listOfHotBarItem[i].timeMature, listOfHotBarItem[i].timeLeave, listOfHotBarItem[i].delay, listOfHotBarItem[i].isHalf, listOfHotBarItem[i].isMature, listOfHotBarItem[i].scale, potPhotonView);
-						// GameObject objPlant = PhotonNetwork.Instantiate(listOfHotBarItem[i].plantType, listOfHotBarItem[i].plantPosition, Quaternion.identity);
+						GameObject objPlant = PhotonNetwork.Instantiate(listOfHotBarItem[i].plantType, listOfHotBarItem[i].plantPosition, Quaternion.identity);
+						GameManager.Instance.RegisterPlant(objPlant.GetComponent<Plant>().id, objPlant);
+						LobbyPlantInteractive lobbyPlantInteractive = objPlant.GetComponent<LobbyPlantInteractive>();
+						if (lobbyPlantInteractive != null) {
+							Debug.Log("Inside Plant");
+							lobbyPlantInteractive.setPlantData(listOfHotBarItem[i].plantType, listOfHotBarItem[i].plantPosition, listOfHotBarItem[i].water, listOfHotBarItem[i].stage, listOfHotBarItem[i].timeHalf, listOfHotBarItem[i].timeMature, listOfHotBarItem[i].timeLeave, listOfHotBarItem[i].delay, listOfHotBarItem[i].isHalf, listOfHotBarItem[i].isMature, listOfHotBarItem[i].scale, pot.id);
+						}
+						LobbyPotInteractive lobbyPotInteractive = obj.GetComponent<LobbyPotInteractive>();
+						if (lobbyPotInteractive != null) {
+							// Debug.Log("Inside Pot");
+							lobbyPotInteractive.setPotData(objPlant.GetComponent<Plant>().id);
+						}
 						// Plant networkPlant = objPlant.GetComponent<Plant>();
 						// networkPlant.SetPlantType(listOfHotBarItem[i].plantType);
 						// networkPlant.SetWater(listOfHotBarItem[i].water);
 						// networkPlant.SetStage(listOfHotBarItem[i].stage);
-						// networkPlant.timeHalf = listOfHotBarItem[i].timeHalf;
-						// networkPlant.timeMature = listOfHotBarItem[i].timeMature;
-						// networkPlant.timeLeave = listOfHotBarItem[i].timeLeave;
+						// networkPlant.SetTimeHalf(listOfHotBarItem[i].timeHalf);
+						// networkPlant.SetTimeMature(listOfHotBarItem[i].timeMature);
+						// networkPlant.SetTimeLeave(listOfHotBarItem[i].timeLeave);
 						// networkPlant.delay = listOfHotBarItem[i].delay;
 						// networkPlant.isHalf = listOfHotBarItem[i].isHalf;
 						// networkPlant.isMature = listOfHotBarItem[i].isMature;
@@ -280,30 +291,33 @@ public class LobbyHotbar : Hotbar
         return new InsideHotBarData(hotBarItems);
     }
 
-	 [PunRPC]
-    void RPCCreatePlant(string plantType, Vector3 plantPosition, int water, string stage, DateTime timeHalf, DateTime timeMature, DateTime timeLeave, bool delay, bool isHalf, bool isMature, Vector3 scale, PhotonView potPhotonView)
-    {
-        GameObject objPlant = PhotonNetwork.Instantiate(plantType, plantPosition, Quaternion.identity);
-        Plant networkPlant = objPlant.GetComponent<Plant>();
-        networkPlant.SetPlantType(plantType);
-        networkPlant.SetWater(water);
-        networkPlant.SetStage(stage);
-        networkPlant.timeHalf = timeHalf;
-        networkPlant.timeMature = timeMature;
-        networkPlant.timeLeave = timeLeave;
-        networkPlant.delay = delay;
-        networkPlant.isHalf = isHalf;
-        networkPlant.isMature = isMature;
-        networkPlant.transform.localScale = scale;
-        networkPlant.SetPot(potPhotonView.gameObject);
-		Pot pot = potPhotonView.GetComponent<Pot>();
-        networkPlant.SetPotID(pot.id);
-        pot.SetPlant(objPlant);
-        pot.SetPlantID(networkPlant.id);
-    }
+	// [PunRPC]
+    // void RPCCreatePlant(string plantType, Vector3 plantPosition, int water, string stage, string timeHalf, string timeMature, string timeLeave, bool delay, bool isHalf, bool isMature, Vector3 scale)
+    // {
+    //     GameObject objPlant = PhotonNetwork.Instantiate(plantType, plantPosition, Quaternion.identity);
+    //     Plant networkPlant = objPlant.GetComponent<Plant>();
+    //     networkPlant.SetPlantType(plantType);
+    //     networkPlant.SetWater(water);
+    //     networkPlant.SetStage(stage);
+    //     networkPlant.SetTimeHalf(timeHalf);
+    //     networkPlant.SetTimeMature(timeMature);
+    //     networkPlant.SetTimeLeave(timeLeave);
+    //     networkPlant.delay = delay;
+    //     networkPlant.isHalf = isHalf;
+    //     networkPlant.isMature = isMature;
+    //     networkPlant.transform.localScale = scale;
+	// 	rpcPlant = objPlant;
+    // }
 
-    public void CreatePlant(string plantType, Vector3 plantPosition, int water, string stage, DateTime timeHalf, DateTime timeMature, DateTime timeLeave, bool delay, bool isHalf, bool isMature, Vector3 scale, PhotonView potPhotonView)
-    {
-        photonView.RPC("RPCCreatePlant", RpcTarget.AllBuffered, plantType, plantPosition, water, stage, timeHalf, timeMature, timeLeave, delay, isHalf, isMature, scale, potPhotonView);
-    }
+    // public void CreatePlant(string plantType, Vector3 plantPosition, int water, string stage, string timeHalf, string timeMature, string timeLeave, bool delay, bool isHalf, bool isMature, Vector3 scale)
+    // {
+		
+    //     photonView.RPC("RPCCreatePlant", RpcTarget.AllBuffered, plantType, plantPosition, water, stage, timeHalf, timeMature, timeLeave, delay, isHalf, isMature, scale);
+	// 	Plant plant = rpcPlant.GetComponent<Plant>();
+	// 	Pot pot = rpcPot.GetComponent<Pot>();
+	// 	plant.SetPot(rpcPot);
+    //     plant.SetPotID(pot.id);
+    //     pot.SetPlant(rpcPlant);
+    //     pot.SetPlantID(plant.id);
+    // }
 }

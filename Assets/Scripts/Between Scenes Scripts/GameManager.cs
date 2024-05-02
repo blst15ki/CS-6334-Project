@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     public string indoorSpawnPoint = "end";
     public LobbyHotBarData lobbyHotBarData;
     public InsideHotBarData insideHotBarData = null;
+    public Dictionary<string, GameObject> pots = new Dictionary<string, GameObject>();
+    public Dictionary<string, GameObject> plants = new Dictionary<string, GameObject>();
     
     void Awake() {
         if (Instance == null)
@@ -236,5 +238,39 @@ public class GameManager : MonoBehaviour
 
     public void resetInsideHotBarDataToNull(){
         insideHotBarData = null;
+    }
+
+    public GameObject FindPotByID(string id) {
+        if (pots.ContainsKey(id)) {
+            return pots[id];
+        }
+        return null;
+    }
+
+    public void RegisterPot(string id, GameObject obj) {
+        if (!pots.ContainsKey(id)) {
+            pots.Add(id, obj);
+        }
+    }
+
+    public void ResetPots(){
+        pots = new Dictionary<string, GameObject>();
+    }
+
+    public GameObject FindPlantByID(string id) {
+        if (plants.ContainsKey(id)) {
+            return plants[id];
+        }
+        return null;
+    }
+
+    public void RegisterPlant(string id, GameObject obj) {
+        if (!plants.ContainsKey(id)) {
+            plants.Add(id, obj);
+        }
+    }
+
+    public void ResetPlants(){
+        pots = new Dictionary<string, GameObject>();
     }
 }

@@ -42,6 +42,8 @@ public class LobbyDoorTeleport : MonoBehaviourPunCallbacks
         
 
         GameManager.Instance.indoorSpawnPoint = "front";
+		GameManager.Instance.ResetPots();
+		GameManager.Instance.ResetPlants();
 
         if (PhotonNetwork.IsConnected) {
             PhotonNetwork.LeaveRoom();

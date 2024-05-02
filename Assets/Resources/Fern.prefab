@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 8595184629134471655}
   - component: {fileID: 784445547279708997}
   - component: {fileID: 5836089245146032451}
+  - component: {fileID: -3833489137237100577}
   m_Layer: 6
   m_Name: Fern
   m_TagString: Plant
@@ -197,5 +198,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78745e8e5f51d1140917695dbaca3fb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-3833489137237100577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840016888200548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20d253b8c5dabd24aa0e717f520544fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -162,9 +162,9 @@ public class HotBarItem {
     public Vector3 plantPosition;
     public int water;
     public string stage;
-    public DateTime timeHalf;
-    public DateTime timeMature;
-    public DateTime timeLeave;
+    public string timeHalf;
+    public string timeMature;
+    public string timeLeave;
     public bool delay;
     public bool isHalf;
     public bool isMature;
@@ -200,9 +200,9 @@ public class HotBarItem {
                     plantType = plant.GetPlantType();
                     water = plant.GetWater();
                     stage = plant.GetStage();
-                    timeHalf = plant.timeHalf;
-                    timeMature = plant.timeMature;
-                    timeLeave = plant.timeLeave;
+                    timeHalf = plant.GetTimeHalfAsString();
+                    timeMature = plant.GetTimeMatureAsString();
+                    timeLeave = plant.GetTimeLeaveAsString();
                     delay = plant.delay;
                     isHalf = plant.isHalf;
                     isMature = plant.isMature;
