@@ -34,22 +34,22 @@ public class LobbyHotbar : Hotbar
                 images[slot].sprite = null;
                 images[slot].color = Color.grey;
                 items[slot].transform.position = new Vector3(hit.point.x, items[slot].transform.position.y, hit.point.z);
-                items[slot].SetActive(true);
-				// LobbyInteractiveItem interactiveItem = items[slot].GetComponent<LobbyInteractiveItem>();
-				// if (interactiveItem != null) {
-				// 	interactiveItem.ChangeActiveState(true);
-				// }
+                // items[slot].SetActive(true);
+				LobbyInteractiveItem interactiveItem = items[slot].GetComponent<LobbyInteractiveItem>();
+				if (interactiveItem != null) {
+					interactiveItem.ChangeActiveState(true);
+				}
 
                 // if placing pot and pot has plant, move plant
                 if(items[slot].tag == "Pot" && items[slot].GetComponent<Pot>().HasPlant()) {
                     GameObject plantObj = items[slot].GetComponent<Pot>().GetPlant();
                     Vector3 potPos = items[slot].transform.position;
                     plantObj.transform.position = new Vector3(potPos.x, plantObj.transform.position.y, potPos.z - 0.15f);
-                    plantObj.SetActive(true);
-					// LobbyInteractiveItem interactiveItemPlant = plantObj.GetComponent<LobbyInteractiveItem>();
-					// if (interactiveItemPlant != null) {
-					// 	interactiveItemPlant.ChangeActiveState(true);
-					// }
+                    // plantObj.SetActive(true);
+					LobbyInteractiveItem interactiveItemPlant = plantObj.GetComponent<LobbyInteractiveItem>();
+					if (interactiveItemPlant != null) {
+						interactiveItemPlant.ChangeActiveState(true);
+					}
                 }
                 
                 // if sprinkler, move sprinkler particle system with sprinkler
@@ -79,11 +79,11 @@ public class LobbyHotbar : Hotbar
             
             SetIcon(obj.tag, i);
             items[i] = obj;
-            obj.SetActive(false);
-			// LobbyInteractiveItem interactiveItem = obj.GetComponent<LobbyInteractiveItem>();
-			// if (interactiveItem != null) {
-			// 	interactiveItem.ChangeActiveState(false);
-			// }
+            // obj.SetActive(false);
+			LobbyInteractiveItem interactiveItem = obj.GetComponent<LobbyInteractiveItem>();
+			if (interactiveItem != null) {
+				interactiveItem.ChangeActiveState(false);
+			}
             wait = true;
 
             // if pot with plant, disable plant too
@@ -92,11 +92,11 @@ public class LobbyHotbar : Hotbar
                 if(plantObj.GetComponent<DontDestroy>() == null) {
                     plantObj.AddComponent<DontDestroy>();
                 }
-                plantObj.SetActive(false);
-				// LobbyInteractiveItem interactiveItemPlant = plantObj.GetComponent<LobbyInteractiveItem>();
-				// if (interactiveItemPlant != null) {
-				// 	interactiveItemPlant.ChangeActiveState(false);
-				// }
+                // plantObj.SetActive(false);
+				LobbyInteractiveItem interactiveItemPlant = plantObj.GetComponent<LobbyInteractiveItem>();
+				if (interactiveItemPlant != null) {
+					interactiveItemPlant.ChangeActiveState(false);
+				}
             }
 
             // if sprinkler, disable sprinkler particle system too if it exists
