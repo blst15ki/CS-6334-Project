@@ -155,9 +155,11 @@ public class GameData {
 }
 
 public class HotBarItem {
+    public Vector3 position;
     public string type;
     public bool hasPlant = false;
     public string plantType;
+    public Vector3 plantPosition;
     public int water;
     public string stage;
     public DateTime timeHalf;
@@ -167,6 +169,7 @@ public class HotBarItem {
     public bool isHalf;
     public bool isMature;
     public Vector3 scale;
+    public string seedType;
 
     public HotBarItem(GameObject obj){
 
@@ -178,9 +181,11 @@ public class HotBarItem {
         switch (obj.tag) {
             case "Fertilizer":
                 type = "Fertilizer";
+                position = obj.transform.position;
                 break;
             case "Watering Can":
                 type = "Watering Can";
+                position = obj.transform.position;
                 break;
             case "Sprinkler":
                 type = "Sprinkler";
@@ -189,6 +194,7 @@ public class HotBarItem {
                 type = "Pot";
                 Pot pot = obj.GetComponent<Pot>();
                 hasPlant = pot.HasPlant();
+                position = obj.transform.position;
                 if(hasPlant) {
                     Plant plant = pot.GetPlant().GetComponent<Plant>();
                     plantType = plant.GetPlantType();
@@ -196,16 +202,24 @@ public class HotBarItem {
                     stage = plant.GetStage();
                     timeHalf = plant.timeHalf;
                     timeMature = plant.timeMature;
-                    timeLeave = DateTime.Now;
+                    timeLeave = plant.timeLeave;
                     delay = plant.delay;
                     isHalf = plant.isHalf;
                     isMature = plant.isMature;
                     scale = pot.GetPlant().transform.localScale;
+                    plantPosition = pot.GetPlant().transform.position;
                 }
 
                 break;
+            case "Seed":
+                type = "Seed";
+                position = obj.transform.position;
+                Seed seed = obj.GetComponent<Seed>();
+                seedType = seed.GetPlantType();
+                break;
             default:
                 type = "Sprinkler";
+                position = obj.transform.position;
                 break;
         }
     }
@@ -215,6 +229,14 @@ public class LobbyHotBarData {
     public List<HotBarItem> listOfHotBarItem;
 
     public LobbyHotBarData(List<HotBarItem> hotBarItems) {
+        listOfHotBarItem = hotBarItems;
+    }
+}
+
+public class InsideHotBarData {
+    public List<HotBarItem> listOfHotBarItem;
+
+    public InsideHotBarData(List<HotBarItem> hotBarItems) {
         listOfHotBarItem = hotBarItems;
     }
 }

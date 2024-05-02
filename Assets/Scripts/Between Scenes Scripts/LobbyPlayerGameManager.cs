@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class LobbyPlayerGameManager : MonoBehaviour
 {
-    [SerializeField] Hotbar hotbar;
+    public LobbyHotbar hotbar;
 
-    void Start()
-    {
+    void Start() {
         if (GameManager.Instance == null) {
             return;
         }
@@ -15,18 +14,21 @@ public class LobbyPlayerGameManager : MonoBehaviour
         LoadItemsIntoHotbar();
     }
 
-    public void LoadItemsIntoHotbar()
-    {
-        // if (hotbar == null) {
-        //     hotbar = FindObjectOfType<Hotbar>();
-        // }
-        Debug.Log("Inside Lobby loading items to hotbar");
-        Debug.Log(hotbar.name);
-        List<GameObject> savedItems = GameManager.Instance.GetItems();
+    public void LoadItemsIntoHotbar() {
+        LobbyHotBarData lobbyHotBarData = GameManager.Instance.GetLobbyHotBarData();
+        hotbar.LoadItems(lobbyHotBarData.listOfHotBarItem);
+    }
 
-        if (savedItems.Count != 0) {
-            hotbar.LoadItems(savedItems);
+    public LobbyHotBarData ConvertHotBarToLobbyHotBarData() {
+        List<GameObject> listOfHotBar = hotbar.GetItems();
+        List<HotBarItem> hotBarItems = new List<HotBarItem>();
+
+        foreach (GameObject obj in listOfHotBar){
+            HotBarItem item = new HotBarItem(obj);
+            hotBarItems.Add(item);
+            Destroy(obj);
         }
-        
+
+        return new LobbyHotBarData(hotBarItems);
     }
 }

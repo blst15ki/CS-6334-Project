@@ -5,7 +5,7 @@ using System;
 
 public class OutsideGameManager : MonoBehaviour
 {
-    [SerializeField] Hotbar hotbar;
+    [SerializeField] NormalHotbar hotbar;
 
     void Start()
     {

@@ -29,6 +29,10 @@ public class Sprinkler : MonoBehaviour
         AInput = "js10";
         XInput = "js2";
 
+        if(spsPrefab == null){
+            spsPrefab = GameManager.Instance.GetPrefab("Sprinkler Particle");
+        }
+
         waterSound = GetComponent<AudioSource>();
 
         if(spsObj == null) {
@@ -42,6 +46,10 @@ public class Sprinkler : MonoBehaviour
         // if(hotbar == null) {
         //     hotbar = FindObjectOfType<Hotbar>();
         // }
+        if(spsObj == null) {
+            spsObj = Instantiate(spsPrefab, transform.position + new Vector3(0f, 0.5f, 0f), spsPrefab.transform.rotation);
+            sprinklerParticleSystem = spsObj.GetComponent<ParticleSystem>();
+        }
         
         if(pointer) {
             if(Input.GetButtonDown(AInput)) { // select object to place

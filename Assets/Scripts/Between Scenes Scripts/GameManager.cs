@@ -17,11 +17,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject sprinklerPrefab;
     [SerializeField] GameObject basicPlantPrefab;
     [SerializeField] GameObject fernPrefab;
+    [SerializeField] GameObject basicPlantSeedPrefab;
+    [SerializeField] GameObject fernSeedPrefab;
+    [SerializeField] GameObject sprinklerParticlePrefab;
     public List<GameObject> savedHotBarItems = new List<GameObject>();
     public GameData outsideGameData = null;
     public GameData indoorGameData = null;
     public string indoorSpawnPoint = "end";
     public LobbyHotBarData lobbyHotBarData;
+    public InsideHotBarData insideHotBarData = null;
     
     void Awake() {
         if (Instance == null)
@@ -175,6 +179,12 @@ public class GameManager : MonoBehaviour
                 return basicPlantPrefab;
             case "Fern":
                 return fernPrefab;
+            case "Basic Plant Seed":
+                return basicPlantSeedPrefab;
+            case "Fern Seed":
+                return fernSeedPrefab;
+            case "Sprinkler Particle":
+                return sprinklerParticlePrefab;
             default:
                 return null;
         }
@@ -210,5 +220,21 @@ public class GameManager : MonoBehaviour
 
     public LobbyHotBarData GetLobbyHotBarData(){
         return lobbyHotBarData;
+    }
+
+    public void SaveInsideHotBarData(InsideHotBarData hotBarData){
+        insideHotBarData = hotBarData;
+    }
+
+    public InsideHotBarData GetInsideHotBarData(){
+        return insideHotBarData;
+    }
+
+    public bool isInsideHotBarDataNull(){
+        return (insideHotBarData == null);
+    }
+
+    public void resetInsideHotBarDataToNull(){
+        insideHotBarData = null;
     }
 }

@@ -10,6 +10,7 @@ public class Detector : MonoBehaviour
     [SerializeField] PlantInterface plantInterface;
     private Outline lastOutline = null;
 	private DoorTeleport lastDoorTeleport = null;
+	private LobbyDoorTeleport lastLobbyDoorTeleport = null;
 	private Interact lastInteract = null;
 	private LightController lastLightController = null;
 	private Pot lastPot = null;
@@ -18,6 +19,7 @@ public class Detector : MonoBehaviour
 	private RadioManager lastRadioManager = null;
 	private Chest lastChest = null;
 	private GameObject lastHitObject = null;
+	public GameObject player = null;
 
     void Update()
     {
@@ -44,6 +46,13 @@ public class Detector : MonoBehaviour
 				if (doorTeleport != null) {
 					doorTeleport.PointerOn();
 					lastDoorTeleport = doorTeleport;
+				}
+
+				LobbyDoorTeleport lobbyDoorTeleport = hitObject.GetComponent<LobbyDoorTeleport>();
+				if (lobbyDoorTeleport != null) {
+					lobbyDoorTeleport.PointerOn();
+					lobbyDoorTeleport.player = player;
+					lastLobbyDoorTeleport = lobbyDoorTeleport;
 				}
 
 				Interact interact = hitObject.GetComponent<Interact>();
@@ -114,6 +123,11 @@ public class Detector : MonoBehaviour
 		if (lastDoorTeleport != null) {
 			lastDoorTeleport.PointerOff();
 			lastDoorTeleport = null;
+		}
+
+		if (lastLobbyDoorTeleport != null) {
+			lastLobbyDoorTeleport.PointerOff();
+			lastLobbyDoorTeleport = null;
 		}
 
 		if (lastInteract != null) {

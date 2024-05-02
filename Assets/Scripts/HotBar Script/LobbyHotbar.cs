@@ -1,26 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using Photon.Pun;
+using System.Collections.Generic;
 
-public class NormalHotbar : Hotbar
+public class LobbyHotbar : Hotbar
 {
 
-    public override void EnableHotbar() { enable = true; }
-    public override void DisableHotbar() { enable = false; }
+    public override void EnableHotbar() {
+        enable = true;
+    }
+
+    public override void DisableHotbar() {
+        enable = false;
+    }
+
     public override void PlaceObject() {
-        // cannot place empty slot
-        if(items[slot] == null) {
+		if(items[slot] == null) {
             return;
         }
 
-        // cannot place sprinkler in inside scene
-        if(items[slot].tag == "Sprinkler" && SceneManager.GetActiveScene().name == "Inside") {
-            return;
-        }
-
-        // cannot place seeds
         if(items[slot].tag == "Seed") {
             return;
         }
@@ -28,17 +25,31 @@ public class NormalHotbar : Hotbar
         if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
             // ensure raycast is hitting floor
             if(hit.collider.gameObject.layer == floorLayer) {
+				PhotonTransformView transformView = items[slot].GetComponent<PhotonTransformView>();
+				PhotonView photonView = items[slot].GetComponent<PhotonView>();
+				photonView.ObservedComponents.Add(transformView);
+				transformView.m_SynchronizePosition = true;
+				transformView.m_SynchronizeRotation = true;
+				transformView.m_SynchronizeScale = false;
                 images[slot].sprite = null;
                 images[slot].color = Color.grey;
                 items[slot].transform.position = new Vector3(hit.point.x, items[slot].transform.position.y, hit.point.z);
-                items[slot].SetActive(true);
+                // items[slot].SetActive(true);
+				LobbyInteractiveItem interactiveItem = items[slot].GetComponent<LobbyInteractiveItem>();
+				if (interactiveItem != null) {
+					interactiveItem.ChangeActiveState(true);
+				}
 
                 // if placing pot and pot has plant, move plant
                 if(items[slot].tag == "Pot" && items[slot].GetComponent<Pot>().HasPlant()) {
                     GameObject plantObj = items[slot].GetComponent<Pot>().GetPlant();
                     Vector3 potPos = items[slot].transform.position;
                     plantObj.transform.position = new Vector3(potPos.x, plantObj.transform.position.y, potPos.z - 0.15f);
-                    plantObj.SetActive(true);
+                    // plantObj.SetActive(true);
+					LobbyInteractiveItem interactiveItemPlant = plantObj.GetComponent<LobbyInteractiveItem>();
+					if (interactiveItemPlant != null) {
+						interactiveItemPlant.ChangeActiveState(true);
+					}
                 }
                 
                 // if sprinkler, move sprinkler particle system with sprinkler
@@ -53,16 +64,26 @@ public class NormalHotbar : Hotbar
         }
     }
 
-    public override bool SelectObject(GameObject obj, int i) {
+	public override bool SelectObject(GameObject obj, int i) {
+
         if (items[i] == null) {
 
             if (obj.GetComponent<DontDestroy>() == null) {
                 obj.AddComponent<DontDestroy>();
             }
+
+			PhotonView itemView = obj.GetComponent<PhotonView>();
+			if (itemView != null) {
+                itemView.RequestOwnership();
+            }
             
             SetIcon(obj.tag, i);
             items[i] = obj;
-            obj.SetActive(false);
+            // obj.SetActive(false);
+			LobbyInteractiveItem interactiveItem = obj.GetComponent<LobbyInteractiveItem>();
+			if (interactiveItem != null) {
+				interactiveItem.ChangeActiveState(false);
+			}
             wait = true;
 
             // if pot with plant, disable plant too
@@ -71,7 +92,11 @@ public class NormalHotbar : Hotbar
                 if(plantObj.GetComponent<DontDestroy>() == null) {
                     plantObj.AddComponent<DontDestroy>();
                 }
-                plantObj.SetActive(false);
+                // plantObj.SetActive(false);
+				LobbyInteractiveItem interactiveItemPlant = plantObj.GetComponent<LobbyInteractiveItem>();
+				if (interactiveItemPlant != null) {
+					interactiveItemPlant.ChangeActiveState(false);
+				}
             }
 
             // if sprinkler, disable sprinkler particle system too if it exists
@@ -172,20 +197,7 @@ public class NormalHotbar : Hotbar
         }
     }
 
-
-    public void LoadItems(List<GameObject> listOfItems) {
-        if (listOfItems == null) { 
-            return; 
-        };
-
-        for (int i = 0; i < items.Length; i++) {
-            if (listOfItems[i] != null) {
-                SelectObject(listOfItems[i], i);
-            }
-        }
-    }
-
-    public void LoadItemsFromHotBarData(List<HotBarItem> listOfHotBarItem) {
+    public void LoadItems(List<HotBarItem> listOfHotBarItem) {
 
 		if (listOfHotBarItem == null) { 
             return; 
@@ -197,23 +209,19 @@ public class NormalHotbar : Hotbar
 				case "None":
 					break;
 				case "Watering Can":
-                    GameObject wateringCanPrefab = GameManager.Instance.GetPrefab("Watering Can");
-					obj = Instantiate(wateringCanPrefab, listOfHotBarItem[i].position, Quaternion.identity);
+					obj = PhotonNetwork.Instantiate("WateringCanPrefab", listOfHotBarItem[i].position, Quaternion.identity);
 					SelectObject(obj, i);
 					break;
 				case "Sprinkler":
-					GameObject sprinklerPrefab = GameManager.Instance.GetPrefab("Sprinkler");
-					obj = Instantiate(sprinklerPrefab, listOfHotBarItem[i].position, Quaternion.identity);
+					obj = PhotonNetwork.Instantiate("Sprinkler", listOfHotBarItem[i].position, Quaternion.identity);
 					SelectObject(obj, i);
 					break;
 				case "Pot":
-                    GameObject potPrefab = GameManager.Instance.GetPrefab("Pot");
-					obj = Instantiate(potPrefab, listOfHotBarItem[i].position, Quaternion.identity);
+					obj = PhotonNetwork.Instantiate("flowerpot", listOfHotBarItem[i].position, Quaternion.identity);
 					Pot pot = obj.GetComponent<Pot>();
 
 					if(listOfHotBarItem[i].hasPlant) {
-                        GameObject plantPrefab = GameManager.Instance.GetPrefab(listOfHotBarItem[i].plantType);
-						GameObject objPlant = Instantiate(plantPrefab, listOfHotBarItem[i].plantPosition, Quaternion.identity);
+						GameObject objPlant = PhotonNetwork.Instantiate(listOfHotBarItem[i].plantType, listOfHotBarItem[i].plantPosition, Quaternion.identity);
 						Plant networkPlant = objPlant.GetComponent<Plant>();
 						networkPlant.SetPlantType(listOfHotBarItem[i].plantType);
 						networkPlant.SetWater(listOfHotBarItem[i].water);
@@ -234,14 +242,25 @@ public class NormalHotbar : Hotbar
 
 					break;
 				case "Seed":
-                    string seedString = listOfHotBarItem[i].seedType + " Seed";
-                    GameObject seedPrefab = GameManager.Instance.GetPrefab(seedString);
-					obj = Instantiate(seedPrefab, listOfHotBarItem[i].position, Quaternion.identity);
+					string seedString = listOfHotBarItem[i].seedType + " Seed";
+					obj = PhotonNetwork.Instantiate(seedString, listOfHotBarItem[i].position, Quaternion.identity);
 					SelectObject(obj, i);
 					break;
 				default:
 					break;
 			}
         }
+    }
+
+	public InsideHotBarData ConvertHotBarToInsideHotBarData() {
+        List<HotBarItem> hotBarItems = new List<HotBarItem>();
+
+        foreach (GameObject obj in items){
+            HotBarItem item = new HotBarItem(obj);
+            hotBarItems.Add(item);
+            Destroy(obj);
+        }
+
+        return new InsideHotBarData(hotBarItems);
     }
 }

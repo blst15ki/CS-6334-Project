@@ -5,7 +5,7 @@ using System;
 
 public class IndoorGameManager : MonoBehaviour
 {
-    [SerializeField] Hotbar hotbar;
+    [SerializeField] NormalHotbar hotbar;
     [SerializeField] GameObject character;
     [SerializeField] GameObject camera;
     [SerializeField] GameObject cardboard;
@@ -44,12 +44,17 @@ public class IndoorGameManager : MonoBehaviour
         character.GetComponent<CharacterMovement>().enabled = true;
         character.GetComponent<CharacterController>().enabled = true;
 
-        LoadItemsIntoHotbar();
+        if (GameManager.Instance.isInsideHotBarDataNull()) {
+            LoadItemsIntoHotbar();
+        } else {
+            LoadItemsIntoHotBarByInsideHotBarData();
+            GameManager.Instance.resetInsideHotBarDataToNull();
+        }
+        
         LoadGameData();
     }
 
-    public void LoadItemsIntoHotbar()
-    {
+    public void LoadItemsIntoHotbar() {
         // if (hotbar == null) {
         //     hotbar = FindObjectOfType<Hotbar>();
         // }
@@ -57,6 +62,13 @@ public class IndoorGameManager : MonoBehaviour
         List<GameObject> savedItems = GameManager.Instance.GetItems();
         if (savedItems.Count != 0) {
             hotbar.LoadItems(savedItems);
+        }
+    }
+
+    public void LoadItemsIntoHotBarByInsideHotBarData() {
+        List<HotBarItem> savedItems = GameManager.Instance.GetInsideHotBarData().listOfHotBarItem;
+        if (savedItems.Count != 0) {
+            hotbar.LoadItemsFromHotBarData(savedItems);
         }
     }
 
@@ -216,6 +228,7 @@ public class IndoorGameManager : MonoBehaviour
         foreach (GameObject obj in listOfHotBar){
             HotBarItem item = new HotBarItem(obj);
             hotBarItems.Add(item);
+            Destroy(obj);
         }
 
         return new LobbyHotBarData(hotBarItems);

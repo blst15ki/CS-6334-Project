@@ -1941,6 +1941,7 @@ MonoBehaviour:
   hotbar: {fileID: 1637266636}
   maxDistance: 20
   plantInterface: {fileID: 993118089}
+  player: {fileID: 0}
 --- !u!199 &451881670
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -7004,7 +7005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41517be7bd8a84f90a77e41a8043b179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hotbar: {fileID: 0}
+  hotbar: {fileID: 1637266636}
   lockObj: {fileID: 669256872}
   returnList:
   - {fileID: 179056, guid: 220c818457a8d2441bf84edb4edee095, type: 3}
@@ -13183,11 +13184,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2356f4d9565c84ba4abf4726981b6ee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hotbar: {fileID: 0}
+  hotbar: {fileID: 1637266636}
   lockObj: {fileID: 1921917466}
   returnList:
-  - {fileID: 7698718134488201595, guid: 546035abda6dc4bc798cecfb1963ec57, type: 3}
-  - {fileID: 2898716205267328318, guid: 1d16d593be9064512b99342232eb5888, type: 3}
+  - {fileID: 7698718134488201595, guid: 3cfa216719863a24ba0a7393e62c3cf6, type: 3}
+  - {fileID: 2898716205267328318, guid: 636806e1ede44c243b3df14474a474ea, type: 3}
   statusTMP: {fileID: 438827665}
   durationTMP: {fileID: 1690748627}
 --- !u!114 &1208457233
@@ -13809,6 +13810,7 @@ MonoBehaviour:
   sprinklerPrefab: {fileID: 6710239645296517835, guid: 934cb17974d6cae4b9e629bbee69756c, type: 3}
   basicPlantPrefab: {fileID: 5050005892461381086, guid: 14be9d184be37bb4193ac57b8003289a, type: 3}
   fernPrefab: {fileID: 1840016888200548, guid: 7279954788aaa354997a21d39116f52e, type: 3}
+  sprinklerParticlePrefab: {fileID: 3331814015294504536, guid: 1700d3d4b0af82f49b1c7555a3973b23, type: 3}
   savedHotBarItems: []
   indoorSpawnPoint: middle
 --- !u!1 &1452901727

@@ -100,7 +100,7 @@ public abstract class Hotbar : MonoBehaviour
 
     public abstract void PlaceObject();
 
-    public virtual bool SelectObject(GameObject obj) {
+    public bool SelectObject(GameObject obj) {
         return SelectObject(obj, this.slot);
     }
 
@@ -121,8 +121,6 @@ public abstract class Hotbar : MonoBehaviour
         }
         return objectList;
     }
-
-    public abstract void LoadItems(List<GameObject> listOfItems);
 
     public void ClearSlot() {
         Destroy(items[slot]);
