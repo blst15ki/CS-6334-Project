@@ -76,7 +76,7 @@ public class LobbyHotbar : Hotbar
 			Debug.Log("Local Player ID: " + PhotonNetwork.LocalPlayer.ActorNumber);
 			Debug.Log("Before " + itemView.Owner);
 			if (itemView != null) {
-                itemView.TransferOwnership(PhotonNetwork.LocalPlayer.ActorNumber);
+                itemView.TransferOwnership(PhotonNetwork.LocalPlayer);
             }
 			Debug.Log("After " + itemView.Owner);
             

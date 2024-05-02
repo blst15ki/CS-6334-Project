@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class LobbyPlayerGameManager : MonoBehaviour
+
+public class LobbyPlayerGameManager : MonoBehaviourPunCallbacks
 {
     public LobbyHotbar hotbar;
 
@@ -10,6 +12,13 @@ public class LobbyPlayerGameManager : MonoBehaviour
         if (GameManager.Instance == null) {
             return;
         }
+
+        LoadItemsIntoHotbar();
+    }
+
+    public override void OnJoinedRoom() {
+        if (!photonView.IsMine)
+            return;
 
         LoadItemsIntoHotbar();
     }
