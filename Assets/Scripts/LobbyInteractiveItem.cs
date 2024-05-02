@@ -5,15 +5,15 @@ using Photon.Pun;
 
 public class LobbyInteractiveItem : MonoBehaviourPun, IPunObservable
 {
-    // public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-    //     if (stream.IsWriting) {
-    //         stream.SendNext(gameObject.activeSelf);
-    //     }
-    //     else {
-    //         bool isActive = (bool)stream.ReceiveNext();
-    //         gameObject.SetActive(isActive);
-    //     }
-    // }
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+        // if (stream.IsWriting) {
+        //     stream.SendNext(gameObject.activeSelf);
+        // }
+        // else {
+        //     bool isActive = (bool)stream.ReceiveNext();
+        //     gameObject.SetActive(isActive);
+        // }
+    }
 
     public void ChangeActiveState(bool isActive) {
         photonView.RPC("RPCSetActive", RpcTarget.All, isActive);

@@ -73,9 +73,12 @@ public class LobbyHotbar : Hotbar
             }
 
 			PhotonView itemView = obj.GetComponent<PhotonView>();
+			Debug.Log("Local Player ID: " + PhotonNetwork.LocalPlayer.ActorNumber);
+			Debug.Log("Before " + itemView.Owner);
 			if (itemView != null) {
                 itemView.RequestOwnership();
             }
+			Debug.Log("After " + itemView.Owner);
             
             SetIcon(obj.tag, i);
             items[i] = obj;
@@ -198,6 +201,8 @@ public class LobbyHotbar : Hotbar
     }
 
     public void LoadItems(List<HotBarItem> listOfHotBarItem) {
+
+		Debug.Log("Item is Loading");
 
 		if (listOfHotBarItem == null) { 
             return; 
