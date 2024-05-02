@@ -431,7 +431,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6503d66716a0a764dbf81cbe464c4a4b, type: 3}
   - {fileID: 8300000, guid: ab35e390a0bb9ee4dbcf8f92082cf6b5, type: 3}
   - {fileID: 8300000, guid: 25455fc642c352b4e8d263183bbb10ed, type: 3}
-  hotbar: {fileID: 0}
+  hotbar: {fileID: 1637266636}
   musicParticleSystem: {fileID: 1204893560}
 --- !u!54 &89585385
 Rigidbody:
@@ -13810,6 +13810,8 @@ MonoBehaviour:
   sprinklerPrefab: {fileID: 6710239645296517835, guid: 934cb17974d6cae4b9e629bbee69756c, type: 3}
   basicPlantPrefab: {fileID: 5050005892461381086, guid: 14be9d184be37bb4193ac57b8003289a, type: 3}
   fernPrefab: {fileID: 1840016888200548, guid: 7279954788aaa354997a21d39116f52e, type: 3}
+  basicPlantSeedPrefab: {fileID: 7698718134488201595, guid: 3cfa216719863a24ba0a7393e62c3cf6, type: 3}
+  fernSeedPrefab: {fileID: 2898716205267328318, guid: 636806e1ede44c243b3df14474a474ea, type: 3}
   sprinklerParticlePrefab: {fileID: 3331814015294504536, guid: 1700d3d4b0af82f49b1c7555a3973b23, type: 3}
   savedHotBarItems: []
   indoorSpawnPoint: middle
@@ -14536,7 +14538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 276489ad265fb4949abba639ed8c1f24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hotbar: {fileID: 0}
+  hotbar: {fileID: 1637266636}
   dirLight: {fileID: 1516983259}
 --- !u!1 &1568782153
 GameObject:
@@ -16595,7 +16597,7 @@ MonoBehaviour:
   button1: {fileID: 1604062988}
   player: {fileID: 1644855603}
   mainCamera: {fileID: 451881658}
-  hotbar: {fileID: 0}
+  hotbar: {fileID: 1637266636}
 --- !u!4 &1924707558
 Transform:
   m_ObjectHideFlags: 0

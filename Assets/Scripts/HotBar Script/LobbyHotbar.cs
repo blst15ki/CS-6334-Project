@@ -202,6 +202,9 @@ public class LobbyHotbar : Hotbar
 
     public void LoadItems(List<HotBarItem> listOfHotBarItem) {
 
+		if (!photonView.IsMine)
+            return;
+
 		Debug.Log("Local Player ID From Load Items: " + PhotonNetwork.LocalPlayer.ActorNumber);
 		Debug.Log("Item is Loading");
 

@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
-public abstract class Hotbar : MonoBehaviour
+public abstract class Hotbar : MonoBehaviourPunCallbacks
 {
     [SerializeField] protected GameObject[] slots = new GameObject[9]; // references outer image of slots (for slot outlines)
     [SerializeField] protected GameObject[] itemSlots = new GameObject[9]; // references inner image of slots
