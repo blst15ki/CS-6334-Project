@@ -1,6 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
 using System.Collections.Generic;
+using System;
 
 public class LobbyHotbar : Hotbar
 {
@@ -230,22 +231,24 @@ public class LobbyHotbar : Hotbar
 					Pot pot = obj.GetComponent<Pot>();
 
 					if(listOfHotBarItem[i].hasPlant) {
-						GameObject objPlant = PhotonNetwork.Instantiate(listOfHotBarItem[i].plantType, listOfHotBarItem[i].plantPosition, Quaternion.identity);
-						Plant networkPlant = objPlant.GetComponent<Plant>();
-						networkPlant.SetPlantType(listOfHotBarItem[i].plantType);
-						networkPlant.SetWater(listOfHotBarItem[i].water);
-						networkPlant.SetStage(listOfHotBarItem[i].stage);
-						networkPlant.timeHalf = listOfHotBarItem[i].timeHalf;
-						networkPlant.timeMature = listOfHotBarItem[i].timeMature;
-						networkPlant.timeLeave = listOfHotBarItem[i].timeLeave;
-						networkPlant.delay = listOfHotBarItem[i].delay;
-						networkPlant.isHalf = listOfHotBarItem[i].isHalf;
-						networkPlant.isMature = listOfHotBarItem[i].isMature;
-						networkPlant.transform.localScale = listOfHotBarItem[i].scale;
-						networkPlant.SetPot(obj);
-						networkPlant.SetPotID(pot.id);
-						pot.SetPlant(objPlant);
-						pot.SetPlantID(networkPlant.id);
+						PhotonView potPhotonView = obj.GetComponent<PhotonView>();
+						CreatePlant(listOfHotBarItem[i].plantType, listOfHotBarItem[i].plantPosition, listOfHotBarItem[i].water, listOfHotBarItem[i].stage, listOfHotBarItem[i].timeHalf, listOfHotBarItem[i].timeMature, listOfHotBarItem[i].timeLeave, listOfHotBarItem[i].delay, listOfHotBarItem[i].isHalf, listOfHotBarItem[i].isMature, listOfHotBarItem[i].scale, potPhotonView);
+						// GameObject objPlant = PhotonNetwork.Instantiate(listOfHotBarItem[i].plantType, listOfHotBarItem[i].plantPosition, Quaternion.identity);
+						// Plant networkPlant = objPlant.GetComponent<Plant>();
+						// networkPlant.SetPlantType(listOfHotBarItem[i].plantType);
+						// networkPlant.SetWater(listOfHotBarItem[i].water);
+						// networkPlant.SetStage(listOfHotBarItem[i].stage);
+						// networkPlant.timeHalf = listOfHotBarItem[i].timeHalf;
+						// networkPlant.timeMature = listOfHotBarItem[i].timeMature;
+						// networkPlant.timeLeave = listOfHotBarItem[i].timeLeave;
+						// networkPlant.delay = listOfHotBarItem[i].delay;
+						// networkPlant.isHalf = listOfHotBarItem[i].isHalf;
+						// networkPlant.isMature = listOfHotBarItem[i].isMature;
+						// networkPlant.transform.localScale = listOfHotBarItem[i].scale;
+						// networkPlant.SetPot(obj);
+						// networkPlant.SetPotID(pot.id);
+						// pot.SetPlant(objPlant);
+						// pot.SetPlantID(networkPlant.id);
 					}
 					SelectObject(obj, i);
 
@@ -275,5 +278,32 @@ public class LobbyHotbar : Hotbar
         }
 
         return new InsideHotBarData(hotBarItems);
+    }
+
+	 [PunRPC]
+    void RPCCreatePlant(string plantType, Vector3 plantPosition, int water, string stage, DateTime timeHalf, DateTime timeMature, DateTime timeLeave, bool delay, bool isHalf, bool isMature, Vector3 scale, PhotonView potPhotonView)
+    {
+        GameObject objPlant = PhotonNetwork.Instantiate(plantType, plantPosition, Quaternion.identity);
+        Plant networkPlant = objPlant.GetComponent<Plant>();
+        networkPlant.SetPlantType(plantType);
+        networkPlant.SetWater(water);
+        networkPlant.SetStage(stage);
+        networkPlant.timeHalf = timeHalf;
+        networkPlant.timeMature = timeMature;
+        networkPlant.timeLeave = timeLeave;
+        networkPlant.delay = delay;
+        networkPlant.isHalf = isHalf;
+        networkPlant.isMature = isMature;
+        networkPlant.transform.localScale = scale;
+        networkPlant.SetPot(potPhotonView.gameObject);
+		Pot pot = potPhotonView.GetComponent<Pot>();
+        networkPlant.SetPotID(pot.id);
+        pot.SetPlant(objPlant);
+        pot.SetPlantID(networkPlant.id);
+    }
+
+    public void CreatePlant(string plantType, Vector3 plantPosition, int water, string stage, DateTime timeHalf, DateTime timeMature, DateTime timeLeave, bool delay, bool isHalf, bool isMature, Vector3 scale, PhotonView potPhotonView)
+    {
+        photonView.RPC("RPCCreatePlant", RpcTarget.AllBuffered, plantType, plantPosition, water, stage, timeHalf, timeMature, timeLeave, delay, isHalf, isMature, scale, potPhotonView);
     }
 }

@@ -16,7 +16,7 @@ public class LobbyInteractiveItem : MonoBehaviourPun, IPunObservable
     }
 
     public void ChangeActiveState(bool isActive) {
-        photonView.RPC("RPCSetActive", RpcTarget.All, isActive);
+        photonView.RPC("RPCSetActive", RpcTarget.AllBuffered, isActive);
         // if(isActive){
         //     photonView.RPC("RPCClearOwnership", RpcTarget.All);
         // }
