@@ -249,6 +249,7 @@ public class LobbyHotbar : Hotbar
 				case "Fertilizer":
 					obj = PhotonNetwork.Instantiate("Fertilizer Cube", listOfHotBarItem[i].position, Quaternion.identity);
 					SelectObject(obj, i);
+					break;
 				default:
 					break;
 			}
