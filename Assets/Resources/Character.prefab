@@ -538,7 +538,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8178232543644803828
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1672,9 +1672,6 @@ MonoBehaviour:
   - {fileID: 8893531536069118802}
   - {fileID: 2167830542699479833}
   mainCamera: {fileID: 3061531332423279660}
-  avatar:
-  - {fileID: 6257747061776486197}
-  - {fileID: 2508747371550717206}
   enable: 1
 --- !u!1 &4559219605274075604
 GameObject:
@@ -1918,6 +1915,7 @@ GameObject:
   - component: {fileID: 4918837227011893392}
   - component: {fileID: 4754367478581218541}
   - component: {fileID: 3726907298279478225}
+  - component: {fileID: 527431947404206366}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -2091,6 +2089,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hotbar: {fileID: 3187389742572135943}
+--- !u!114 &527431947404206366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5718905241200134567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20ecf46ad0d6a4c8c80fe2ae41e3d216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 3061531332423279660}
+  avatar:
+  - {fileID: 6257747061776486197}
+  - {fileID: 2508747371550717206}
 --- !u!1 &5773539214058754444
 GameObject:
   m_ObjectHideFlags: 0
