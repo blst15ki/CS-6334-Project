@@ -14,9 +14,6 @@ GameObject:
   - component: {fileID: 2292750316901578023}
   - component: {fileID: 3358063482867620179}
   - component: {fileID: 7067610582864471671}
-  - component: {fileID: 8595184629134471655}
-  - component: {fileID: 784445547279708997}
-  - component: {fileID: 5836089245146032451}
   m_Layer: 6
   m_Name: Fern
   m_TagString: Plant
@@ -121,18 +118,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   potObj: {fileID: 0}
   water: 0
+  deadWater: 0
   maxWater: 0
-  time: 0
   type: 
   id: 
   potID: 
   stage: 
   isHalf: 0
   isMature: 0
-  hasLight: 0
   isDataLoaded: 0
-  delay: 0
-  lightSource: {fileID: 0}
 --- !u!64 &7067610582864471671
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -147,55 +141,3 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 515e22959e97d43469e84d7b5c6b9dfe, type: 3}
---- !u!114 &8595184629134471655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1840016888200548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 1
-  OwnershipTransfer: 1
-  observableSearch: 0
-  ObservedComponents:
-  - {fileID: 784445547279708997}
-  - {fileID: 5836089245146032451}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &784445547279708997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1840016888200548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
---- !u!114 &5836089245146032451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1840016888200548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78745e8e5f51d1140917695dbaca3fb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

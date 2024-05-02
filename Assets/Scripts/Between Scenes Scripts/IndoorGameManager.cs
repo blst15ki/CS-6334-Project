@@ -50,9 +50,9 @@ public class IndoorGameManager : MonoBehaviour
 
     public void LoadItemsIntoHotbar()
     {
-        if (hotbar == null) {
-            hotbar = FindObjectOfType<Hotbar>();
-        }
+        // if (hotbar == null) {
+        //     hotbar = FindObjectOfType<Hotbar>();
+        // }
         
         List<GameObject> savedItems = GameManager.Instance.GetItems();
         if (savedItems.Count != 0) {
@@ -207,5 +207,17 @@ public class IndoorGameManager : MonoBehaviour
             TimeSpan diff = chestData.unlockTime - DateTime.Now;
             chestScript.SetTime((int)(diff.TotalSeconds));
         }
+    }
+
+    public LobbyHotBarData ConvertHotBarToLobbyHotBarData() {
+        List<GameObject> listOfHotBar = hotbar.GetItems();
+        List<HotBarItem> hotBarItems = new List<HotBarItem>();
+
+        foreach (GameObject obj in listOfHotBar){
+            HotBarItem item = new HotBarItem(obj);
+            hotBarItems.Add(item);
+        }
+
+        return new LobbyHotBarData(hotBarItems);
     }
 }

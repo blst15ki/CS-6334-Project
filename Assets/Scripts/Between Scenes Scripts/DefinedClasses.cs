@@ -110,9 +110,9 @@ public class WateringCanData {
     public Vector3 position;
     public Quaternion rotation;
 
-    public WateringCanData(GameObject fertilizer) {
-        position = fertilizer.transform.position;
-        rotation = fertilizer.transform.rotation;
+    public WateringCanData(GameObject wateringCan) {
+        position = wateringCan.transform.position;
+        rotation = wateringCan.transform.rotation;
     }
 
     public WateringCanData() {}
@@ -151,5 +151,70 @@ public class GameData {
         listOfFertilizer = fertilizers;
         listOfWateringCan = wateringcans;
         listOfChestData = chests;
+    }
+}
+
+public class HotBarItem {
+    public string type;
+    public bool hasPlant = false;
+    public string plantType;
+    public int water;
+    public string stage;
+    public DateTime timeHalf;
+    public DateTime timeMature;
+    public DateTime timeLeave;
+    public bool delay;
+    public bool isHalf;
+    public bool isMature;
+    public Vector3 scale;
+
+    public HotBarItem(GameObject obj){
+
+        if(obj == null) {
+            type = "None";
+            return;
+        }
+        
+        switch (obj.tag) {
+            case "Fertilizer":
+                type = "Fertilizer";
+                break;
+            case "Watering Can":
+                type = "Watering Can";
+                break;
+            case "Sprinkler":
+                type = "Sprinkler";
+                break;
+            case "Pot":
+                type = "Pot";
+                Pot pot = obj.GetComponent<Pot>();
+                hasPlant = pot.HasPlant();
+                if(hasPlant) {
+                    Plant plant = pot.GetPlant().GetComponent<Plant>();
+                    plantType = plant.GetPlantType();
+                    water = plant.GetWater();
+                    stage = plant.GetStage();
+                    timeHalf = plant.timeHalf;
+                    timeMature = plant.timeMature;
+                    timeLeave = DateTime.Now;
+                    delay = plant.delay;
+                    isHalf = plant.isHalf;
+                    isMature = plant.isMature;
+                    scale = pot.GetPlant().transform.localScale;
+                }
+
+                break;
+            default:
+                type = "Sprinkler";
+                break;
+        }
+    }
+}
+
+public class LobbyHotBarData {
+    public List<HotBarItem> listOfHotBarItem;
+
+    public LobbyHotBarData(List<HotBarItem> hotBarItems) {
+        listOfHotBarItem = hotBarItems;
     }
 }

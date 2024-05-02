@@ -5,6 +5,7 @@ using UnityEngine;
 public class Detector : MonoBehaviour
 {
     public XRCardboardReticle reticle;
+	public Hotbar hotbar;
     public float maxDistance = 20f;
     [SerializeField] PlantInterface plantInterface;
     private Outline lastOutline = null;
@@ -49,6 +50,7 @@ public class Detector : MonoBehaviour
 				if (interact != null) {
 					interact.PointerOn();
 					lastInteract = interact;
+					interact.hotbar = hotbar;
 				}
 
 				LightController lightController = hitObject.GetComponent<LightController>();
@@ -61,6 +63,7 @@ public class Detector : MonoBehaviour
 				if (pot != null) {
 					pot.PointerOn();
 					lastPot = pot;
+					pot.hotbar = hotbar;
 
 					if(pot.HasPlant()) {
 						plantInterface.EnableInterface(pot.GetPlant());
@@ -72,6 +75,7 @@ public class Detector : MonoBehaviour
 				if (sprinkler != null) {
 					sprinkler.PointerOn();
 					lastSprinkler = sprinkler;
+					sprinkler.hotbar = hotbar;
 				}
 				
 				Plant plant = hitObject.GetComponent<Plant>();

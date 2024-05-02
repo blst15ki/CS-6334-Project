@@ -4,103 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Hotbar : MonoBehaviour
+public class NormalHotbar : Hotbar
 {
-    [SerializeField] GameObject[] slots = new GameObject[9]; // references outer image of slots (for slot outlines)
-    [SerializeField] GameObject[] itemSlots = new GameObject[9]; // references inner image of slots
-    [SerializeField] Camera mainCamera;
-    GameObject[] items = new GameObject[9]; // contains item references per slot
-    UnityEngine.UI.Outline[] slotOutlines = new UnityEngine.UI.Outline[9]; // handles outer slot outline
-    Image[] images = new Image[9]; // contains sprites for slots
-    int slot, floorLayer;
-    string XInput, YInput, AInput, BInput;
-    public bool enable = true;
-    bool wait, inUse;
-    RaycastHit hit;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        for(int i = 0; i < 9; i++) {
-            slotOutlines[i] = slots[i].GetComponent<UnityEngine.UI.Outline>();
-            images[i] = itemSlots[i].GetComponent<Image>();
-        }
 
-        slot = 0;
-        floorLayer = 7;
-        XInput = "js2";
-        YInput = "js3";
-        AInput = "js10";
-        BInput = "js5";
-        wait = false; // prevent selecting and placing an object in the same frame
-        inUse = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(enable) {
-            // prevent using other buttons if item is being used
-            if(inUse == false) {
-                if(Input.GetButtonDown(XInput)) {
-                    MoveSlot("left");
-                } else if(Input.GetButtonDown(YInput)) {
-                    MoveSlot("right");
-                } else if(Input.GetButtonDown(AInput) && wait == false) {
-                    PlaceObject();
-                } else if(Input.GetButtonDown(BInput)) {
-                    UseItem();
-                }
-            }
-
-            if(wait) {
-                wait = false;
-            }
-
-            if(Input.GetButtonUp(BInput) && inUse) {
-                if(items[slot].tag == "Watering Can") {
-                    // stop audio and disable watering can
-                    items[slot].GetComponent<AudioSource>().Stop();
-                    items[slot].GetComponentInChildren<Renderer>().enabled = true;
-                    items[slot].GetComponentInChildren<Collider>().enabled = true;
-                    items[slot].SetActive(false);
-                    mainCamera.GetComponent<ParticleSystem>().Stop();
-                    // stop watering
-                    if(hit.collider.gameObject.tag == "Pot") {
-                        hit.collider.gameObject.GetComponent<Pot>().StopWaterPlant();
-                    } else if(hit.collider.gameObject.tag == "Plant") {
-                        hit.collider.gameObject.GetComponent<Plant>().StopWater();
-                    }
-
-                    hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.white;
-                    inUse = false;
-                }
-            }
-        }
-    }
-
-    public void EnableHotbar() { enable = true; }
-    public void DisableHotbar() { enable = false; }
-
-    void MoveSlot(string str) {
-        slotOutlines[slot].enabled = false;
-
-        if(str == "left") {
-            slot--;
-        } else if(str == "right") {
-            slot++;
-        }
-
-        if(slot == -1) {
-            slot += 9;
-        } else if(slot == 9) {
-            slot -= 9;
-        }
-
-        slotOutlines[slot].enabled = true;
-    }
-
-    public void PlaceObject() {
+    public override void EnableHotbar() { enable = true; }
+    public override void DisableHotbar() { enable = false; }
+    public override void PlaceObject() {
         // cannot place empty slot
         if(items[slot] == null) {
             return;
@@ -144,11 +53,11 @@ public class Hotbar : MonoBehaviour
         }
     }
 
-    public bool SelectObject(GameObject obj) {
+    public override bool SelectObject(GameObject obj) {
         return SelectObject(obj, slot);
     }
 
-    public bool SelectObject(GameObject obj, int i) {
+    public override bool SelectObject(GameObject obj, int i) {
         if (items[i] == null) {
 
             if (obj.GetComponent<DontDestroy>() == null) {
@@ -185,7 +94,7 @@ public class Hotbar : MonoBehaviour
         return false;
     }
 
-    void UseItem() {
+    public override void UseItem() {
         if(items[slot] == null) {
             return;
         }
@@ -267,27 +176,8 @@ public class Hotbar : MonoBehaviour
         }
     }
 
-    public void SetIcon(string tag, int i) {
-        images[i].sprite = GameManager.Instance.GetSprite(tag);
-        images[i].color = Color.white;
-    }
 
-    public List<GameObject> GetItems() {
-        List<GameObject> objectList = new List<GameObject>();
-
-        foreach (GameObject item in items)
-        {
-            if (item != null) {
-                objectList.Add(item);
-            }
-            else {
-                objectList.Add(null);
-            }
-        }
-        return objectList;
-    }
-
-    public void LoadItems(List<GameObject> listOfItems) {
+    public override void LoadItems(List<GameObject> listOfItems) {
         if (listOfItems == null) { 
             return; 
         };
@@ -297,12 +187,5 @@ public class Hotbar : MonoBehaviour
                 SelectObject(listOfItems[i], i);
             }
         }
-    }
-
-    void ClearSlot() {
-        Destroy(items[slot]);
-        items[slot] = null;
-        images[slot].sprite = null;
-        images[slot].color = Color.grey;
     }
 }

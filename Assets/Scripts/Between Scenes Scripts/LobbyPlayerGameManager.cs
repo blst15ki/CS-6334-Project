@@ -17,9 +17,9 @@ public class LobbyPlayerGameManager : MonoBehaviour
 
     public void LoadItemsIntoHotbar()
     {
-        if (hotbar == null) {
-            hotbar = FindObjectOfType<Hotbar>();
-        }
+        // if (hotbar == null) {
+        //     hotbar = FindObjectOfType<Hotbar>();
+        // }
         Debug.Log("Inside Lobby loading items to hotbar");
         Debug.Log(hotbar.name);
         List<GameObject> savedItems = GameManager.Instance.GetItems();

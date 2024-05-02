@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Sprinkler : MonoBehaviour
 {
-    [SerializeField] Hotbar hotbar;
+    public Hotbar hotbar;
     Outline outline;
     bool pointer, on;
     string AInput, XInput;
@@ -15,9 +15,9 @@ public class Sprinkler : MonoBehaviour
     ParticleSystem sprinklerParticleSystem;
 
     void Start() {
-        if(hotbar == null) {
-            hotbar = FindObjectOfType<Hotbar>();
-        }
+        // if(hotbar == null) {
+        //     hotbar = FindObjectOfType<Hotbar>();
+        // }
     }
 
     void Awake() {
@@ -39,9 +39,9 @@ public class Sprinkler : MonoBehaviour
 
     void Update()
     {
-        if(hotbar == null) {
-            hotbar = FindObjectOfType<Hotbar>();
-        }
+        // if(hotbar == null) {
+        //     hotbar = FindObjectOfType<Hotbar>();
+        // }
         
         if(pointer) {
             if(Input.GetButtonDown(AInput)) { // select object to place

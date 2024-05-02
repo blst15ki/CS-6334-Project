@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public GameData outsideGameData = null;
     public GameData indoorGameData = null;
     public string indoorSpawnPoint = "end";
+    public LobbyHotBarData lobbyHotBarData;
     
     void Awake() {
         if (Instance == null)
@@ -201,5 +202,13 @@ public class GameManager : MonoBehaviour
 
     public GameData GetOutsideGameData() {
         return outsideGameData;
+    }
+
+    public void SaveLobbyHotBarData(LobbyHotBarData hotBarData){
+        lobbyHotBarData = hotBarData;
+    }
+
+    public LobbyHotBarData GetLobbyHotBarData(){
+        return lobbyHotBarData;
     }
 }
