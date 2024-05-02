@@ -215,19 +215,19 @@ public class LobbyHotbar : Hotbar
 				case "None":
 					break;
 				case "Watering Can":
-					obj = PhotonNetwork.InstantiateRoomObject("WateringCanPrefab", listOfHotBarItem[i].position, Quaternion.identity);
+					obj = PhotonNetwork.Instantiate("WateringCanPrefab", listOfHotBarItem[i].position, Quaternion.identity);
 					SelectObject(obj, i);
 					break;
 				case "Sprinkler":
-					obj = PhotonNetwork.InstantiateRoomObject("Sprinkler", listOfHotBarItem[i].position, Quaternion.identity);
+					obj = PhotonNetwork.Instantiate("Sprinkler", listOfHotBarItem[i].position, Quaternion.identity);
 					SelectObject(obj, i);
 					break;
 				case "Pot":
-					obj = PhotonNetwork.InstantiateRoomObject("flowerpot", listOfHotBarItem[i].position, Quaternion.identity);
+					obj = PhotonNetwork.Instantiate("flowerpot", listOfHotBarItem[i].position, Quaternion.identity);
 					Pot pot = obj.GetComponent<Pot>();
 
 					if(listOfHotBarItem[i].hasPlant) {
-						GameObject objPlant = PhotonNetwork.InstantiateRoomObject(listOfHotBarItem[i].plantType, listOfHotBarItem[i].plantPosition, Quaternion.identity);
+						GameObject objPlant = PhotonNetwork.Instantiate(listOfHotBarItem[i].plantType, listOfHotBarItem[i].plantPosition, Quaternion.identity);
 						Plant networkPlant = objPlant.GetComponent<Plant>();
 						networkPlant.SetPlantType(listOfHotBarItem[i].plantType);
 						networkPlant.SetWater(listOfHotBarItem[i].water);
@@ -249,11 +249,11 @@ public class LobbyHotbar : Hotbar
 					break;
 				case "Seed":
 					string seedString = listOfHotBarItem[i].seedType + " Seed";
-					obj = PhotonNetwork.InstantiateRoomObject(seedString, listOfHotBarItem[i].position, Quaternion.identity);
+					obj = PhotonNetwork.Instantiate(seedString, listOfHotBarItem[i].position, Quaternion.identity);
 					SelectObject(obj, i);
 					break;
 				case "Fertilizer":
-					obj = PhotonNetwork.InstantiateRoomObject("Fertilizer Cube", listOfHotBarItem[i].position, Quaternion.identity);
+					obj = PhotonNetwork.Instantiate("Fertilizer Cube", listOfHotBarItem[i].position, Quaternion.identity);
 					SelectObject(obj, i);
 					break;
 				default:
