@@ -1070,7 +1070,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 1061579007}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -8535,7 +8535,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '[ Radio ]'
+  m_text: '[ Sprinkler ]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8830,7 +8830,7 @@ MonoBehaviour:
   button1: {fileID: 1120104591}
   player: {fileID: 206300527}
   mainCamera: {fileID: 1061579007}
-  hotbar: {fileID: 0}
+  hotbar: {fileID: 2134047320}
 --- !u!1 &1383938143
 GameObject:
   m_ObjectHideFlags: 0
@@ -10554,9 +10554,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'B = play/stop music
+  m_text: 'A = grab
 
-    X = switch songs'
+    X = turn on
+
+    Red = Plants too far'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

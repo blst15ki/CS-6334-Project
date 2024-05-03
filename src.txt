@@ -37,3 +37,4 @@
 34) Fern Sprite: https://www.flaticon.com/free-icon/fern_6670681?term=fern&page=1&position=2&origin=search&related_id=6670681
 35) Grass Sprite: https://www.flaticon.com/free-icon/grass_704834?term=grass&page=1&position=4&origin=search&related_id=704834
 36) Mint Sprite: https://www.flaticon.com/free-icon/tea-leaves_11298473?term=leaves&page=1&position=5&origin=search&related_id=11298473
+37) Mirror: https://assetstore.unity.com/packages/tools/particles-effects/magic-mirror-lite-reflection-for-unity-34824

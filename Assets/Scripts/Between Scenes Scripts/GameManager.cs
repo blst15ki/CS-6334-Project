@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject mintPrefab;
     [SerializeField] GameObject basicPlantSeedPrefab;
     [SerializeField] GameObject fernSeedPrefab;
+    [SerializeField] GameObject grassSeedPrefab;
+    [SerializeField] GameObject mintSeedPrefab;
     [SerializeField] GameObject sprinklerParticlePrefab;
     public List<GameObject> savedHotBarItems = new List<GameObject>();
     public GameData outsideGameData = null;
@@ -266,6 +268,10 @@ public class GameManager : MonoBehaviour
                 return basicPlantSeedPrefab;
             case "Fern Seed":
                 return fernSeedPrefab;
+            case "Grass Seed":
+                return grassSeedPrefab;
+            case "Mint Seed":
+                return mintSeedPrefab;
             case "Sprinkler Particle":
                 return sprinklerParticlePrefab;
             default:
