@@ -144,6 +144,10 @@ public class Hotbar : MonoBehaviour
         }
     }
 
+    public bool HasObject() {
+        return items[slot] != null;
+    }
+
     public bool SelectObject(GameObject obj) {
         return SelectObject(obj, slot);
     }
