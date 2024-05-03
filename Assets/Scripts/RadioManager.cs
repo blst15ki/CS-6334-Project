@@ -6,7 +6,7 @@ public class RadioManager : MonoBehaviour
 {
     [SerializeField] AudioClip[] clips; // currently has 3 audio clips
     private AudioSource audioSource;
-    private string YInput, BInput, AInput;
+    private string BInput, XInput;
     private int songNum;
     [SerializeField] Hotbar hotbar;
     private bool musicEnable;
@@ -16,9 +16,8 @@ public class RadioManager : MonoBehaviour
     void Start()
     {
         audioSource = gameObject.GetComponent<AudioSource>();
-        BInput = "js5"; // select
-        YInput = "js3"; // cycle through radio
-        AInput = "js10"; // stop the song
+        BInput = "js5"; // start/stop
+        XInput = "js2"; // cycle songs
         songNum = 0;
         musicEnable = false;
         pointer = false;
@@ -32,29 +31,24 @@ public class RadioManager : MonoBehaviour
         }
 
         if(pointer) {
-            if(Input.GetButtonDown(BInput)) {
-                musicEnable = true;
-                playMusic();
+            if(Input.GetButtonDown(BInput)) { // start/stop
+                if(!musicEnable) { // start
+                    musicEnable = true;
+                    audioSource.clip = clips[songNum % clips.Length];
+                    audioSource.Play();
+                    musicParticleSystem.Play();
+                } else { // stop
+                    musicEnable = false;
+                    audioSource.Stop();
+                    musicParticleSystem.Stop();
+                }
             }
-            else if (Input.GetButtonDown(YInput) && musicEnable){
+            else if (Input.GetButtonDown(XInput) && musicEnable) { // cycle
                 audioSource.Stop();
                 songNum++;
-                audioSource.clip = clips[songNum%3];
+                audioSource.clip = clips[songNum % clips.Length];
                 audioSource.Play();
             }
-            else if (Input.GetButtonDown(AInput) && musicEnable){
-                musicEnable = false;
-                audioSource.Stop();
-                musicParticleSystem.Stop();
-            }
-        }
-    }
-    
-    void playMusic(){
-        if(musicEnable){
-            audioSource.clip = clips[songNum%3];
-            audioSource.Play();
-            musicParticleSystem.Play();
         }
     }
 

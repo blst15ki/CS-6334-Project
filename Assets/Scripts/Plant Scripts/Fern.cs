@@ -6,12 +6,13 @@ using System;
 public class Fern : Plant
 {
     public override void InitializePlant() {
-        time = 90;
+        water = 20;
+        time = 135;
         type = "Fern";
         stage = "Seedling";
-        timeHalf = DateTime.Now.AddMinutes(1.5f);
-        timeMature = DateTime.Now.AddMinutes(3f);
-        maxWater = 90;
+        timeHalf = DateTime.Now.AddMinutes(2.25f);
+        timeMature = DateTime.Now.AddMinutes(4.5f);
+        maxWater = 80;
     }
 
     protected override void CheckPlantGrowth() {

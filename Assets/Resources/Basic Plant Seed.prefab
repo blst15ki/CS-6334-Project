@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 1158604339547309378}
   - component: {fileID: -4885340533266985827}
   - component: {fileID: 2064877402879546344}
+  - component: {fileID: -5969190715217945430}
+  - component: {fileID: -9161088059403394931}
   m_Layer: 0
   m_Name: Basic Plant Seed
   m_TagString: Seed
@@ -100,3 +102,27 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &-5969190715217945430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7698718134488201595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d10f4d6e6e39164f96eca6dbc7b9198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-9161088059403394931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7698718134488201595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78745e8e5f51d1140917695dbaca3fb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

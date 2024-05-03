@@ -16,11 +16,11 @@
 13) PUN Voice2 - https://assetstore.unity.com/packages/tools/audio/photon-voice-2-130518
 14) Watering Can - https://assetstore.unity.com/packages/3d/garden-realistic-tools-68960
 15) Watering Can Audio - https://pixabay.com/sound-effects/watering-62546/
-16) Watering Can Icon - https://www.flaticon.com/free-icon/watering-can_9997760?term=watering+can&page=1&position=12&origin=search&related_id=9997760
-17) Gardening Pot Icon - https://www.flaticon.com/free-icon/pot_2609553?term=pot&page=1&position=15&origin=search&related_id=2609553
-18) Fertilizer Icon - https://www.flaticon.com/free-icon/fertilizer_14981513?term=fertilizer&page=1&position=2&origin=search&related_id=14981513
-19) Sprinkler Icon - https://www.flaticon.com/free-icon/sprinkler_4359326?term=sprinkler&page=1&position=6&origin=search&related_id=4359326
-20) Background image for Start and Customize Menu: https://www.pexels.com/photo/macro-shot-of-grass-field-580900/
+16) Watering Can Sprite - https://www.flaticon.com/free-icon/watering-can_9997760?term=watering+can&page=1&position=12&origin=search&related_id=9997760
+17) Gardening Pot Sprite - https://www.flaticon.com/free-icon/pot_2609553?term=pot&page=1&position=15&origin=search&related_id=2609553
+18) Fertilizer Sprite - https://www.flaticon.com/free-icon/fertilizer_14981513?term=fertilizer&page=1&position=2&origin=search&related_id=14981513
+19) Sprinkler Sprite - https://www.flaticon.com/free-icon/sprinkler_4359326?term=sprinkler&page=1&position=6&origin=search&related_id=4359326
+20) Background Image for Start and Customize Menu: https://www.pexels.com/photo/macro-shot-of-grass-field-580900/
 21) Water Droplet: https://www.pngall.com/water-droplet-png/download/138171
 22) Ambient-classical-guitar-144998 Music: https://pixabay.com/music/solo-guitar-ambient-classical-guitar-144998/
 23) Inspiring-emotional-uplifting-piano-112623 Music: https://pixabay.com/music/modern-classical-inspiring-emotional-uplifting-piano-112623/
@@ -28,3 +28,13 @@
 25) Music Icon: https://nohat.cc/f/music-icon-music-png/m2i8G6b1H7m2N4H7-202208011211.html
 26) Radio Asset: https://assetstore.unity.com/packages/3d/props/old-radio-148636
 27) Chest Asset: https://assetstore.unity.com/packages/3d/props/chests-polypack-209167
+28) Minecraft Crop Audio: https://www.youtube.com/watch?v=e3TrQV80jq4
+29) Minecraft Door Audio: https://www.youtube.com/watch?v=-dZ_Zz9Ppjg
+30) Minecraft Chest Audio: https://www.youtube.com/watch?v=jEheNftCtyQ
+31) Minecraft Plant Audio: https://www.youtube.com/watch?v=is--TJ8WGzk
+32) Mint and Grass: https://assetstore.unity.com/packages/3d/vegetation/plants/pbr-low-lying-plant-pack-150823
+33) Basic Seed Sprite: https://www.flaticon.com/free-icon/sprout_346195?term=seed&page=1&position=4&origin=search&related_id=346195
+34) Fern Sprite: https://www.flaticon.com/free-icon/fern_6670681?term=fern&page=1&position=2&origin=search&related_id=6670681
+35) Grass Sprite: https://www.flaticon.com/free-icon/grass_704834?term=grass&page=1&position=4&origin=search&related_id=704834
+36) Mint Sprite: https://www.flaticon.com/free-icon/tea-leaves_11298473?term=leaves&page=1&position=5&origin=search&related_id=11298473
+37) Mirror: https://assetstore.unity.com/packages/tools/particles-effects/magic-mirror-lite-reflection-for-unity-34824

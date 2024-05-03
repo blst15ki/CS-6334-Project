@@ -10,11 +10,16 @@ public abstract class Chest : MonoBehaviour
     [SerializeField] protected GameObject lockObj;
     [SerializeField] protected GameObject[] returnList;
     [SerializeField] protected TextMeshProUGUI statusTMP, durationTMP;
-    protected int time = 0, duration = 180; // in seconds
+    protected int time = 0, duration = 3; // in seconds
     protected DateTime unlockTime = DateTime.Now;
     protected bool open = false, pointer = false;
     protected string BInput = "js5";
     protected System.Random rand = new System.Random();
+    protected AudioSource sound;
+
+    void Start() {
+        sound = GetComponent<AudioSource>();
+    }
 
     void Update() {
         CheckTimer();

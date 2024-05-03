@@ -60,7 +60,7 @@ public class NormalHotbar : Hotbar
                 obj.AddComponent<DontDestroy>();
             }
             
-            SetIcon(obj.tag, i);
+            SetIcon(obj.tag, i, obj);
             items[i] = obj;
             obj.SetActive(false);
             wait = true;
@@ -84,7 +84,6 @@ public class NormalHotbar : Hotbar
                     spsObj.SetActive(false);
                 }
             }
-
             return true;
         }
         return false;
@@ -145,7 +144,7 @@ public class NormalHotbar : Hotbar
                     Vector3 adjustPlantPos;
                     if(plantType == "Basic Plant") {
                         adjustPlantPos = new Vector3(0f, 0.75f, -0.15f);
-                    } else if(plantType == "Fern") {
+                    } else if(plantType == "Fern" || plantType == "Grass" || plantType == "Mint") {
                         adjustPlantPos = new Vector3(0f, 0.6f, -0.15f);
                     } else { // default
                         Debug.Log("Unexpected type: " + plantType);

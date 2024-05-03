@@ -22,15 +22,15 @@ public abstract class Plant : MonoBehaviour
     void Awake()
     {
         if (!isDataLoaded) {
-            water = 30;
-            maxWater = 120;
-            time = 120;
+            water = 25;
+            maxWater = 100;
+            time = 165;
             type = "";
             id = uuid.ToString();
             stage = "Seedling";
             cur = DateTime.Now;
-            timeHalf = cur.AddMinutes(2f);
-            timeMature = cur.AddMinutes(4f);
+            timeHalf = cur.AddMinutes(2.75f);
+            timeMature = cur.AddMinutes(5.5f);
             timeLeave = cur;
             delay = false;
             isHalf = false;
@@ -77,6 +77,10 @@ public abstract class Plant : MonoBehaviour
                     delay = true;
                 }
             } else {
+                if(delay) { // only disable on switching
+                    outline.OutlineColor = Color.white;
+                    outline.enabled = false;
+                }
                 CancelInvoke("DelayGrowth");
                 delay = false;
             }
@@ -97,6 +101,8 @@ public abstract class Plant : MonoBehaviour
     void DelayGrowth() {
         timeHalf = timeHalf.AddSeconds(1f);
         timeMature = timeMature.AddSeconds(1f);
+        outline.OutlineColor = Color.red;
+        outline.enabled = true;
     }
 
     void AddWater() {
