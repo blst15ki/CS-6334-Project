@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+
 
 public class Detector : MonoBehaviour
 {
     public XRCardboardReticle reticle;
+	public Hotbar hotbar;
     public float maxDistance = 20f;
     [SerializeField] PlantInterface plantInterface;
     private Outline lastOutline = null;
 	private DoorTeleport lastDoorTeleport = null;
+	private LobbyDoorTeleport lastLobbyDoorTeleport = null;
 	private Interact lastInteract = null;
 	private LightController lastLightController = null;
 	private Pot lastPot = null;
@@ -17,6 +21,7 @@ public class Detector : MonoBehaviour
 	private RadioManager lastRadioManager = null;
 	private Chest lastChest = null;
 	private GameObject lastHitObject = null;
+	public GameObject player = null;
 
     void Update()
     {
@@ -45,8 +50,16 @@ public class Detector : MonoBehaviour
 					lastDoorTeleport = doorTeleport;
 				}
 
+				LobbyDoorTeleport lobbyDoorTeleport = hitObject.GetComponent<LobbyDoorTeleport>();
+				if (lobbyDoorTeleport != null) {
+					lobbyDoorTeleport.PointerOn();
+					lobbyDoorTeleport.player = player;
+					lastLobbyDoorTeleport = lobbyDoorTeleport;
+				}
+
 				Interact interact = hitObject.GetComponent<Interact>();
 				if (interact != null) {
+					interact.hotbar = hotbar;
 					interact.PointerOn();
 					lastInteract = interact;
 				}
@@ -59,6 +72,7 @@ public class Detector : MonoBehaviour
 
 				Pot pot = hitObject.GetComponent<Pot>();
 				if (pot != null) {
+					pot.hotbar = hotbar;
 					pot.PointerOn();
 					lastPot = pot;
 
@@ -70,8 +84,9 @@ public class Detector : MonoBehaviour
 
 				Sprinkler sprinkler = hitObject.GetComponent<Sprinkler>();
 				if (sprinkler != null) {
-					sprinkler.PointerOn();
 					lastSprinkler = sprinkler;
+					sprinkler.hotbar = hotbar;
+					sprinkler.PointerOn();
 				}
 				
 				Plant plant = hitObject.GetComponent<Plant>();
@@ -110,6 +125,11 @@ public class Detector : MonoBehaviour
 		if (lastDoorTeleport != null) {
 			lastDoorTeleport.PointerOff();
 			lastDoorTeleport = null;
+		}
+
+		if (lastLobbyDoorTeleport != null) {
+			lastLobbyDoorTeleport.PointerOff();
+			lastLobbyDoorTeleport = null;
 		}
 
 		if (lastInteract != null) {

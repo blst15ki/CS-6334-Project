@@ -10,9 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7698718134488201573}
   - component: {fileID: 7698718134488201572}
-  - component: {fileID: 1158604339547309378}
-  - component: {fileID: -4885340533266985827}
-  - component: {fileID: 2064877402879546344}
+  - component: {fileID: 7996606681385880619}
   m_Layer: 0
   m_Name: Basic Plant Seed
   m_TagString: Seed
@@ -48,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plantType: Basic Plant
---- !u!114 &1158604339547309378
+--- !u!114 &7996606681385880619
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -57,46 +55,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7698718134488201595}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78745e8e5f51d1140917695dbaca3fb3, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d10f4d6e6e39164f96eca6dbc7b9198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-4885340533266985827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7698718134488201595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 1
-  OwnershipTransfer: 1
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 1158604339547309378}
-  - {fileID: 2064877402879546344}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &2064877402879546344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7698718134488201595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1

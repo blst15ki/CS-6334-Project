@@ -17,10 +17,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject sprinklerPrefab;
     [SerializeField] GameObject basicPlantPrefab;
     [SerializeField] GameObject fernPrefab;
+    [SerializeField] GameObject basicPlantSeedPrefab;
+    [SerializeField] GameObject fernSeedPrefab;
+    [SerializeField] GameObject sprinklerParticlePrefab;
     public List<GameObject> savedHotBarItems = new List<GameObject>();
     public GameData outsideGameData = null;
     public GameData indoorGameData = null;
     public string indoorSpawnPoint = "end";
+    public LobbyHotBarData lobbyHotBarData;
+    public InsideHotBarData insideHotBarData = null;
+    public static Dictionary<string, GameObject> pots = new Dictionary<string, GameObject>();
+    public static Dictionary<string, GameObject> plants = new Dictionary<string, GameObject>();
     
     void Awake() {
         if (Instance == null)
@@ -174,6 +181,12 @@ public class GameManager : MonoBehaviour
                 return basicPlantPrefab;
             case "Fern":
                 return fernPrefab;
+            case "Basic Plant Seed":
+                return basicPlantSeedPrefab;
+            case "Fern Seed":
+                return fernSeedPrefab;
+            case "Sprinkler Particle":
+                return sprinklerParticlePrefab;
             default:
                 return null;
         }
@@ -201,5 +214,63 @@ public class GameManager : MonoBehaviour
 
     public GameData GetOutsideGameData() {
         return outsideGameData;
+    }
+
+    public void SaveLobbyHotBarData(LobbyHotBarData hotBarData){
+        lobbyHotBarData = hotBarData;
+    }
+
+    public LobbyHotBarData GetLobbyHotBarData(){
+        return lobbyHotBarData;
+    }
+
+    public void SaveInsideHotBarData(InsideHotBarData hotBarData){
+        insideHotBarData = hotBarData;
+    }
+
+    public InsideHotBarData GetInsideHotBarData(){
+        return insideHotBarData;
+    }
+
+    public bool isInsideHotBarDataNull(){
+        return (insideHotBarData == null);
+    }
+
+    public void resetInsideHotBarDataToNull(){
+        insideHotBarData = null;
+    }
+
+    public GameObject FindPotByID(string id) {
+        if (pots.ContainsKey(id)) {
+            return pots[id];
+        }
+        return null;
+    }
+
+    public void RegisterPot(string id, GameObject obj) {
+        if (!pots.ContainsKey(id)) {
+            pots.Add(id, obj);
+        }
+    }
+
+    public void ResetPots(){
+        pots = new Dictionary<string, GameObject>();
+    }
+
+    public GameObject FindPlantByID(string id) {
+        if (plants.ContainsKey(id)) {
+            return plants[id];
+        }
+        return null;
+    }
+
+    public void RegisterPlant(string id, GameObject obj) {
+        if (!plants.ContainsKey(id)) {
+            plants.Add(id, obj);
+        }
+    }
+
+    public void ResetPlants(){
+        pots = new Dictionary<string, GameObject>();
     }
 }

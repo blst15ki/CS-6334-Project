@@ -1334,7 +1334,7 @@ GameObject:
   - component: {fileID: 2142798557823407708}
   - component: {fileID: 4425563086859936889}
   - component: {fileID: 8351258357850125164}
-  - component: {fileID: 3187389742572135943}
+  - component: {fileID: 5018282878346155945}
   m_Layer: 5
   m_Name: Hotbar
   m_TagString: Untagged
@@ -1424,7 +1424,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3187389742572135943
+--- !u!114 &5018282878346155945
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1433,7 +1433,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4393503918773242807}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a26c2d4f17f44c23bf89afb9d85983a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e4afb75660f3524cacfb474881dff60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slots:
@@ -1458,6 +1458,8 @@ MonoBehaviour:
   - {fileID: 2167830542699479833}
   mainCamera: {fileID: 3061531332423279660}
   enable: 1
+  rpcPot: {fileID: 0}
+  rpcPlant: {fileID: 0}
 --- !u!1 &4559219605274075604
 GameObject:
   m_ObjectHideFlags: 0
@@ -1507,7 +1509,7 @@ MonoBehaviour:
   button1: {fileID: 1468343235194923342}
   player: {fileID: 5718905241200134567}
   mainCamera: {fileID: 3061531332423279660}
-  hotbar: {fileID: 3187389742572135943}
+  hotbar: {fileID: 0}
 --- !u!1 &5374125604997540604
 GameObject:
   m_ObjectHideFlags: 0
@@ -1870,7 +1872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f02c5a0a31000594790c9ef6c6a3a368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hotbar: {fileID: 3187389742572135943}
+  hotbar: {fileID: 5018282878346155945}
 --- !u!1 &5773539214058754444
 GameObject:
   m_ObjectHideFlags: 0
@@ -7989,8 +7991,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reticle: {fileID: 3061531333354020692}
+  hotbar: {fileID: 5018282878346155945}
   maxDistance: 20
   plantInterface: {fileID: 1636600043724558900}
+  player: {fileID: 5718905241200134567}
 --- !u!114 &3061531333354020692 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7287137019806045175, guid: 186741bf17cbb0e4fa3ef06daa1f190f, type: 3}

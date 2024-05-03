@@ -46,6 +46,9 @@ public class DoorTeleport : MonoBehaviour
             if(currentScene == "Inside"){
                 IndoorGameManager indoorGameManager = FindObjectOfType<IndoorGameManager>();
                 GameManager.Instance.SaveIndoorGameData(indoorGameManager.retrieveObjects());
+                if (scene == "Lobby"){
+                    GameManager.Instance.SaveLobbyHotBarData(indoorGameManager.ConvertHotBarToLobbyHotBarData());
+                }
             } else if (currentScene == "Outdoor") {
                 OutsideGameManager outsideGameManager = FindObjectOfType<OutsideGameManager>();
                 GameManager.Instance.SaveOutsideGameData(outsideGameManager.retrieveObjects());
