@@ -5,7 +5,7 @@ using System;
 
 public class IndoorGameManager : MonoBehaviour
 {
-    [SerializeField] Hotbar hotbar;
+    [SerializeField] NormalHotbar hotbar;
     [SerializeField] GameObject character;
     [SerializeField] GameObject camera;
     [SerializeField] GameObject cardboard;
@@ -47,19 +47,31 @@ public class IndoorGameManager : MonoBehaviour
         character.GetComponent<CharacterMovement>().enabled = true;
         character.GetComponent<CharacterController>().enabled = true;
 
-        LoadItemsIntoHotbar();
+        if (GameManager.Instance.isInsideHotBarDataNull()) {
+            LoadItemsIntoHotbar();
+        } else {
+            LoadItemsIntoHotBarByInsideHotBarData();
+            GameManager.Instance.resetInsideHotBarDataToNull();
+        }
+        
         LoadGameData();
     }
 
-    public void LoadItemsIntoHotbar()
-    {
-        if (hotbar == null) {
-            hotbar = FindObjectOfType<Hotbar>();
-        }
+    public void LoadItemsIntoHotbar() {
+        // if (hotbar == null) {
+        //     hotbar = FindObjectOfType<Hotbar>();
+        // }
         
         List<GameObject> savedItems = GameManager.Instance.GetItems();
         if (savedItems.Count != 0) {
             hotbar.LoadItems(savedItems);
+        }
+    }
+
+    public void LoadItemsIntoHotBarByInsideHotBarData() {
+        List<HotBarItem> savedItems = GameManager.Instance.GetInsideHotBarData().listOfHotBarItem;
+        if (savedItems.Count != 0) {
+            hotbar.LoadItemsFromHotBarData(savedItems);
         }
     }
 
@@ -210,5 +222,37 @@ public class IndoorGameManager : MonoBehaviour
             TimeSpan diff = chestData.unlockTime - DateTime.Now;
             chestScript.SetTime((int)(diff.TotalSeconds));
         }
+    }
+
+    public LobbyHotBarData ConvertHotBarToLobbyHotBarData() {
+        List<GameObject> listOfHotBar = hotbar.GetItems();
+        List<HotBarItem> hotBarItems = new List<HotBarItem>();
+
+        List<GameObject> objectsToDestroy = new List<GameObject>();
+
+        foreach (GameObject obj in listOfHotBar) {
+            if (obj != null) {
+                HotBarItem item = new HotBarItem(obj);
+                hotBarItems.Add(item);
+
+                if (obj.tag == "Pot") {
+                    Pot pot = obj.GetComponent<Pot>();
+                    GameObject plant = pot.GetPlant();
+                    if (plant != null) {
+                        objectsToDestroy.Add(plant);
+                    }
+                    
+                } else {
+                    Debug.Log(obj.tag);
+                }
+                objectsToDestroy.Add(obj);
+            }
+        }
+
+        foreach (GameObject obj in objectsToDestroy) {
+            Destroy(obj);
+        }
+
+        return new LobbyHotBarData(hotBarItems);
     }
 }

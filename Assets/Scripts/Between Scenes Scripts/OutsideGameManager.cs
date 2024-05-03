@@ -5,7 +5,7 @@ using System;
 
 public class OutsideGameManager : MonoBehaviour
 {
-    [SerializeField] Hotbar hotbar;
+    [SerializeField] NormalHotbar hotbar;
 
     void Start()
     {
@@ -19,9 +19,9 @@ public class OutsideGameManager : MonoBehaviour
 
     private void LoadItemsIntoHotbar()
     {
-        if (hotbar == null) {
-            hotbar = FindObjectOfType<Hotbar>();
-        }
+        // if (hotbar == null) {
+        //     hotbar = FindObjectOfType<Hotbar>();
+        // }
         
         List<GameObject> savedItems = GameManager.Instance.GetItems();
         if (savedItems.Count != 0) {

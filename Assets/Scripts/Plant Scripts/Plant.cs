@@ -125,8 +125,11 @@ public abstract class Plant : MonoBehaviour
     public void StopWaterTimed(float timer) { Invoke("StopWater", timer); } // stop watering after timer seconds
 
     public int GetWater() { return water; }
+    public void SetWater(int setWater) { setWater = water; }
     public int GetMaxWater() { return maxWater; }
+    public void SetMaxWater(int setMaxWater) { setMaxWater = maxWater; }
     public string GetStage() { return stage; }
+    public void SetStage(string setStage) { setStage = stage; }
 
     public void Fertilize() {
         if(!isHalf) {
@@ -143,7 +146,32 @@ public abstract class Plant : MonoBehaviour
     public string GetPotID() { return potID; }
     public void SetPotID(string id) { potID = id; }
     public string GetPlantType() { return type; }
+    public void SetPlantType(string setType) { type = setType; }
     public bool HasLight() { return hasLight; }
     public int GetTime() { return time; }
+
+    public void SetTimeHalf(string time) {
+        timeHalf = DateTime.ParseExact(time, "yyyy-MM-dd HH:mm:ss", null);
+    }
+
+    public string GetTimeHalfAsString() {
+        return timeHalf.ToString("yyyy-MM-dd HH:mm:ss");
+    }
+
+    public void SetTimeMature(string time) {
+        timeMature = DateTime.ParseExact(time, "yyyy-MM-dd HH:mm:ss", null);
+    }
+
+    public string GetTimeMatureAsString() {
+        return timeMature.ToString("yyyy-MM-dd HH:mm:ss");
+    }
+
+    public void SetTimeLeave(string time) {
+        timeLeave = DateTime.ParseExact(time, "yyyy-MM-dd HH:mm:ss", null);
+    }
+
+    public string GetTimeLeaveAsString() {
+        return timeLeave.ToString("yyyy-MM-dd HH:mm:ss");
+    }
 }
 

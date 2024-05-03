@@ -25,6 +25,11 @@ public class RadioManager : MonoBehaviour
 
     void Update()
     {
+
+        if (hotbar == null) {
+            hotbar = FindObjectOfType<Hotbar>();
+        }
+
         if(pointer) {
             if(Input.GetButtonDown(BInput)) { // start/stop
                 if(!musicEnable) { // start

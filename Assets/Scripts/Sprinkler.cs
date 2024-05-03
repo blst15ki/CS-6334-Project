@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Sprinkler : MonoBehaviour
 {
-    [SerializeField] Hotbar hotbar;
+    public Hotbar hotbar;
     Outline outline;
     bool pointer, on;
     string AInput, XInput;
@@ -15,9 +15,9 @@ public class Sprinkler : MonoBehaviour
     ParticleSystem sprinklerParticleSystem;
 
     void Start() {
-        if(hotbar == null) {
-            hotbar = FindObjectOfType<Hotbar>();
-        }
+        // if(hotbar == null) {
+        //     hotbar = FindObjectOfType<Hotbar>();
+        // }
     }
 
     void Awake() {
@@ -29,6 +29,10 @@ public class Sprinkler : MonoBehaviour
         AInput = "js10";
         XInput = "js2";
 
+        if(spsPrefab == null){
+            spsPrefab = GameManager.Instance.GetPrefab("Sprinkler Particle");
+        }
+
         waterSound = GetComponent<AudioSource>();
 
         if(spsObj == null) {
@@ -39,8 +43,12 @@ public class Sprinkler : MonoBehaviour
 
     void Update()
     {
-        if(hotbar == null) {
-            hotbar = FindObjectOfType<Hotbar>();
+        // if(hotbar == null) {
+        //     hotbar = FindObjectOfType<Hotbar>();
+        // }
+        if(spsObj == null) {
+            spsObj = Instantiate(spsPrefab, transform.position + new Vector3(0f, 0.5f, 0f), spsPrefab.transform.rotation);
+            sprinklerParticleSystem = spsObj.GetComponent<ParticleSystem>();
         }
         
         if(pointer) {

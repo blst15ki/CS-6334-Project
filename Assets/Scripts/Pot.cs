@@ -7,7 +7,7 @@ using System;
 public class Pot : MonoBehaviour
 {
     [SerializeField] PlantInterface plantInterface;
-    [SerializeField] Hotbar hotbar;
+    public Hotbar hotbar;
     [SerializeField] GameObject plantObj;
     [SerializeField] Plant plant;
     Outline outline;
@@ -37,9 +37,9 @@ public class Pot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (hotbar == null) {
-            hotbar = FindObjectOfType<Hotbar>();
-        }
+        // if (hotbar == null) {
+        //     hotbar = FindObjectOfType<Hotbar>();
+        // }
 
         if (plantInterface == null) {
             plantInterface = FindObjectOfType<PlantInterface>();

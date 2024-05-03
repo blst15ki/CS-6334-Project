@@ -2694,8 +2694,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reticle: {fileID: 984319634}
+  hotbar: {fileID: 1637266636}
   maxDistance: 20
   plantInterface: {fileID: 993118089}
+  player: {fileID: 0}
 --- !u!199 &451881670
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -16326,6 +16328,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wateringCanSprite: {fileID: 21300000, guid: 839a0c0b9ebcd4b9685596a388fcdd02, type: 3}
+  potSprite: {fileID: 21300000, guid: 68a9800d415f54ac1a397334402e57e7, type: 3}
+  fertilizerSprite: {fileID: 21300000, guid: bff84b115c07b4f84b88d901ee40cd79, type: 3}
+  sprinklerSprite: {fileID: 21300000, guid: 7e518ae4914064486948e2b52b0633fe, type: 3}
+  wateringCanPrefab: {fileID: 179056, guid: 220c818457a8d2441bf84edb4edee095, type: 3}
+  potPrefab: {fileID: 8808214653859070342, guid: da915fba24b5e3446ba5c23ae9243acc, type: 3}
+  fertilizerPrefab: {fileID: 9070345395880169474, guid: c94ec2454cd6ebb41a2baa16e824fee3, type: 3}
+  sprinklerPrefab: {fileID: 6710239645296517835, guid: 934cb17974d6cae4b9e629bbee69756c, type: 3}
+  basicPlantPrefab: {fileID: 5050005892461381086, guid: 14be9d184be37bb4193ac57b8003289a, type: 3}
+  fernPrefab: {fileID: 1840016888200548, guid: 7279954788aaa354997a21d39116f52e, type: 3}
+  basicPlantSeedPrefab: {fileID: 7698718134488201595, guid: 3cfa216719863a24ba0a7393e62c3cf6, type: 3}
+  fernSeedPrefab: {fileID: 2898716205267328318, guid: 636806e1ede44c243b3df14474a474ea, type: 3}
+  sprinklerParticlePrefab: {fileID: 8427198710239382931, guid: e93ce9e70bb4e471d9139fb2e9cc7dd3, type: 3}
+  savedHotBarItems: []
+  indoorSpawnPoint: middle
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0.5019608, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -18425,7 +18442,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1637266631}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a26c2d4f17f44c23bf89afb9d85983a, type: 3}
+  m_Script: {fileID: 11500000, guid: 84bedfcd72dde15448c3b05af7b559fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slots:
@@ -21431,6 +21448,10 @@ PrefabInstance:
     - target: {fileID: 3331814015294504536, guid: 1700d3d4b0af82f49b1c7555a3973b23, type: 3}
       propertyPath: m_Name
       value: PlantInterfaceObj
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331814015294504536, guid: 1700d3d4b0af82f49b1c7555a3973b23, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3331814016482259399, guid: 1700d3d4b0af82f49b1c7555a3973b23, type: 3}
       propertyPath: m_Camera
