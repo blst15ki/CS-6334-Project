@@ -69,7 +69,7 @@ public class LobbyHotbar : Hotbar
 	public override bool SelectObject(GameObject obj, int i) {
 
 		if(obj.GetComponent<PhotonView>().OwnerActorNr != PhotonNetwork.LocalPlayer.ActorNumber) {
-			return;
+			return false;
 		}
 
         if (items[i] == null) {
