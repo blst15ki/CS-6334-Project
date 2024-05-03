@@ -14,7 +14,7 @@ public class AssetChest : Chest
         }
 
         if(pointer) {
-            // grab from chest (no instantiate because asset)
+            // grab from chest
             if(open && Input.GetButtonDown(BInput)) {
                 if(!hotbar.HasObject()) {
                     GameObject obj = Instantiate(returnList[rand.Next(0, returnList.Length)]);

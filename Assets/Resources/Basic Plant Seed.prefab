@@ -21,7 +21,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7698718134488201573
 Transform:
   m_ObjectHideFlags: 0
@@ -83,6 +83,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 1158604339547309378}
   - {fileID: 2064877402879546344}
+  - {fileID: -9161088059403394931}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

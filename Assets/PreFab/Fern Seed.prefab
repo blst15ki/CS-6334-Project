@@ -10,14 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 2898716205267328314}
   - component: {fileID: 473513677265331617}
-  - component: {fileID: 6664798183328471969}
+  - component: {fileID: -8677759973616568556}
   m_Layer: 0
   m_Name: Fern Seed
   m_TagString: Seed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2898716205267328314
 Transform:
   m_ObjectHideFlags: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plantType: Fern
---- !u!114 &6664798183328471969
+--- !u!114 &-8677759973616568556
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

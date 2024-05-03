@@ -157,15 +157,12 @@ public class NormalHotbar : Hotbar
                     // link pot and plant
                     Pot potScript = obj.GetComponent<Pot>();
                     Plant plantScript = plant.GetComponent<Plant>();
-                    potScript.SetPlant(plant);
+                    potScript.SetPlantHotbar(plant);
                     potScript.SetPlantID(plantScript.id);
                     plantScript.SetPot(obj);
                     plantScript.SetPotID(potScript.id);
 
-                    // delete seed from hotbar (passed asset so cannot destroy)
-                    items[slot] = null;
-                    images[slot].sprite = null;
-                    images[slot].color = Color.grey;
+                    ClearSlot();
                 }
             }
         }
