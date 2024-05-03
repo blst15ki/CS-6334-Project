@@ -85,10 +85,9 @@ public class Detector : MonoBehaviour
 
 				Sprinkler sprinkler = hitObject.GetComponent<Sprinkler>();
 				if (sprinkler != null) {
-					sprinkler.PointerOn();
 					lastSprinkler = sprinkler;
 					sprinkler.hotbar = hotbar;
-
+					sprinkler.PointerOn();
 				}
 				
 				Plant plant = hitObject.GetComponent<Plant>();
