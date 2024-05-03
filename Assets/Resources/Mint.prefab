@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -2177680540030100935}
   - component: {fileID: -1099017824526450665}
   - component: {fileID: -813395126992437633}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mint
   m_TagString: Plant
   m_Icon: {fileID: 0}
