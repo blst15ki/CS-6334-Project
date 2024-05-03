@@ -2199,6 +2199,9 @@ MonoBehaviour:
   fernPrefab: {fileID: 1840016888200548, guid: b6ffc5548aaa747c2bd6716da5cfdbc4, type: 3}
   grassPrefab: {fileID: 1200791734782130, guid: ed060c76c3a84134e81b9ef168c5b374, type: 3}
   mintPrefab: {fileID: 1902311598225028, guid: de15275cb8eed354bacab52fd5e60206, type: 3}
+  basicPlantSeedPrefab: {fileID: 7698718134488201595, guid: 546035abda6dc4bc798cecfb1963ec57, type: 3}
+  fernSeedPrefab: {fileID: 2898716205267328318, guid: 1d16d593be9064512b99342232eb5888, type: 3}
+  sprinklerParticlePrefab: {fileID: 8427198710239382931, guid: e93ce9e70bb4e471d9139fb2e9cc7dd3, type: 3}
   savedHotBarItems: []
   indoorSpawnPoint: middle
   avatarValue: 0

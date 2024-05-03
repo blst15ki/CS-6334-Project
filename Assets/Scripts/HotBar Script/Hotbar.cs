@@ -103,6 +103,8 @@ public abstract class Hotbar : MonoBehaviourPunCallbacks
 
     public abstract void PlaceObject();
 
+    public bool HasObject() { return items[slot] != null; }
+
     public bool SelectObject(GameObject obj) {
         return SelectObject(obj, this.slot);
     }
@@ -111,8 +113,12 @@ public abstract class Hotbar : MonoBehaviourPunCallbacks
 
     public abstract void UseItem();
 
-    public void SetIcon(string tag, int index) {
-        images[index].sprite = GameManager.Instance.GetSprite(tag);
+    public void SetIcon(string tag, int index, GameObject obj) {
+        if(tag == "Seed") {
+            images[index].sprite = GameManager.Instance.GetSprite(obj.GetComponent<Seed>().GetPlantType());
+        } else {
+            images[index].sprite = GameManager.Instance.GetSprite(tag);
+        }
         images[index].color = Color.white;
     }
 

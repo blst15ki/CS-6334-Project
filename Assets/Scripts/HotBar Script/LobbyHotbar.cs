@@ -16,11 +16,7 @@ public class LobbyHotbar : Hotbar
     }
 
     public override void PlaceObject() {
-		if(items[slot] == null) {
-            return;
-        }
-
-        if(items[slot].tag == "Seed") {
+		if(items[slot] == null || items[slot].tag == "Seed" || items[slot].tag == "Sprinkler") {
             return;
         }
 
@@ -86,7 +82,7 @@ public class LobbyHotbar : Hotbar
             }
 			Debug.Log("After " + itemView.Owner);
             
-            SetIcon(obj.tag, i);
+            SetIcon(obj.tag, i, obj);
             items[i] = obj;
             // obj.SetActive(false);
 			LobbyInteractiveItem interactiveItem = obj.GetComponent<LobbyInteractiveItem>();

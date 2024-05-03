@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6234796976338509104}
   - component: {fileID: 6234796976338509107}
+  - component: {fileID: -1390099553405696907}
+  - component: {fileID: 8827999559110076412}
+  - component: {fileID: -3877470651868616046}
   m_Layer: 0
   m_Name: Mint Seed
   m_TagString: Seed
@@ -45,3 +48,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plantType: Mint
+--- !u!114 &-1390099553405696907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6234796976338509106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 1
+  OwnershipTransfer: 1
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 8827999559110076412}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &8827999559110076412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6234796976338509106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78745e8e5f51d1140917695dbaca3fb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-3877470651868616046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6234796976338509106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d10f4d6e6e39164f96eca6dbc7b9198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -60,7 +60,7 @@ public class NormalHotbar : Hotbar
                 obj.AddComponent<DontDestroy>();
             }
             
-            SetIcon(obj.tag, i);
+            SetIcon(obj.tag, i, obj);
             items[i] = obj;
             obj.SetActive(false);
             wait = true;

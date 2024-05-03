@@ -123,6 +123,8 @@ MonoBehaviour:
   id: 
   plantID: 
   isDataLoaded: 0
+  fertilizerSound: {fileID: 0}
+  plantSound: {fileID: 0}
 --- !u!114 &8545365381922738219
 MonoBehaviour:
   m_ObjectHideFlags: 0

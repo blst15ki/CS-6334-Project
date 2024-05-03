@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -191948880015301149}
   - component: {fileID: -3294943573810523796}
   - component: {fileID: 8397429807573999474}
+  - component: {fileID: 6738175371939133494}
   m_Layer: 0
   m_Name: Fern Seed
   m_TagString: Seed
@@ -98,5 +99,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78745e8e5f51d1140917695dbaca3fb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6738175371939133494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2898716205267328318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d10f4d6e6e39164f96eca6dbc7b9198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
