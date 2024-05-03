@@ -64,14 +64,16 @@ public abstract class Hotbar : MonoBehaviourPunCallbacks
                     items[slot].GetComponentInChildren<Collider>().enabled = true;
                     items[slot].SetActive(false);
                     mainCamera.GetComponent<ParticleSystem>().Stop();
+                    
                     // stop watering
-                    if(hit.collider.gameObject.tag == "Pot") {
-                        hit.collider.gameObject.GetComponent<Pot>().StopWaterPlant();
-                    } else if(hit.collider.gameObject.tag == "Plant") {
-                        hit.collider.gameObject.GetComponent<Plant>().StopWater();
+                    if(hit.collider != null) { // ensure plant is not dead before acting on plant
+                        if(hit.collider.gameObject.tag == "Pot" && hit.collider.gameObject.GetComponent<Pot>().HasPlant()) {
+                            hit.collider.gameObject.GetComponent<Pot>().StopWaterPlant();
+                        } else if(hit.collider.gameObject.tag == "Plant") {
+                            hit.collider.gameObject.GetComponent<Plant>().StopWater();
+                        }
+                        hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.white;
                     }
-
-                    hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.white;
                     inUse = false;
                 }
             }
