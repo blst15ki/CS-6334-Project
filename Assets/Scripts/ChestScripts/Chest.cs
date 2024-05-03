@@ -10,7 +10,7 @@ public abstract class Chest : MonoBehaviour
     [SerializeField] protected GameObject lockObj;
     [SerializeField] protected GameObject[] returnList;
     [SerializeField] protected TextMeshProUGUI statusTMP, durationTMP;
-    protected int time = 0, duration = 3; // in seconds
+    protected int time = 0, duration = 180; // in seconds
     protected DateTime unlockTime = DateTime.Now;
     protected bool open = false, pointer = false;
     protected string BInput = "js5";
@@ -34,7 +34,7 @@ public abstract class Chest : MonoBehaviour
         statusTMP.text = "Locked";
         statusTMP.color = Color.red;
         durationTMP.text = "Next Item In: " + time + " sec";
-        unlockTime = DateTime.Now.AddMinutes(3f);
+        unlockTime = DateTime.Now.AddSeconds((float)duration);
         lockObj.SetActive(true);
     }
     protected void Countdown() {

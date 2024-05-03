@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 135139740043596598}
   - component: {fileID: 6565448505811123604}
   - component: {fileID: -2783547953278927471}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grass D Bush 4
   m_TagString: Plant
   m_Icon: {fileID: 0}

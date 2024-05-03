@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 135776338576061100}
   - component: {fileID: -855359450277866443}
   - component: {fileID: -3737842814555143092}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Flat Mint Bush 1
   m_TagString: Plant
   m_Icon: {fileID: 0}
