@@ -59,10 +59,9 @@ public class Detector : MonoBehaviour
 
 				Interact interact = hitObject.GetComponent<Interact>();
 				if (interact != null) {
+					interact.hotbar = hotbar;
 					interact.PointerOn();
 					lastInteract = interact;
-					interact.hotbar = hotbar;
-					
 				}
 
 				LightController lightController = hitObject.GetComponent<LightController>();
@@ -73,9 +72,9 @@ public class Detector : MonoBehaviour
 
 				Pot pot = hitObject.GetComponent<Pot>();
 				if (pot != null) {
+					pot.hotbar = hotbar;
 					pot.PointerOn();
 					lastPot = pot;
-					pot.hotbar = hotbar;
 
 					if(pot.HasPlant()) {
 						plantInterface.EnableInterface(pot.GetPlant());
