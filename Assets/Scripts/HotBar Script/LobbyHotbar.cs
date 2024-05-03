@@ -68,6 +68,10 @@ public class LobbyHotbar : Hotbar
 
 	public override bool SelectObject(GameObject obj, int i) {
 
+		if(obj.GetComponent<PhotonView>().OwnerActorNr != PhotonNetwork.LocalPlayer.ActorNumber) {
+			return;
+		}
+
         if (items[i] == null) {
 
             if (obj.GetComponent<DontDestroy>() == null) {
@@ -121,85 +125,7 @@ public class LobbyHotbar : Hotbar
     }
 
     public override void UseItem() {
-        if(items[slot] == null) {
-            return;
-        }
-
-        if(items[slot].tag == "Watering Can") {
-            if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
-                if(hit.collider.gameObject.tag == "Pot") { // check if raycasthit is pot
-                    // check if pot contains plant
-                    if(hit.collider.gameObject.GetComponent<Pot>().GetPlant() != null) {
-                        // enable watering can but hide mesh/collider to play audio
-                        items[slot].SetActive(true);
-                        items[slot].GetComponentInChildren<Renderer>().enabled = false;
-                        items[slot].GetComponentInChildren<Collider>().enabled = false;
-                        items[slot].GetComponent<AudioSource>().Play();
-                        mainCamera.GetComponent<ParticleSystem>().Play();
-
-                        // water plant
-                        hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.cyan;
-                        hit.collider.gameObject.GetComponent<Pot>().WaterPlant();
-                        inUse = true;
-                    }
-                } else if(hit.collider.gameObject.tag == "Plant") { // check if raycasthit is plant
-                    // enable watering can but hide mesh/collider to play audio
-                    items[slot].SetActive(true);
-                    items[slot].GetComponentInChildren<Renderer>().enabled = false;
-                    items[slot].GetComponentInChildren<Collider>().enabled = false;
-                    items[slot].GetComponent<AudioSource>().Play();
-                    mainCamera.GetComponent<ParticleSystem>().Play();
-
-                    // water plant
-                    hit.collider.gameObject.GetComponent<Outline>().OutlineColor = Color.cyan;
-                    hit.collider.gameObject.GetComponent<Plant>().GiveWater();
-                    inUse = true;
-                }
-            }
-        } else if(items[slot].tag == "Fertilizer") {
-            if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
-                // check if raycasthit is pot
-                if(hit.collider.gameObject.tag == "Pot") {
-                    // remove fertilizer from scene if successful
-                    if(hit.collider.gameObject.GetComponent<Pot>().AddFertilizer()) {
-                        ClearSlot();
-                    }
-                }
-            }
-        } else if(items[slot].tag == "Seed") {
-            if(Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit)) {
-                // check if raycasthit is pot (plant seed in pot)
-                GameObject obj = hit.collider.gameObject;
-                if(obj.tag == "Pot" && !obj.GetComponent<Pot>().HasPlant()) {
-                    string plantType = items[slot].GetComponent<Seed>().GetPlantType();
-                    Vector3 adjustPlantPos;
-                    if(plantType == "Basic Plant") {
-                        adjustPlantPos = new Vector3(0f, 0.75f, -0.15f);
-                    } else if(plantType == "Fern") {
-                        adjustPlantPos = new Vector3(0f, 0.6f, -0.15f);
-                    } else { // default
-                        Debug.Log("Unexpected type: " + plantType);
-                        plantType = "Basic Plant";
-                        adjustPlantPos = new Vector3(0f, 0.75f, -0.15f);
-                    }
-
-                    GameObject plant = Instantiate(GameManager.Instance.GetPrefab(plantType), obj.transform.position + adjustPlantPos, Quaternion.identity);
-                    
-                    // link pot and plant
-                    Pot potScript = obj.GetComponent<Pot>();
-                    Plant plantScript = plant.GetComponent<Plant>();
-                    potScript.SetPlant(plant);
-                    potScript.SetPlantID(plantScript.id);
-                    plantScript.SetPot(obj);
-                    plantScript.SetPotID(potScript.id);
-
-                    // delete seed from hotbar (passed asset so cannot destroy)
-                    items[slot] = null;
-                    images[slot].sprite = null;
-                    images[slot].color = Color.grey;
-                }
-            }
-        }
+		return;
     }
 
     public void LoadItems(List<HotBarItem> listOfHotBarItem) {

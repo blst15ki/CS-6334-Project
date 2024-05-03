@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+
 
 public class Detector : MonoBehaviour
 {
@@ -60,6 +62,7 @@ public class Detector : MonoBehaviour
 					interact.PointerOn();
 					lastInteract = interact;
 					interact.hotbar = hotbar;
+					
 				}
 
 				LightController lightController = hitObject.GetComponent<LightController>();
@@ -85,6 +88,7 @@ public class Detector : MonoBehaviour
 					sprinkler.PointerOn();
 					lastSprinkler = sprinkler;
 					sprinkler.hotbar = hotbar;
+
 				}
 				
 				Plant plant = hitObject.GetComponent<Plant>();

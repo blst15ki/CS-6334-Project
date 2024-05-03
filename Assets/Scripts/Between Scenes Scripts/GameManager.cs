@@ -26,8 +26,8 @@ public class GameManager : MonoBehaviour
     public string indoorSpawnPoint = "end";
     public LobbyHotBarData lobbyHotBarData;
     public InsideHotBarData insideHotBarData = null;
-    public Dictionary<string, GameObject> pots = new Dictionary<string, GameObject>();
-    public Dictionary<string, GameObject> plants = new Dictionary<string, GameObject>();
+    public static Dictionary<string, GameObject> pots = new Dictionary<string, GameObject>();
+    public static Dictionary<string, GameObject> plants = new Dictionary<string, GameObject>();
     
     void Awake() {
         if (Instance == null)
